@@ -1,0 +1,129 @@
+/* Home.css */
+.center-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+}
+
+/* Media Query für kleinere Bildschirme */
+@media screen and (max-width: 768px) {
+  .custom-grid {
+    width: 60%; /* Beispiel für die Breite */
+    height: 50%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+  }
+}
+
+/* Media Query für sehr kleine Bildschirme */
+@media screen and (max-width: 480px) {
+  .custom-grid {
+    width: 60%; /* Beispiel für die Breite */
+    height: 50%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+  }
+}
+.custom-grid {
+  width: 60%; /* Beispiel für die Breite */
+  height: 50%; /* Beispiel für die Höhe */
+  margin: auto; /* Zentriert den Inhalt horizontal */
+}
+
+@media screen and (max-width: 480px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+    width: 100%;
+  }
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+}
+
+.custom-content {
+  width: 30%;  /* Beispiel für die Breite */
+  height: 35%; /* Beispiel für die Höhe */
+  margin: auto; /* Zentriert den Inhalt horizontal */
+  background-color: #f0f0f0; /* Beispiel für die Hintergrundfarbe */
+  padding: 0.1%; /* Beispiel für das Padding */
+  border-radius: 1%; /* Beispiel für abgerundete Ecken */
+  display: flex;
+  flex-wrap: wrap; 
+}
+@media screen and (max-width: 480px) {
+  .custom-content {
+    width: 30%;  /* Beispiel für die Breite */
+    height: 35%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+    background-color: #f0f0f0; /* Beispiel für die Hintergrundfarbe */
+    padding: 0.1%; /* Beispiel für das Padding */
+    border-radius: 1%; /* Beispiel für abgerundete Ecken */
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+@media screen and (max-width: 768px) {
+  .custom-content {
+    width: 95%;  /* Beispiel für die Breite */
+    height: 30%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+    background-color: #f0f0f0; /* Beispiel für die Hintergrundfarbe */
+    padding: 0.1%; /* Beispiel für das Padding */
+    border-radius: 1%; /* Beispiel für abgerundete Ecken */
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+
+.responsive-item {
+  border: 1px solid #ccc;
+  /* border-radius: 20px; */
+  /* padding: 10px; */
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+/* Adjustments for smaller screens (e.g., smartphones) */
+@media (max-width: 768px) {
+  .responsive-item {
+    border: 1px solid #ccc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    padding: .01%;
+    font-size: 2.4rem;
+    min-width: 205px;
+    color: bisque;
+  }
+}
+/* Adjustments for medium screens (e.g., tablets) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .responsive-item {
+    padding: 8%; /* Adjust padding for medium viewports */
+    font-size: 3rem; /* Adjust font size for better readability */
+  }
+}
+/* Adjustments for larger screens (e.g., desktops) */
+@media (min-width: 1024px) {
+  .responsive-item {
+    padding: 2%; /* Maintain base padding for larger viewports */
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 5px;
+    min-width: 205px;
+    font-size: 2rem; /* Adjust font size for comfortable reading */
+    border: 1px solid #ccc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+  }
+}
