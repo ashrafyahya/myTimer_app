@@ -9,41 +9,32 @@ function MyTimer() {
   const [currentButton, setCurrentButton] = useState("Time");
   const [timerRunning, setTimerRunning] = useState(false);
   const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
+  const [countdownTime, setCountdownTime] = useState(0); // Total countdown time in seconds
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (currentButton === "Time" || currentButton === "Date") {
-        setElapsedTime(0);
-      }
-    }, 1000);
-    return () => clearInterval(intervalId);
-  }, [currentButton]);
-
-  function handleClick(clickedButton: string) {
-    setCurrentButton(clickedButton);
-    if (clickedButton === "ST/SP") {
-      setTimerRunning(!timerRunning); // Toggle timer
-    } else if (clickedButton === "Timer") {
-      setElapsedTime(0); // Reset to zero for the Timer
-    }
-  }
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (timerRunning) {
-      timer = setInterval(() => {
+    let intervalId: NodeJS.Timeout;
+    if (timerRunning && currentButton === "Timer") {
+      intervalId = setInterval(() => {
         setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
       }, 1000);
+    } else {
+      clearInterval(intervalId);
     }
-    return () => clearInterval(timer);
-  }, [timerRunning]);
+    return () => clearInterval(intervalId);
+  }, [timerRunning, currentButton]);
 
-  const formatTime = (totalSeconds: number) => {
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-  };
+  function handleClick(clickedButton: string) {
+    if (clickedButton === "Timer") {
+      setCurrentButton("Timer");
+      setElapsedTime(0); // Reset timer
+    } else if (clickedButton === "ST/SP" && currentButton === "Timer") {
+      setTimerRunning(!timerRunning); // Toggle timer
+    } else if (clickedButton === "Time" && !timerRunning) {
+      setCurrentButton("Time");
+    } else if (clickedButton === "Date" && !timerRunning) {
+      setCurrentButton("Date");
+    }
+  }
 
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('de-DE', {
@@ -80,11 +71,9 @@ function MyTimer() {
                 <IonItem className="responsive-item" lines="none">
                   <IonLabel className="ion-text-center">
                     <div className="my-display">
-                      {currentButton === "Time"
-                        ? new Date().toLocaleTimeString()
-                        : currentButton === "Date"
-                        ? formatDate(new Date())
-                        : formatTime(elapsedTime)}
+                    {currentButton === "Time" ? new Date().toLocaleTimeString() :
+                      currentButton === "Date" ? formatDate(new Date()) :
+                        `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}`}
                     </div>
                   </IonLabel>
                 </IonItem>
