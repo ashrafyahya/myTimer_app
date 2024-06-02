@@ -5,11 +5,19 @@ import './Home.css';
 import './myTimer.css';
 
 function MyTimer() {
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
   const [elapsedTime, setElapsedTime] = useState(0); // Time in seconds
   const [currentButton, setCurrentButton] = useState("Time");
   const [timerRunning, setTimerRunning] = useState(false);
   const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
   const [countdownTime, setCountdownTime] = useState(0); // Total countdown time in seconds
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+    return () => clearInterval(intervalId); // Bereinigt das Intervall, wenn die Komponente unmontiert wird
+  }, []);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -24,7 +32,10 @@ function MyTimer() {
   }, [timerRunning, currentButton]);
 
   function handleClick(clickedButton: string) {
-    if (clickedButton === "Timer") {
+    if (clickedButton === "Time") {
+      setCurrentButton("Time");
+      setCurrentDateTime(new Date());
+    } else if (clickedButton === "Timer") {
       setCurrentButton("Timer");
       setElapsedTime(0); // Reset timer
     } else if (clickedButton === "ST/SP" && currentButton === "Timer") {
@@ -71,7 +82,7 @@ function MyTimer() {
                 <IonItem className="responsive-item" lines="none">
                   <IonLabel className="ion-text-center">
                     <div className="my-display">
-                    {currentButton === "Time" ? new Date().toLocaleTimeString() :
+                    {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
                       currentButton === "Date" ? formatDate(new Date()) :
                         `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}`}
                     </div>
