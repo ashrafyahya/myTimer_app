@@ -1,4 +1,97 @@
-/* Home.css */
+/* myTimer.css */
+.my-display {
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+}
+@media (min-width: 344px){
+  .my-display {
+    padding: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+  }
+  }
+@media (min-width: 912px){
+.my-display {
+  padding: 10px;
+  padding-right: 50px;
+  padding-left: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+}
+}
+/* @media (min-width: 412px)and (max-width: 912px){
+  .my-display {
+    max-width: 290px;
+    padding: 10px;
+    padding-right: -10px;
+    padding-left: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  } */
+  @media (min-width: 360px)and (max-width: 740px){
+    .my-display {
+      max-width: 250px;
+      padding: 10px;
+      /* padding-right: 40px; */
+      /* padding-left: 40px; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+    }
+    }
+    @media (min-width: 412px)and (max-width: 915px){
+      .my-display {
+        font-size: 2.5rem;
+        max-width: 250px;
+        padding: 10px;
+        padding-right: 50px;
+        padding-left: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 0px;
+        height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+      }
+      }
+/* @media (min-width: 540px) and (max-width: 720px){
+  .my-display {
+    min-width: 300px;
+    padding: 5px;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+    /* font-size: 2.5rem; */
+  /* } */
+  /* } */
+  @media (min-width: 1368px){
+    .my-display {
+      /* min-width: 1700; */
+      padding: 50px;
+      /* min-width: 700px; */
+      margin-left: 250px;
+      padding-right: 250px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+    }
+    }
+
 .center-grid {
   display: flex;
   justify-content: center;
@@ -6,6 +99,20 @@
   height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
 }
 
+@media (min-width: 1368px){
+  .custom-grid {
+    width: 60%; /* Beispiel für die Breite */
+    height: 50%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+  }
+}
+@media (min-width: 912px) and (max-width: 1368px) {
+  .custom-grid {
+    width: 60%; /* Beispiel für die Breite */
+    height: 50%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+  }
+}
 /* Media Query für kleinere Bildschirme */
 @media screen and (max-width: 768px) {
   .custom-grid {
@@ -47,6 +154,33 @@
     width: 100%;
   }
 }
+@media (min-width: 540px) and (max-width: 720px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+    width: 100%;
+  }
+}
+@media (min-width: 912px) and (max-width: 1368px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+    width: 100%;
+  }
+}
+@media (min-width: 1368px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+    width: 100%;
+  }
+}
 
 .center-content {
   display: flex;
@@ -80,46 +214,139 @@
 @media screen and (max-width: 768px) {
   .custom-content {
     width: 95%;  /* Beispiel für die Breite */
-    height: 30%; /* Beispiel für die Höhe */
-    margin: auto; /* Zentriert den Inhalt horizontal */
+    height: 25%; /* Beispiel für die Höhe */
+    /* margin: auto; Zentriert den Inhalt horizontal */
     background-color: #f0f0f0; /* Beispiel für die Hintergrundfarbe */
-    padding: 0.1%; /* Beispiel für das Padding */
+    padding: 5px; /* Beispiel für das Padding */
+    border-radius: 5%; /* Beispiel für abgerundete Ecken */
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+@media (min-width: 412px) and (max-width: 915px) {
+  .custom-content {
+    width: 95%;  /* Beispiel für die Breite */
+    height: 20.5%; /* Beispiel für die Höhe */
+    margin-left: auto; /* Zentriert den Inhalt horizontal */
+    background-color: #f0f0f0; /* Beispiel für die Hintergrundfarbe */
+    padding: 0.3%; /* Beispiel für das Padding */
     border-radius: 1%; /* Beispiel für abgerundete Ecken */
     display: flex;
     flex-wrap: wrap; 
   }
 }
+@media (min-width: 540px) and (max-width: 720px) {
+  .custom-content {
+    width: 80%;  /* Beispiel für die Breite */
+    height: 28%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+    background-color: #f0f0f0; /* Beispiel für die Hintergrundfarbe */
+    padding: 0.3%; /* Beispiel für das Padding */
+    border-radius: 1%; /* Beispiel für abgerundete Ecken */
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+@media (min-width: 912px) and (max-width: 1368px) {
+  .custom-content {
+    width: 70%;
+    height: 20%;
+    background-color: #f0f0f0; 
+    padding: 1%;
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+@media (min-width: 1368px) {
+  .custom-content {
+    width: 60%;
+    height: 45%;
+    background-color: #f0f0f0; 
+    padding: .1%;
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+
 
 .responsive-item {
   border: 1px solid #ccc;
-  /* border-radius: 20px; */
-  /* padding: 10px; */
+  border-radius: 10px;
+  padding: 10px;
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
 }
 /* Adjustments for smaller screens (e.g., smartphones) */
-@media (max-width: 768px) {
+@media (min-width: 300px) and (max-width: 768px) {
   .responsive-item {
+    margin-left: 15px;
     border: 1px solid #ccc;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
-    padding: .01%;
+    padding: 5px;
     font-size: 2.4rem;
     min-width: 205px;
     color: bisque;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+  }
+}
+@media (min-width: 540px) and (max-width: 720px) {
+  .responsive-item {
+    margin-left: 15px;
+    border: 1px solid #ccc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+    font-size: 2.4rem;
+    min-width: 205px;
+    min-height: 100%;
+    color: bisque;
+    border: 1px solid #ccc;
+    border-radius: 2px;
   }
 }
 /* Adjustments for medium screens (e.g., tablets) */
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 412px) and (max-width: 915px) {
+  .responsive-item {
+    padding: 5px; 
+    margin-right: 8%;
+    margin-left: 5%;
+    font-size: 3rem;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+  }
+}
+/* Adjustments for medium screens (e.g., tablets) */
+@media (min-width: 912px) and (max-width: 1368px) {
+  .responsive-item {
+    min-width: 460px;
+    min-height: 50%;
+    padding:2%;
+    /* margin-top: 20px; */
+    /* padding-right: 15px; */
+    font-size: 3rem;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+/* Adjustments for medium screens (e.g., tablets) */
+@media (min-width: 915px) and (max-width: 1024px) {
   .responsive-item {
     padding: 8%; /* Adjust padding for medium viewports */
     font-size: 3rem; /* Adjust font size for better readability */
+    border: 1px solid #ccc;
+    border-radius: 1px;
   }
 }
 /* Adjustments for larger screens (e.g., desktops) */
 @media (min-width: 1024px) {
   .responsive-item {
     padding: 2%; /* Maintain base padding for larger viewports */
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
     margin-bottom: 5px;
     min-width: 205px;
     font-size: 2rem; /* Adjust font size for comfortable reading */
