@@ -1,0 +1,595 @@
+import React, { useState, useEffect } from 'react';
+import { useMediaQuery } from '@react-hook/media-query';
+import './Home.css';
+import './myTimer.css';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonButton, IonItem, IonLabel } from '@ionic/react';
+
+function MyTimer() {
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  const [elapsedTime, setElapsedTime] = useState(0); // Time in seconds
+  const [currentButton, setCurrentButton] = useState("Time");
+  const [timerRunning, setTimerRunning] = useState(false);
+  const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
+  const isLargeButton = useMediaQuery('only screen and (min-width: 1023px)');
+  const isXLargeScreen = useMediaQuery('only screen and (min-width: 1500px)');
+  const [countdownTime, setCountdownTime] = useState(0); // Total countdown time in seconds
+  const [isCountdownActive, setIsCountdownActive] = useState(false);
+  const [isTriggered, setIsTriggered] = useState(false);
+  let intervalId: NodeJS.Timeout | null = null; // Initialize intervalId to null
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (!isCountdownActive) setCurrentDateTime(new Date());
+    }, 1000);
+    return () => {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (timerRunning && currentButton === "Timer") {
+      intervalId = setInterval(() => {
+        setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
+      }, 1000);
+    } else if (timerRunning && isCountdownActive && countdownTime > 0) {
+      intervalId = setInterval(() => {
+        setCountdownTime(prevCountdownTime => {
+          if (prevCountdownTime <= 1) {
+            setIsCountdownActive(false);
+            setTimerRunning(false);
+            return 0;
+          }
+          return prevCountdownTime - 1;
+        });
+      }, 1000);
+    } else {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
+    }
+    return () => {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [timerRunning, currentButton, isCountdownActive, countdownTime]);
+
+  function handleClick(clickedButton: string) {
+    setCurrentDateTime(new Date());
+    if (clickedButton === "Timer") {
+      setCurrentButton("Timer");
+      setElapsedTime(0); // Reset timer
+      setCountdownTime(0);
+      setIsCountdownActive(false);
+      setTimerRunning(false);
+      setIsTriggered(!isTriggered)
+    }
+    else if (clickedButton === "ST/SP" && isTriggered) {
+      setTimerRunning(!timerRunning); // Toggle timer
+    }
+    else if (clickedButton === "Time" && !timerRunning && !isTriggered) {
+      setCurrentButton("Time");
+    }
+    else if (clickedButton === "Date" && !timerRunning && !isTriggered) {
+      setCurrentButton("Date");
+    }
+    else if (clickedButton === "1H" && !timerRunning && isTriggered) {
+      setCurrentButton("1H");
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 3600);
+      setIsCountdownActive(true);
+      setTimerRunning(false); // Ensure timer is not running until ST is clicked
+    }
+    else if (clickedButton === "5M" && !timerRunning && isTriggered) {
+      setCurrentButton("5M");
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 300);
+      setIsCountdownActive(true);
+      setTimerRunning(false); // Ensure timer is not running until ST is clicked
+    }
+    else if (clickedButton === "1M" && !timerRunning && isTriggered) {
+      setCurrentButton("1M");
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 60);
+      setIsCountdownActive(true);
+      setTimerRunning(false); // Ensure timer is not running until ST is clicked
+    }
+    else if (clickedButton === "5S" && !timerRunning && isTriggered) {
+      setCurrentButton("5S");
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 5);
+      setIsCountdownActive(true);
+      setTimerRunning(false); // Ensure timer is not running until ST is clicked
+    }
+  }
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('de-DE', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
+  };
+
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>My Timer</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent color="danger">
+        <IonGrid className="custom-grid custom-content center-grid" style={{ marginTop: "5%" }}>
+          <IonRow>
+            <IonRow>
+              <IonCol sizeXs="2.5" sizeMd="2" sizeLg="6" sizeXl="2">
+                <IonRow>
+                  <IonButton size={isLargeScreen ? 'large' : 'default'} color="success" onClick={() => handleClick("Time")}>
+                    Time
+                  </IonButton>
+                </IonRow>
+                <IonRow>
+                  <IonButton size={isLargeScreen ? 'large' : 'default'} style={{ border: "1px solid #ccc", borderRadius: "10px" }} onClick={() => handleClick("Date")} color="success">
+                    Date
+                  </IonButton>
+                </IonRow>
+              </IonCol>
+              <IonCol sizeXs="9.5" sizeMd="9" sizeLg="6" sizeXl="10">
+                <IonItem className="responsive-item" lines="none">
+                  <IonLabel className="ion-text-center">
+                    <div className="my-display">
+                      {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
+                        currentButton === "Date" ? formatDate(new Date()) :
+                          currentButton === "Timer" ? `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}` :
+                            `${String(Math.floor(countdownTime / 3600)).padStart(2, '0')}:${String(Math.floor((countdownTime % 3600) / 60)).padStart(2, '0')}:${String(countdownTime % 60).padStart(2, '0')}`}
+                    </div>
+                  </IonLabel>
+                </IonItem>
+              </IonCol>
+            </IonRow>
+            <IonRow>
+              <IonCol sizeXs="3" sizeMd="3" sizeLg="1" sizeXl="2">
+                <IonButton style={{ paddingLeft: isLargeScreen && !isXLargeScreen? "2px" :"default" }}
+                  onClick={() => handleClick("Timer")} color={isTriggered ? "danger" : "success"} fill="solid" size={isLargeScreen ? 'large' : 'default'}>
+                  Timer
+                </IonButton>
+              </IonCol>
+              <IonCol sizeXs="2" sizeMd="2" sizeLg="4" sizeXl="2.8">
+                <IonButton shape="round" color={timerRunning ? "danger" : "success"} size={isLargeScreen ? 'large' : 'default'} fill="solid" 
+                onClick={() => handleClick("ST/SP")} style={{ width:isXLargeScreen? "100%":"100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft:isXLargeScreen?"60px":"default" }}>
+
+                  {timerRunning ? "SP" : "ST"}
+                </IonButton>
+              </IonCol>
+              <IonCol sizeXs="2" sizeMd="2" sizeLg="4" sizeXl="1.8">
+                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} 
+                style={{ width: isLargeButton?"40%":"100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft:isXLargeScreen?"10px":"default"}} onClick={() => handleClick("1H")}>
+                  1H
+                </IonButton>
+              </IonCol>
+              <IonCol sizeXs="2" sizeMd="2" sizeLg="3" sizeXl="1.8">
+                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} 
+                style={{ width: isLargeButton?"50%":"100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft: isXLargeScreen?"10px":"default"}} onClick={() => handleClick("5M")}>
+                  5M
+                </IonButton>
+              </IonCol>
+              <IonCol sizeXs="2" sizeMd="2" sizeLg="3" sizeXl="1.8">
+                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} 
+                style={{ width: isLargeButton?"50%":"100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft:isXLargeScreen?"10px":"default"}} onClick={() => handleClick("1M")}>
+                  1M
+                </IonButton>
+              </IonCol>
+              <IonCol className="md ion-hide-sm-down" sizeXs="1" sizeMd="1" sizeLg="3" sizeXl="1.8">
+                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} 
+                style={{ width: isLargeButton?"50%":"110%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft:isXLargeScreen?"10px":"default" }} onClick={() => handleClick("5S")}>
+                  5S
+                </IonButton>
+              </IonCol>
+            </IonRow>
+          </IonRow>
+        </IonGrid>
+      </IonContent>
+    </IonPage>
+  );
+}
+
+export default MyTimer;
+########################################################################
+/* myTimer.css */
+.my-display {
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+}
+@media (min-width: 344px){
+  .my-display {
+    padding: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+  }
+  }
+@media (min-width: 912px){
+.my-display {
+  padding: 10px;
+  padding-right: 50px;
+  padding-left: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+}
+}
+
+  @media (min-width: 360px)and (max-width: 740px){
+    .my-display {
+      min-width: 200px;
+      max-width: 200px;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+    }
+    }
+    @media (min-width: 412px)and (max-width: 911px){
+      .my-display {
+        font-size: 2.5rem;
+        max-width: 250px;
+        padding: 10px;
+        padding-right: 50px;
+        padding-left: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 0px;
+        height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+      }
+      }
+      @media (min-width: 1024px){
+        .my-display {
+          min-width: 500px;
+          padding: 40px;
+          /* min-width: 700px; */
+          /* margin-left: 250px; */
+          padding-right: 250px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 3.5rem;
+          height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+        }
+      }  
+  @media (min-width: 1368px){
+    .my-display {
+      min-width: 500px;
+      padding: 40px;
+      /* min-width: 700px; */
+      /* margin-left: 250px; */
+      /* padding-right: 250px; */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3.5rem;
+      height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+    }
+  }
+
+.center-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Stellt sicher, dass das Grid die volle Höhe des Viewports einnimmt */
+}
+
+@media (min-width: 1368px){
+  .custom-grid {
+    width: 60%; /* Beispiel für die Breite */
+    height: 50%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+  }
+}
+@media (min-width: 912px) and (max-width: 1368px) {
+  .custom-grid {
+    width: 60%; /* Beispiel für die Breite */
+    height: 50%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+  }
+}
+@media (min-width: 853px){
+  .custom-grid {
+    width: 60%; /* Beispiel für die Breite */
+    height: 50%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+  }
+  }
+/* Media Query für kleinere Bildschirme */
+@media screen and (max-width: 768px) {
+  .custom-grid {
+    width: 60%; /* Beispiel für die Breite */
+    height: 50%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+  }
+}
+
+/* Media Query für sehr kleine Bildschirme */
+@media screen and (max-width: 480px) {
+  .custom-grid {
+    width: 60%; /* Beispiel für die Breite */
+    height: 50%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+  }
+}
+.custom-grid {
+  width: 60%; /* Beispiel für die Breite */
+  height: 50%; /* Beispiel für die Höhe */
+  margin: auto; /* Zentriert den Inhalt horizontal */
+}
+
+@media screen and (max-width: 480px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+    width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+    width: 100%;
+  }
+}
+@media (min-width: 540px) and (max-width: 720px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+    width: 100%;
+  }
+}
+@media (min-width: 853px){
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+    width: 100%;
+  }
+  }
+@media (min-width: 912px) and (max-width: 1368px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+    width: 100%;
+  }
+}
+@media (min-width: 1368px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+    width: 100%;
+  }
+}
+
+.center-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Stellt sicher, dass der Inhalt innerhalb des IonContent zentriert ist */
+}
+
+.custom-content {
+  width: 30%;  /* Beispiel für die Breite */
+  height: 35%; /* Beispiel für die Höhe */
+  margin: auto; /* Zentriert den Inhalt horizontal */
+  background-color: #f0f0f0; /* Beispiel für die Hintergrundfarbe */
+  padding: 0.1%; /* Beispiel für das Padding */
+  border-radius: 1%; /* Beispiel für abgerundete Ecken */
+  display: flex;
+  flex-wrap: wrap; 
+}
+@media screen and (max-width: 480px) {
+  .custom-content {
+    width: 30%;  /* Beispiel für die Breite */
+    height: 35%; /* Beispiel für die Höhe */
+    margin: auto; /* Zentriert den Inhalt horizontal */
+    background-color: #f0f0f0; /* Beispiel für die Hintergrundfarbe */
+    padding: 0.1%; /* Beispiel für das Padding */
+    border-radius: 1%; /* Beispiel für abgerundete Ecken */
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+@media screen and (max-width: 768px) {
+  .custom-content {
+    width: 95%;  /* Beispiel für die Breite */
+    height: 25%; /* Beispiel für die Höhe */
+    /* margin: auto; Zentriert den Inhalt horizontal */
+    background-color: #f0f0f0; /* Beispiel für die Hintergrundfarbe */
+    padding: 5px; /* Beispiel für das Padding */
+    border-radius: 5%; /* Beispiel für abgerundete Ecken */
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+@media (min-width: 853px){
+  .custom-content {
+    width: 95%;  /* Beispiel für die Breite */
+    height: 25%; /* Beispiel für die Höhe */
+    /* margin: auto; Zentriert den Inhalt horizontal */
+    /* margin-left: 100px; */
+    background-color: #f0f0f0; /* Beispiel für die Hintergrundfarbe */
+    padding: 5px; /* Beispiel für das Padding */
+    border-radius: 5%; /* Beispiel für abgerundete Ecken */
+    display: flex;
+    flex-wrap: wrap; 
+  }
+  }
+@media (min-width: 412px) and (max-width: 915px) {
+  .custom-content {
+    width: 95%;  /* Beispiel für die Breite */
+    height: 20.5%; /* Beispiel für die Höhe */
+    margin-left: auto;
+    background-color: #f0f0f0; /* Beispiel für die Hintergrundfarbe */
+    padding: 0.3%; /* Beispiel für das Padding */
+    border-radius: 1%; /* Beispiel für abgerundete Ecken */
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+@media (min-width: 540px) and (max-width: 720px) {
+  .custom-content {
+    width: 80%;
+    height: 28%;
+    margin: auto; 
+    background-color: #f0f0f0; 
+    padding: 2%;
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+@media screen and (min-width: 1023px){
+  .custom-content {
+    width: 440%;
+    height: 40%;
+    background-color: #f0f0f0; 
+    padding: 1%;
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap; 
+  }
+} 
+@media (min-width: 912px) and (max-width: 1368px) {
+  .custom-content {
+    width: 66%;
+    height: 50%;
+    background-color: #f0f0f0; 
+    padding: .1%;
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+@media (min-width: 1368px) {
+  .custom-content {
+    width: 50%;
+    height: 45%;
+    background-color: #f0f0f0; 
+    padding: .1%;
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap; 
+  }
+}
+
+
+.responsive-item {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+/* Adjustments for smaller screens (e.g., smartphones) */
+@media (min-width: 300px) and (max-width: 768px) {
+  .responsive-item {
+    margin-left: 15px;
+    border: 1px solid #ccc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+    font-size: 2.4rem;
+    min-width: 205px;
+    color: bisque;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+  }
+}
+@media (min-width: 540px) and (max-width: 720px) {
+  .responsive-item {
+    margin-left: 15px;
+    border: 1px solid #ccc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+    font-size: 2.4rem;
+    min-width: 205px;
+    min-height: 100%;
+    color: bisque;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+  }
+}
+/* Adjustments for medium screens (e.g., tablets) */
+@media (min-width: 412px) and (max-width: 915px) {
+  .responsive-item {
+    padding: 5px; 
+    margin-right: 8%;
+    margin-left: 5%;
+    font-size: 3rem;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+  }
+}
+/* Adjustments for medium screens (e.g., tablets) */
+@media (min-width: 912px) and (max-width: 1368px) {
+  .responsive-item {
+    min-width: 460px;
+    min-height: 50%;
+    padding:2%;
+    /* margin-top: 20px; */
+    /* padding-right: 15px; */
+    font-size: 3rem;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+/* Adjustments for medium screens (e.g., tablets) */
+@media (min-width: 915px) and (max-width: 1023px) {
+  .responsive-item {
+    padding: 8%; /* Adjust padding for medium viewports */
+    font-size: 3rem; /* Adjust font size for better readability */
+    border: 1px solid #ccc;
+    border-radius: 1px;
+  }
+}
+/* Adjustments for larger screens (e.g., desktops) */
+@media (max-width: 1024px) {
+  .responsive-item {
+    padding:3%; /* Maintain base padding for larger viewports */
+    margin-left: -150px;
+    /* margin-right: 40px; */
+    /* padding-left: -100px; */
+    margin-bottom: 5px;
+    min-width: 550px;
+    font-size: 2rem; /* Adjust font size for comfortable reading */
+    border: 1px solid #ccc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+  }
+}
+@media (min-width: 1025px) {
+  .responsive-item {
+    padding: 2%; /* Maintain base padding for larger viewports */
+    margin-left: 10px;
+    margin-right: px;
+    margin-bottom: 5px;
+    min-width: 605px;
+    font-size: 2rem; /* Adjust font size for comfortable reading */
+    border: 1px solid #ccc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+  }
+}
