@@ -16,9 +16,11 @@ function MyTimer() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       if(!isCountdownActive) setCurrentDateTime(new Date());
+      if(isCountdownActive) {setElapsedTime(0) 
+        }
     }, 1000);
     return () => clearInterval(intervalId); // Bereinigt das Intervall, wenn die Komponente unmontiert wird
-  }, []);
+  }, [elapsedTime,isCountdownActive ]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
@@ -30,7 +32,21 @@ function MyTimer() {
       clearInterval(intervalId);
     }
     return () => clearInterval(intervalId);
-  }, [timerRunning, currentButton]);
+  }, [timerRunning, currentButton, isCountdownActive]);
+  
+// ############################################################################
+  // useEffect(() => {
+  //   let intervalId: NodeJS.Timeout;
+  //   if (timerRunning && currentButton === "Timer" && !isCountdownActive) {
+  //     intervalId = setInterval(() => {
+  //       setElapsedTime(prevElapsedTime => prevElapsedTime - 1);
+  //     }, 1000);
+  //   } else {
+  //     clearInterval(intervalId);
+  //   }
+  //   return () => clearInterval(intervalId);
+  // }, [timerRunning, currentButton, isCountdownActive]);
+  // ############################################################################
 
   function handleClick(clickedButton: string) {
     setCurrentDateTime(new Date());
@@ -48,22 +64,22 @@ function MyTimer() {
     else if (clickedButton === "Date" && !timerRunning) {
       setCurrentButton("Date");
     }
-    else if (clickedButton === "1H" && !timerRunning) {
+    else if (clickedButton === "1H" && timerRunning) {
       setCurrentButton("1H");
       setIsCountdownActive(true);
-      setElapsedTime(3600)
+      setElapsedTime(prevElapsedTime => prevElapsedTime + 3600)
     }
-    else if (clickedButton === "5M" && !timerRunning) {
+    else if (clickedButton === "5M" && timerRunning) {
       setCurrentButton("5M");
       setIsCountdownActive(true);
       setElapsedTime(prevElapsedTime => prevElapsedTime + 300)
     }
-    else if (clickedButton === "1M" && !timerRunning) {
+    else if (clickedButton === "1M" && timerRunning) {
       setCurrentButton("1M");
       setIsCountdownActive(true);
       setElapsedTime(prevElapsedTime => prevElapsedTime + 60)
     }
-    else if (clickedButton === "5S" && !timerRunning) {
+    else if (clickedButton === "5S" && timerRunning) {
       setCurrentButton("5S");
       setIsCountdownActive(true);
       setElapsedTime(prevElapsedTime => prevElapsedTime + 5)
@@ -105,7 +121,8 @@ function MyTimer() {
                 <IonItem className="responsive-item" lines="none">
                   <IonLabel className="ion-text-center">
                     <div className="my-display">
-                      {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
+                      {currentButton === "Time" && !isCountdownActive ? currentDateTime.toLocaleTimeString() :
+                      currentButton === "Time" && isCountdownActive ? new Date().toLocaleTimeString() :
                         currentButton === "Date" ? formatDate(new Date()) :
                           `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}`}
                     </div>
