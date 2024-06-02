@@ -32,17 +32,18 @@ function MyTimer() {
   }, [timerRunning, currentButton]);
 
   function handleClick(clickedButton: string) {
-    if (clickedButton === "Time") {
-      setCurrentButton("Time");
-      setCurrentDateTime(new Date());
-    } else if (clickedButton === "Timer") {
+    setCurrentDateTime(new Date());
+     if (clickedButton === "Timer") {
       setCurrentButton("Timer");
       setElapsedTime(0); // Reset timer
-    } else if (clickedButton === "ST/SP" && currentButton === "Timer") {
+    } 
+    else if (clickedButton === "ST/SP" && currentButton === "Timer") {
       setTimerRunning(!timerRunning); // Toggle timer
-    } else if (clickedButton === "Time" && !timerRunning) {
+    } 
+    else if (clickedButton === "Time" && !timerRunning) {
       setCurrentButton("Time");
-    } else if (clickedButton === "Date" && !timerRunning) {
+    } 
+    else if (clickedButton === "Date" && !timerRunning) {
       setCurrentButton("Date");
     }
   }
@@ -82,9 +83,9 @@ function MyTimer() {
                 <IonItem className="responsive-item" lines="none">
                   <IonLabel className="ion-text-center">
                     <div className="my-display">
-                    {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
-                      currentButton === "Date" ? formatDate(new Date()) :
-                        `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}`}
+                      {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
+                        currentButton === "Date" ? formatDate(new Date()) :
+                          `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}`}
                     </div>
                   </IonLabel>
                 </IonItem>
