@@ -15,9 +15,9 @@ function MyTimer() {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if(!isCountdownActive) setCurrentDateTime(new Date());
+      if (!isCountdownActive) setCurrentDateTime(new Date());
     }, 1000);
-    return () => clearInterval(intervalId); // Bereinigt das Intervall, wenn die Komponente unmontiert wird
+    return () => clearInterval(intervalId); // Clear the interval when the component unmounts
   }, []);
 
   useEffect(() => {
@@ -26,20 +26,33 @@ function MyTimer() {
       intervalId = setInterval(() => {
         setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
       }, 1000);
+    } else if (timerRunning && isCountdownActive && countdownTime > 0) {
+      intervalId = setInterval(() => {
+        setCountdownTime(prevCountdownTime => {
+          if (prevCountdownTime <= 1) {
+            setIsCountdownActive(false);
+            setTimerRunning(false);
+            return 0;
+          }
+          return prevCountdownTime - 1;
+        });
+      }, 1000);
     } else {
       clearInterval(intervalId);
     }
     return () => clearInterval(intervalId);
-  }, [timerRunning, currentButton]);
+  }, [timerRunning, currentButton, isCountdownActive, countdownTime]);
 
   function handleClick(clickedButton: string) {
     setCurrentDateTime(new Date());
-     if (clickedButton === "Timer") {
+    if (clickedButton === "Timer") {
       setCurrentButton("Timer");
       setElapsedTime(0); // Reset timer
-      // setIsCountdownActive(true);
+      setCountdownTime(0);
+      setIsCountdownActive(false);
+      setTimerRunning(false);
     } 
-    else if (clickedButton === "ST/SP" && currentButton === "Timer") {
+    else if (clickedButton === "ST/SP") {
       setTimerRunning(!timerRunning); // Toggle timer
     } 
     else if (clickedButton === "Time" && !timerRunning) {
@@ -50,23 +63,27 @@ function MyTimer() {
     }
     else if (clickedButton === "1H" && !timerRunning) {
       setCurrentButton("1H");
+      setCountdownTime(prevElapsedTime => prevElapsedTime +3600);
       setIsCountdownActive(true);
-      setElapsedTime(3600)
+      setTimerRunning(false); // Ensure timer is not running until ST is clicked
     }
     else if (clickedButton === "5M" && !timerRunning) {
       setCurrentButton("5M");
+      setCountdownTime(prevElapsedTime => prevElapsedTime +300);
       setIsCountdownActive(true);
-      setElapsedTime(prevElapsedTime => prevElapsedTime + 300)
+      setTimerRunning(false); // Ensure timer is not running until ST is clicked
     }
     else if (clickedButton === "1M" && !timerRunning) {
       setCurrentButton("1M");
+      setCountdownTime(prevElapsedTime => prevElapsedTime +60);
       setIsCountdownActive(true);
-      setElapsedTime(prevElapsedTime => prevElapsedTime + 60)
+      setTimerRunning(false); // Ensure timer is not running until ST is clicked
     }
     else if (clickedButton === "5S" && !timerRunning) {
       setCurrentButton("5S");
+      setCountdownTime(prevElapsedTime => prevElapsedTime +5);
       setIsCountdownActive(true);
-      setElapsedTime(prevElapsedTime => prevElapsedTime + 5)
+      setTimerRunning(false); // Ensure timer is not running until ST is clicked
     }
   }
 
@@ -107,7 +124,8 @@ function MyTimer() {
                     <div className="my-display">
                       {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
                         currentButton === "Date" ? formatDate(new Date()) :
-                          `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}`}
+                        currentButton === "Timer" ? `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}` :
+                          `${String(Math.floor(countdownTime / 3600)).padStart(2, '0')}:${String(Math.floor((countdownTime % 3600) / 60)).padStart(2, '0')}:${String(countdownTime % 60).padStart(2, '0')}`}
                     </div>
                   </IonLabel>
                 </IonItem>
@@ -125,22 +143,22 @@ function MyTimer() {
                 </IonButton>
               </IonCol>
               <IonCol sizeXs="2" sizeMd="2" sizeLg="4" sizeXl="1.8">
-                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} style={{ width: "100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft: isLargeScreen ? "40px" : "0px" }}>
+                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} style={{ width: "100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft: isLargeScreen ? "40px" : "0px" }} onClick={() => handleClick("1H")}>
                   1H
                 </IonButton>
               </IonCol>
               <IonCol sizeXs="2" sizeMd="2" sizeLg="3" sizeXl="1.8">
-                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} style={{ width: "100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft: isLargeScreen ? "30px" : "0px" }}>
+                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} style={{ width: "100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft: isLargeScreen ? "30px" : "0px" }} onClick={() => handleClick("5M")}>
                   5M
                 </IonButton>
               </IonCol>
               <IonCol sizeXs="2" sizeMd="2" sizeLg="3" sizeXl="1.8">
-                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} style={{ width: "100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft: isLargeScreen ? "30px" : "0px" }}>
+                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} style={{ width: "100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft: isLargeScreen ? "30px" : "0px" }} onClick={() => handleClick("1M")}>
                   1M
                 </IonButton>
               </IonCol>
               <IonCol className="md ion-hide-sm-down" sizeXs="1" sizeMd="1" sizeLg="3" sizeXl="1.8">
-                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} style={{ width: "100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft: isLargeScreen ? "30px" : "0px" }}>
+                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} style={{ width: "100%", paddingTop: isLargeScreen ? "5px" : "0px", paddingLeft: isLargeScreen ? "30px" : "0px" }} onClick={() => handleClick("5S")}>
                   5S
                 </IonButton>
               </IonCol>
