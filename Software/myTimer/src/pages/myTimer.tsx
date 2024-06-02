@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { IonCol, IonGrid, IonRow, IonButton, IonPage, IonItem, IonLabel, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
 import { useMediaQuery } from '@react-hook/media-query';
 import './Home.css';
 import './myTimer.css';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonButton, IonItem, IonLabel } from '@ionic/react';
 
 function MyTimer() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -12,16 +12,21 @@ function MyTimer() {
   const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
   const [countdownTime, setCountdownTime] = useState(0); // Total countdown time in seconds
   const [isCountdownActive, setIsCountdownActive] = useState(false);
+  const [isTriggered, setIsTriggered] = useState(false);
+  let intervalId: NodeJS.Timeout | null = null; // Initialize intervalId to null
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (!isCountdownActive) setCurrentDateTime(new Date());
     }, 1000);
-    return () => clearInterval(intervalId); // Clear the interval when the component unmounts
+    return () => {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
+    };
   }, []);
 
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
     if (timerRunning && currentButton === "Timer") {
       intervalId = setInterval(() => {
         setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
@@ -38,9 +43,15 @@ function MyTimer() {
         });
       }, 1000);
     } else {
-      clearInterval(intervalId);
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
     }
-    return () => clearInterval(intervalId);
+    return () => {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
+    };
   }, [timerRunning, currentButton, isCountdownActive, countdownTime]);
 
   function handleClick(clickedButton: string) {
@@ -51,37 +62,38 @@ function MyTimer() {
       setCountdownTime(0);
       setIsCountdownActive(false);
       setTimerRunning(false);
-    } 
+      setIsTriggered(!isTriggered)
+    }
     else if (clickedButton === "ST/SP") {
       setTimerRunning(!timerRunning); // Toggle timer
-    } 
-    else if (clickedButton === "Time" && !timerRunning) {
+    }
+    else if (clickedButton === "Time" && !timerRunning && !isTriggered) {
       setCurrentButton("Time");
-    } 
-    else if (clickedButton === "Date" && !timerRunning) {
+    }
+    else if (clickedButton === "Date" && !timerRunning && !isTriggered) {
       setCurrentButton("Date");
     }
     else if (clickedButton === "1H" && !timerRunning) {
       setCurrentButton("1H");
-      setCountdownTime(prevElapsedTime => prevElapsedTime +3600);
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 3600);
       setIsCountdownActive(true);
       setTimerRunning(false); // Ensure timer is not running until ST is clicked
     }
     else if (clickedButton === "5M" && !timerRunning) {
       setCurrentButton("5M");
-      setCountdownTime(prevElapsedTime => prevElapsedTime +300);
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 300);
       setIsCountdownActive(true);
       setTimerRunning(false); // Ensure timer is not running until ST is clicked
     }
     else if (clickedButton === "1M" && !timerRunning) {
       setCurrentButton("1M");
-      setCountdownTime(prevElapsedTime => prevElapsedTime +60);
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 60);
       setIsCountdownActive(true);
       setTimerRunning(false); // Ensure timer is not running until ST is clicked
     }
     else if (clickedButton === "5S" && !timerRunning) {
       setCurrentButton("5S");
-      setCountdownTime(prevElapsedTime => prevElapsedTime +5);
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 5);
       setIsCountdownActive(true);
       setTimerRunning(false); // Ensure timer is not running until ST is clicked
     }
@@ -124,8 +136,8 @@ function MyTimer() {
                     <div className="my-display">
                       {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
                         currentButton === "Date" ? formatDate(new Date()) :
-                        currentButton === "Timer" ? `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}` :
-                          `${String(Math.floor(countdownTime / 3600)).padStart(2, '0')}:${String(Math.floor((countdownTime % 3600) / 60)).padStart(2, '0')}:${String(countdownTime % 60).padStart(2, '0')}`}
+                          currentButton === "Timer" ? `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}` :
+                            `${String(Math.floor(countdownTime / 3600)).padStart(2, '0')}:${String(Math.floor((countdownTime % 3600) / 60)).padStart(2, '0')}:${String(countdownTime % 60).padStart(2, '0')}`}
                     </div>
                   </IonLabel>
                 </IonItem>
@@ -133,7 +145,8 @@ function MyTimer() {
             </IonRow>
             <IonRow>
               <IonCol sizeXs="3" sizeMd="3" sizeLg="4" sizeXl="2">
-                <IonButton style={{ paddingLeft: isLargeScreen ? "5px" : "0px" }} onClick={() => handleClick("Timer")} color="success" fill="solid" size={isLargeScreen ? 'large' : 'default'}>
+                <IonButton style={{ paddingLeft: isLargeScreen ? "5px" : "0px" }}
+                  onClick={() => handleClick("Timer")} color={isTriggered ? "danger" : "success"} fill="solid" size={isLargeScreen ? 'large' : 'default'}>
                   Timer
                 </IonButton>
               </IonCol>
