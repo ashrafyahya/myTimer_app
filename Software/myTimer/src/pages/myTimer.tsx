@@ -4,6 +4,8 @@ import './myTimer.css';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonButton, IonItem, IonLabel } from '@ionic/react';
 import { Vibration } from '@awesome-cordova-plugins/vibration';
 import MyVibration from './myVibration';
+import MySound from './myAlaram';
+
 
 function MyTimer() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -17,6 +19,8 @@ function MyTimer() {
   const [isCountdownActive, setIsCountdownActive] = useState(false);
   const [isTriggered, setIsTriggered] = useState(false);
   const [isTimeout, setIsTimeout] = useState(false);
+  const [isRinging, setIsRinging] = useState(false);
+
 
   const vibrationOn = () => {
     Vibration.vibrate(100); // Vibriert für 100 Millisekunden
@@ -60,6 +64,7 @@ function MyTimer() {
             setIsCountdownActive(false);
             setTimerRunning(false);
             setIsTimeout(true)
+            setIsRinging(true);
             console.log("Timeout")
             return 0;
           }
@@ -87,9 +92,11 @@ function MyTimer() {
       setTimerRunning(false);
       setIsTriggered(!isTriggered)
       setIsTimeout(false)
+      setIsRinging(false);
     } else if (clickedButton === "ST/SP" && isTriggered) {
       setTimerRunning(!timerRunning); // Toggle timer
       setIsTimeout(false)
+      setIsRinging(false);
     } else if (clickedButton === "Time" && !timerRunning && !isTriggered) {
       setCurrentButton("Time");
     } else if (clickedButton === "Date" && !timerRunning && !isTriggered) {
@@ -204,6 +211,7 @@ function MyTimer() {
           {/* </IonRow> */}
         </IonGrid>
         <MyVibration isTimeout={isTimeout} />
+        <MySound isTimeout={isTimeout} />
       </IonContent>
     </IonPage>
   );
