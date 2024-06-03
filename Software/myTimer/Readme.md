@@ -13,12 +13,12 @@ $cd myTimer
 $ionic build
 $ionic serve
 
-npx cap add android
-npx cap open android //open in android studio
+$npx cap add android
+$npx cap open android //open in android studio
 
 
 //run the project on a device or emulator
-ionic integrations enable capacitor
+$ionic integrations enable capacitor
 $npx cap init [appName] [appId]
 then
 $npx cap add android
