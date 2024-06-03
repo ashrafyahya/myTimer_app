@@ -13,3 +13,10 @@ $ionic start myTimer blank --type=react
 Projekt starten
 $cd myTimer
 $ionic serve
+
+# TODO nächst:
+### Icon vergeben
+### Auf Cloud stellen
+### App-Responsivität prüfen
+### App Cloudsweise aktuallisieren
+### Vibration und Sound mitbauen
