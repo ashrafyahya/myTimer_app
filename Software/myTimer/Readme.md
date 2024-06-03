@@ -8,9 +8,9 @@
 $npm install -g @ionic/cli
 $npm install @capacitor/android
 
-Projekt starten
+## Projekt starten
 $cd myTimer
-ionic build
+$ionic build
 $ionic serve
 
 npx cap add android
@@ -19,13 +19,13 @@ npx cap open android //open in android studio
 
 //run the project on a device or emulator
 ionic integrations enable capacitor
-npx cap init [appName] [appId]
+$npx cap init [appName] [appId]
 then
-npx cap add android
+$npx cap add android
 then
-npx cap open android
-or
-ionic capacitor run android or npx cap run android
+$ionic capacitor run android 
+or 
+$npx cap run android
 
 
 # TODO nächst:
