@@ -1,9 +1,33 @@
+Bildschirmgrößenkategorien
+Extra Small (XS)
+
+Diagonale: bis 4,0 Zoll
+Beispielauflösung: 480 x 800 Pixel, 540 x 960 Pixel
+Small (S)
+
+Diagonale: 4,1 - 5,0 Zoll
+Beispielauflösung: 720 x 1280 Pixel, 1080 x 1920 Pixel
+Medium (M)
+
+Diagonale: 5,1 - 6,0 Zoll
+Beispielauflösung: 1080 x 1920 Pixel, 1440 x 2560 Pixel
+Large (L)
+
+Diagonale: 6,1 - 7,0 Zoll
+Beispielauflösung: 1440 x 2560 Pixel, 2160 x 3840 Pixel
+Extra Large (XL)
+
+Diagonale: über 7,0 Zoll
+Beispielauflösung: 2160 x 3840 Pixel, 2736 x 1824 Pixel (Tablets)
+---------------------------------------------------------------------
 import React, { useState, useEffect } from 'react';
 import { useMediaQuery } from '@react-hook/media-query';
 import './myTimer.css';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonButton, IonItem, IonLabel } from '@ionic/react';
 import { Vibration } from '@awesome-cordova-plugins/vibration';
 import MyVibration from './myVibration';
+
+
 
 function MyTimer() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -16,6 +40,7 @@ function MyTimer() {
   const [countdownTime, setCountdownTime] = useState(0); // Total countdown time in seconds
   const [isCountdownActive, setIsCountdownActive] = useState(false);
   const [isTriggered, setIsTriggered] = useState(false);
+  let intervalId: NodeJS.Timeout | null = null; // Initialize intervalId to null
   const [isTimeout, setIsTimeout] = useState(false);
 
   const vibrationOn = () => {
@@ -23,12 +48,9 @@ function MyTimer() {
     console.log("Es gibt vibration")
   };
 
-  //Aktullisierung der Uhrzeit
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (!isCountdownActive ) {
-        setCurrentDateTime(new Date());
-      }
+      if (!isCountdownActive) setCurrentDateTime(new Date());
     }, 1000);
     return () => {
       if (intervalId !== null) {
@@ -36,49 +58,51 @@ function MyTimer() {
       }
     };
   }, []);
+// ###########################################
+useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      console.log("timedout")
+      setIsTimeout(true); // Set isTimeout to true after 60 seconds
+    }, 60000);
 
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     setIsTimeout(true); // Set isTimeout to true after 60 seconds
-  //   }, 60000);
-
-  //   return () => {
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, []);
-
+    // Clean up: Cancel timeout if component unmounts or isTimeout changes
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+// ###########################################
   useEffect(() => {
     if (timerRunning && currentButton === "Timer") {
-      const intervalId = setInterval(() => {
+      intervalId = setInterval(() => {
         setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
       }, 1000);
-      return () => clearInterval(intervalId);
     } else if (timerRunning && isCountdownActive && countdownTime > 0) {
-      const intervalId = setInterval(() => {
+      intervalId = setInterval(() => {
         setCountdownTime(prevCountdownTime => {
           if (prevCountdownTime <= 1) {
             setIsCountdownActive(false);
             setTimerRunning(false);
-            setIsTimeout(true)
-            console.log("Timeout")
             return 0;
           }
           return prevCountdownTime - 1;
         });
       }, 1000);
-      return () => clearInterval(intervalId);
+    } else {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
     }
+    return () => {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
+    };
   }, [timerRunning, currentButton, isCountdownActive, countdownTime]);
 
-  useEffect(() => {
-    if (isTimeout) {
-      vibrationOn(); // Start vibration when timeout occurs
-    }
-  }, [isTimeout]);
-
   function handleClick(clickedButton: string) {
-    setCurrentDateTime(new Date());
+    // Vibration.vibrate(100); // Vibriert für 100 Millisekunden
     vibrationOn();
+    setCurrentDateTime(new Date());
     if (clickedButton === "Timer") {
       setCurrentButton("Timer");
       setElapsedTime(0); // Reset timer
@@ -86,30 +110,35 @@ function MyTimer() {
       setIsCountdownActive(false);
       setTimerRunning(false);
       setIsTriggered(!isTriggered)
-      setIsTimeout(false)
-    } else if (clickedButton === "ST/SP" && isTriggered) {
+    }
+    else if (clickedButton === "ST/SP" && isTriggered) {
       setTimerRunning(!timerRunning); // Toggle timer
-      setIsTimeout(false)
-    } else if (clickedButton === "Time" && !timerRunning && !isTriggered) {
+    }
+    else if (clickedButton === "Time" && !timerRunning && !isTriggered) {
       setCurrentButton("Time");
-    } else if (clickedButton === "Date" && !timerRunning && !isTriggered) {
+    }
+    else if (clickedButton === "Date" && !timerRunning && !isTriggered) {
       setCurrentButton("Date");
-    } else if (clickedButton === "1H" && !timerRunning && isTriggered) {
+    }
+    else if (clickedButton === "1H" && !timerRunning && isTriggered) {
       setCurrentButton("1H");
       setCountdownTime(prevElapsedTime => prevElapsedTime + 3600);
       setIsCountdownActive(true);
       setTimerRunning(false); // Ensure timer is not running until ST is clicked
-    } else if (clickedButton === "5M" && !timerRunning && isTriggered) {
+    }
+    else if (clickedButton === "5M" && !timerRunning && isTriggered) {
       setCurrentButton("5M");
       setCountdownTime(prevElapsedTime => prevElapsedTime + 300);
       setIsCountdownActive(true);
       setTimerRunning(false); // Ensure timer is not running until ST is clicked
-    } else if (clickedButton === "1M" && !timerRunning && isTriggered) {
+    }
+    else if (clickedButton === "1M" && !timerRunning && isTriggered) {
       setCurrentButton("1M");
       setCountdownTime(prevElapsedTime => prevElapsedTime + 60);
       setIsCountdownActive(true);
       setTimerRunning(false); // Ensure timer is not running until ST is clicked
-    } else if (clickedButton === "5S" && !timerRunning && isTriggered) {
+    }
+    else if (clickedButton === "5S" && !timerRunning && isTriggered) {
       setCurrentButton("5S");
       setCountdownTime(prevElapsedTime => prevElapsedTime + 5);
       setIsCountdownActive(true);
@@ -135,18 +164,20 @@ function MyTimer() {
       <IonContent color="danger">
         <IonGrid className="custom-grid custom-content center-grid" style={{ marginTop: "5%" }}>
           <IonRow>
-            <IonCol sizeXs="2.5" sizeMd="2" sizeLg="6" sizeXl="2">
-              <IonRow>
-                <IonButton size={isLargeScreen ? 'large' : 'default'} color="success" onClick={() => handleClick("Time")}>
-                  Time
-                </IonButton>
-              </IonRow>
-              <IonRow>
-                <IonButton size={isLargeScreen ? 'large' : 'default'} style={{ border: "1px solid #ccc", borderRadius: "10px" }} onClick={() => handleClick("Date")} color="success">
-                  Date
-                </IonButton>
-              </IonRow>
-            </IonCol>
+            <IonRow>
+              <IonCol sizeXs="2.5" sizeMd="2" sizeLg="6" sizeXl="2">
+                <IonRow>
+                  <IonButton size={isLargeScreen ? 'large' : 'default'} color="success" 
+                  onClick={() => handleClick("Time")}>
+                    Time
+                  </IonButton>
+                </IonRow>
+                <IonRow>
+                  <IonButton size={isLargeScreen ? 'large' : 'default'} style={{ border: "1px solid #ccc", borderRadius: "10px" }} onClick={() => handleClick("Date")} color="success">
+                    Date
+                  </IonButton>
+                </IonRow>
+              </IonCol>
               <IonCol sizeXs="9.5" sizeMd="9" sizeLg="6" sizeXl="10">
                 <IonItem className="responsive-item" lines="none">
                   <IonLabel className="ion-text-center">
@@ -201,7 +232,7 @@ function MyTimer() {
               </IonCol>
               
             </IonRow>
-          {/* </IonRow> */}
+          </IonRow>
         </IonGrid>
         <MyVibration isTimeout={isTimeout} />
       </IonContent>
@@ -210,3 +241,4 @@ function MyTimer() {
 }
 
 export default MyTimer;
+-----------------------------------------------------------------------------

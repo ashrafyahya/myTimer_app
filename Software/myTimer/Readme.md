@@ -12,6 +12,8 @@ $npm install @capacitor/android
 $cd myTimer
 $ionic build
 $ionic serve
+or
+$ionic serve --browser="msedge"
 
 $npx cap add android
 $npx cap open android //open in android studio
