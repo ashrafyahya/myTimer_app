@@ -24,11 +24,14 @@ $ionic integrations enable capacitor
 $npx cap init [appName] [appId]
 then
 $npx cap add android
+$npx cap copy android
 then
 $ionic capacitor run android 
 or 
 $npx cap run android
 
+
+npm run build
 
 # TODO nächst:
 ### Icon vergeben

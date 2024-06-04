@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { Haptics } from '@capacitor/haptics'; // Import Haptics from Capacitor
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useMediaQuery } from '@react-hook/media-query';
+import { useEffect, useRef, useState } from 'react';
 import './myTimer.css';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonButton, IonItem, IonLabel } from '@ionic/react';
-import { Vibration } from '@awesome-cordova-plugins/vibration';
-import MyVibration from './myVibration';
-import MySound from './myAlaram';
-
 
 function MyTimer() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -20,37 +17,42 @@ function MyTimer() {
   const [isTriggered, setIsTriggered] = useState(false);
   const [isTimeout, setIsTimeout] = useState(false);
   const [isRinging, setIsRinging] = useState(false);
+  const [isVibrating, setIsVibrating] = useState(false); // State to track if vibrating
+  const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null); // Ref to hold the timeout for vibration
+  const stopVibrationRef = useRef(false);
 
+  const vibrationOn = async () => {
+    const duration = 300; // Each vibration duration in milliseconds
+    const interval = 100; // Interval between vibrations in milliseconds
+    const totalVibrationTime = 30000; // Total vibration time in milliseconds
+    const repetitions = Math.ceil(totalVibrationTime / (duration + interval));
 
-  const vibrationOn = () => {
-    Vibration.vibrate(100); // Vibriert für 100 Millisekunden
-    console.log("Es gibt vibration")
+    setIsVibrating(true);
+    stopVibrationRef.current = false;
+    console.log("Vibration started"); // Log vibration start
+
+    for (let i = 0; i < repetitions; i++) {
+      if (stopVibrationRef.current) break; // Stop vibration if stopVibrationRef becomes true
+      console.log("inggg"); // Log vibration step
+      await Haptics.vibrate({ duration });
+      await new Promise(resolve => setTimeout(resolve, interval));
+    }
+
+    console.log("Vibration ended"); // Log vibration end
+    setIsVibrating(false);
   };
 
-  //Aktullisierung der Uhrzeit
+  // Update clock
   useEffect(() => {
     const intervalId = setInterval(() => {
-      if (!isCountdownActive ) {
+      if (!isCountdownActive) {
         setCurrentDateTime(new Date());
       }
     }, 1000);
-    return () => {
-      if (intervalId !== null) {
-        clearInterval(intervalId);
-      }
-    };
-  }, []);
+    return () => clearInterval(intervalId);
+  }, [isCountdownActive]);
 
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     setIsTimeout(true); // Set isTimeout to true after 60 seconds
-  //   }, 60000);
-
-  //   return () => {
-  //     clearTimeout(timeoutId);
-  //   };
-  // }, []);
-
+  // Update timer/countdown, handle vibration
   useEffect(() => {
     if (timerRunning && currentButton === "Timer") {
       const intervalId = setInterval(() => {
@@ -63,9 +65,10 @@ function MyTimer() {
           if (prevCountdownTime <= 1) {
             setIsCountdownActive(false);
             setTimerRunning(false);
-            setIsTimeout(true)
+            setIsTimeout(true);
             setIsRinging(true);
-            console.log("Timeout")
+            console.log("Timeout");
+            vibrationOn();
             return 0;
           }
           return prevCountdownTime - 1;
@@ -75,27 +78,44 @@ function MyTimer() {
     }
   }, [timerRunning, currentButton, isCountdownActive, countdownTime]);
 
+  // Clear vibration timeout on unmount
   useEffect(() => {
     if (isTimeout) {
-      vibrationOn(); // Start vibration when timeout occurs
+      // Set timeout to stop vibration after 30 seconds
+      vibrationTimeoutRef.current = setTimeout(() => {
+        stopVibrationRef.current = true;
+        setIsVibrating(false);
+      }, 30000);
     }
+
+    // Clear timeout if component unmounts
+    return () => {
+      if (vibrationTimeoutRef.current) {
+        clearTimeout(vibrationTimeoutRef.current);
+      }
+    };
   }, [isTimeout]);
 
   function handleClick(clickedButton: string) {
+    const duration = 100;
     setCurrentDateTime(new Date());
-    vibrationOn();
+    stopVibrationRef.current = true; // Stop vibration on any button click
+
+    console.log("Button clicked"); // Log button click
+    Haptics.vibrate({ duration });
+
     if (clickedButton === "Timer") {
       setCurrentButton("Timer");
       setElapsedTime(0); // Reset timer
       setCountdownTime(0);
       setIsCountdownActive(false);
       setTimerRunning(false);
-      setIsTriggered(!isTriggered)
-      setIsTimeout(false)
+      setIsTriggered(!isTriggered);
+      setIsTimeout(false);
       setIsRinging(false);
     } else if (clickedButton === "ST/SP" && isTriggered) {
       setTimerRunning(!timerRunning); // Toggle timer
-      setIsTimeout(false)
+      setIsTimeout(false);
       setIsRinging(false);
     } else if (clickedButton === "Time" && !timerRunning && !isTriggered) {
       setCurrentButton("Time");
@@ -154,64 +174,55 @@ function MyTimer() {
                 </IonButton>
               </IonRow>
             </IonCol>
-              <IonCol sizeXs="9.5" sizeMd="9" sizeLg="6" sizeXl="10">
-                <IonItem className="responsive-item" lines="none">
-                  <IonLabel className="ion-text-center">
-                    <div className="my-display">
-                      {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
-                        currentButton === "Date" ? formatDate(new Date()) :
-                          currentButton === "Timer" ? `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}` :
-                            `${String(Math.floor(countdownTime / 3600)).padStart(2, '0')}:${String(Math.floor((countdownTime % 3600) / 60)).padStart(2, '0')}:${String(countdownTime % 60).padStart(2, '0')}`}
-                    </div>
-                  </IonLabel>
-                </IonItem>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <IonCol sizeXs="3" sizeMd="3" sizeLg="1" sizeXl="2">
-                <IonButton 
-                style={{ paddingLeft: isLargeScreen && !isXLargeScreen? "2px" :"default" }}
-                  onClick={() => handleClick("Timer")} color={isTriggered ? "danger" : "success"} fill="solid" size={isLargeScreen ? 'large' : 'default'}>
-                  Timer
-                </IonButton>
-              </IonCol>
-              
-              <IonCol sizeXs="2" sizeMd="2" sizeLg="4" sizeXl="2.8">
-                <IonButton shape="round" color={timerRunning ? "danger" : "success"} size={isLargeScreen ? 'large' : 'default'} fill="solid" 
-                onClick={() => handleClick("ST/SP")} style={{ width:isXLargeScreen? "100%":"100%", paddingLeft:isXLargeScreen?"60px":"default" }}>
-                  {timerRunning ? "SP" : "ST"}
-                </IonButton>
-              </IonCol>
-              <IonCol sizeXs="2" sizeMd="2" sizeLg="4" sizeXl="1.8">
-                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} 
-                style={{ width: isLargeButton?"90%":"100%", paddingLeft:isXLargeScreen?"10px":"default"}} onClick={() => handleClick("1H")}>
-                  1H
-                </IonButton>
-              </IonCol>
-              <IonCol sizeXs="2" sizeMd="2" sizeLg="3" sizeXl="1.8">
-                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} 
-                style={{ width: isLargeButton?"90%":"100%", paddingLeft: isXLargeScreen?"10px":"default"}} onClick={() => handleClick("5M")}>
-                  5M
-                </IonButton>
-              </IonCol>
-              <IonCol sizeXs="2" sizeMd="2" sizeLg="3" sizeXl="1.8">
-                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} 
-                style={{ width: isLargeButton?"90%":"100%", paddingLeft:isXLargeScreen?"10px":"default"}} onClick={() => handleClick("1M")}>
-                  1M
-                </IonButton>
-              </IonCol>
-              <IonCol className="md ion-hide-sm-down" sizeXs="1" sizeMd="1" sizeLg="3" sizeXl="1.8">
-                <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} 
-                style={{ width: isLargeButton?"90%":"110%", paddingLeft:isXLargeScreen?"10px":"default" }} onClick={() => handleClick("5S")}>
-                  5S
-                </IonButton>
-              </IonCol>
-              
-            </IonRow>
-          {/* </IonRow> */}
+            <IonCol sizeXs="9.5" sizeMd="9" sizeLg="6" sizeXl="10">
+              <IonItem className="responsive-item" lines="none">
+                <IonLabel className="ion-text-center">
+                  <div className="my-display">
+                    {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
+                      currentButton === "Date" ? formatDate(new Date()) :
+                        currentButton === "Timer" ? `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}` :
+                          `${String(Math.floor(countdownTime / 3600)).padStart(2, '0')}:${String(Math.floor((countdownTime % 3600) / 60)).padStart(2, '0')}:${String(countdownTime % 60).padStart(2, '0')}`}
+                  </div>
+                </IonLabel>
+              </IonItem>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol sizeXs="3" sizeMd="3" sizeLg="1" sizeXl="2">
+              <IonButton
+                style={{ paddingLeft: isLargeScreen && !isXLargeScreen ? "2px" : "default" }}
+                onClick={() => handleClick("Timer")} color={isTriggered ? "danger" : "success"} fill="solid" size={isLargeScreen ? 'large' : 'default'}>
+                Timer
+              </IonButton>
+            </IonCol>
+            <IonCol sizeXs="2" sizeMd="2" sizeLg="4" sizeXl="2.8">
+              <IonButton shape="round" color={timerRunning ? "danger" : "success"} size={isLargeScreen ? 'large' : 'default'} fill="solid"
+                onClick={() => handleClick("ST/SP")} style={{ width: isXLargeScreen ? "100%" : "100%", paddingLeft: isXLargeScreen ? "60px" : "default" }}>
+                {timerRunning ? "SP" : "ST"}
+              </IonButton>
+            </IonCol>
+            <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8">
+              <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("1H")}>
+                1H
+              </IonButton>
+            </IonCol>
+            <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8">
+              <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("5M")}>
+                5M
+              </IonButton>
+            </IonCol>
+            <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8">
+              <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("1M")}>
+                1M
+              </IonButton>
+            </IonCol>
+            <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8">
+              <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("5S")}>
+                5S
+              </IonButton>
+            </IonCol>
+          </IonRow>
         </IonGrid>
-        <MyVibration isTimeout={isTimeout} />
-        <MySound isTimeout={isTimeout} />
       </IonContent>
     </IonPage>
   );
