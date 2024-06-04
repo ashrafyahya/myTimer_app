@@ -1,20 +1,29 @@
 import { useEffect, useRef } from 'react';
 
-const useSound = (soundUrl: string | undefined) => {
-  const audioRef = useRef(new Audio(soundUrl));
+const useSound = (soundUrl?: string) => { // Allow soundUrl to be optional
+  const audioRef = useRef<HTMLAudioElement | null>(null); // Use HTMLAudioElement type
 
   useEffect(() => {
+    // Create the audio element only if soundUrl is provided
+    if (soundUrl) {
+      audioRef.current = new Audio(soundUrl);
+    }
+
     return () => {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0; // Reset playback position
+      }
     };
-  }, []);
+  }, [soundUrl]); // Re-create audio element if soundUrl changes
 
   const play = () => {
-    audioRef.current.play();
+    console.log("Playing sound...");
+    audioRef.current?.play(); // Use optional chaining to handle null
   };
 
   const stop = () => {
+    if (!audioRef.current) return; // Early return if audioRef is null
     audioRef.current.pause();
     audioRef.current.currentTime = 0;
   };

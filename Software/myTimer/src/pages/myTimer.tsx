@@ -1,48 +1,46 @@
-import { Haptics } from '@capacitor/haptics'; // Import Haptics from Capacitor
+import { Haptics } from '@capacitor/haptics';
 import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useMediaQuery } from '@react-hook/media-query';
 import { useEffect, useRef, useState } from 'react';
 import './myTimer.css';
+import useSound from './useSound'; // Import the useSound hook
 
 function MyTimer() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
-  const [elapsedTime, setElapsedTime] = useState(0); // Time in seconds
+  const [elapsedTime, setElapsedTime] = useState(0);
   const [currentButton, setCurrentButton] = useState("Time");
   const [timerRunning, setTimerRunning] = useState(false);
-  const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
-  const isLargeButton = useMediaQuery('only screen and (min-width: 1023px)');
-  const isXLargeScreen = useMediaQuery('only screen and (min-width: 1500px)');
-  const [countdownTime, setCountdownTime] = useState(0); // Total countdown time in seconds
+  const [countdownTime, setCountdownTime] = useState(0);
   const [isCountdownActive, setIsCountdownActive] = useState(false);
   const [isTriggered, setIsTriggered] = useState(false);
   const [isTimeout, setIsTimeout] = useState(false);
-  const [isRinging, setIsRinging] = useState(false);
-  const [isVibrating, setIsVibrating] = useState(false); // State to track if vibrating
-  const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null); // Ref to hold the timeout for vibration
+  const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
+  const isXLargeScreen = useMediaQuery('only screen and (min-width: 1500px)');
+  const [isVibrating, setIsVibrating] = useState(false);
+  const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const stopVibrationRef = useRef(false);
 
+  const ringingSound = useSound('C:\\Users\\dell\\Programming\\eigeneProjekte\\Software\\myTimer\\dist\\assets/ringing-sound.mp3'); // Import and use the useSound hook
+
   const vibrationOn = async () => {
-    const duration = 300; // Each vibration duration in milliseconds
-    const interval = 100; // Interval between vibrations in milliseconds
-    const totalVibrationTime = 30000; // Total vibration time in milliseconds
+    const duration = 300;
+    const interval = 100;
+    const totalVibrationTime = 30000;
     const repetitions = Math.ceil(totalVibrationTime / (duration + interval));
 
     setIsVibrating(true);
     stopVibrationRef.current = false;
-    console.log("Vibration started"); // Log vibration start
+    ringingSound.play(); // Play sound when vibration starts
 
     for (let i = 0; i < repetitions; i++) {
-      if (stopVibrationRef.current) break; // Stop vibration if stopVibrationRef becomes true
-      console.log("inggg"); // Log vibration step
+      if (stopVibrationRef.current) break;
       await Haptics.vibrate({ duration });
       await new Promise(resolve => setTimeout(resolve, interval));
     }
 
-    console.log("Vibration ended"); // Log vibration end
     setIsVibrating(false);
   };
 
-  // Update clock
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (!isCountdownActive) {
@@ -52,7 +50,6 @@ function MyTimer() {
     return () => clearInterval(intervalId);
   }, [isCountdownActive]);
 
-  // Update timer/countdown, handle vibration
   useEffect(() => {
     if (timerRunning && currentButton === "Timer") {
       const intervalId = setInterval(() => {
@@ -66,7 +63,6 @@ function MyTimer() {
             setIsCountdownActive(false);
             setTimerRunning(false);
             setIsTimeout(true);
-            setIsRinging(true);
             console.log("Timeout");
             vibrationOn();
             return 0;
@@ -78,17 +74,14 @@ function MyTimer() {
     }
   }, [timerRunning, currentButton, isCountdownActive, countdownTime]);
 
-  // Clear vibration timeout on unmount
   useEffect(() => {
     if (isTimeout) {
-      // Set timeout to stop vibration after 30 seconds
       vibrationTimeoutRef.current = setTimeout(() => {
         stopVibrationRef.current = true;
         setIsVibrating(false);
       }, 30000);
     }
 
-    // Clear timeout if component unmounts
     return () => {
       if (vibrationTimeoutRef.current) {
         clearTimeout(vibrationTimeoutRef.current);
@@ -99,24 +92,22 @@ function MyTimer() {
   function handleClick(clickedButton: string) {
     const duration = 100;
     setCurrentDateTime(new Date());
-    stopVibrationRef.current = true; // Stop vibration on any button click
+    stopVibrationRef.current = true;
 
-    console.log("Button clicked"); // Log button click
+    console.log("Button clicked");
     Haptics.vibrate({ duration });
 
     if (clickedButton === "Timer") {
       setCurrentButton("Timer");
-      setElapsedTime(0); // Reset timer
+      setElapsedTime(0);
       setCountdownTime(0);
       setIsCountdownActive(false);
       setTimerRunning(false);
       setIsTriggered(!isTriggered);
       setIsTimeout(false);
-      setIsRinging(false);
     } else if (clickedButton === "ST/SP" && isTriggered) {
-      setTimerRunning(!timerRunning); // Toggle timer
+      setTimerRunning(!timerRunning);
       setIsTimeout(false);
-      setIsRinging(false);
     } else if (clickedButton === "Time" && !timerRunning && !isTriggered) {
       setCurrentButton("Time");
     } else if (clickedButton === "Date" && !timerRunning && !isTriggered) {
@@ -125,22 +116,22 @@ function MyTimer() {
       setCurrentButton("1H");
       setCountdownTime(prevElapsedTime => prevElapsedTime + 3600);
       setIsCountdownActive(true);
-      setTimerRunning(false); // Ensure timer is not running until ST is clicked
+      setTimerRunning(false);
     } else if (clickedButton === "5M" && !timerRunning && isTriggered) {
       setCurrentButton("5M");
       setCountdownTime(prevElapsedTime => prevElapsedTime + 300);
       setIsCountdownActive(true);
-      setTimerRunning(false); // Ensure timer is not running until ST is clicked
+      setTimerRunning(false);
     } else if (clickedButton === "1M" && !timerRunning && isTriggered) {
       setCurrentButton("1M");
       setCountdownTime(prevElapsedTime => prevElapsedTime + 60);
       setIsCountdownActive(true);
-      setTimerRunning(false); // Ensure timer is not running until ST is clicked
+      setTimerRunning(false);
     } else if (clickedButton === "5S" && !timerRunning && isTriggered) {
       setCurrentButton("5S");
       setCountdownTime(prevElapsedTime => prevElapsedTime + 5);
       setIsCountdownActive(true);
-      setTimerRunning(false); // Ensure timer is not running until ST is clicked
+      setTimerRunning(false);
     }
   }
 
@@ -229,3 +220,4 @@ function MyTimer() {
 }
 
 export default MyTimer;
+

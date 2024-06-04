@@ -33,9 +33,18 @@ $npx cap run android
 
 npm run build
 
-# TODO nächst:
-### Icon vergeben
-### Auf Cloud stellen
-### App-Responsivität prüfen
-### App Cloudsweise aktuallisieren
-### Vibration und Sound mitbauen
+# TODO next:
+### Add Icon
+### Upload app into Cloud
+### Check App-Responsivity
+### Uopdating App using claud
+### Add vibration and Sound
+
+# New Tasks
+### Display time when is timer done
+### count the seted work hours
+### Side menue
+### Switch language
+### Modal for news
+### List for background's colors
+
