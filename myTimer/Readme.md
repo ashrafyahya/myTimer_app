@@ -19,7 +19,7 @@ $npx cap add android
 $npx cap open android //open in android studio
 
 
-//run the project on a device or emulator  
+run the project on a device or emulator  
 $ionic integrations enable capacitor
 $npx cap init [appName] [appId]
 then
