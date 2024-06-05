@@ -1,0 +1,3 @@
+Name:	myTimer
+Icon:	attached
+Logo:	open for suggesstions!

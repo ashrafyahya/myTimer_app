@@ -1,14 +1,16 @@
+# This Repo is for learinging purposes and practicing App devloping
+ 
 # Installation und Nutzung von Ionic mit React
 
-## Bevor Sie beginnen, stellen Sie sicher, dass die folgenden Tools auf Ihrem System installiert sind:
-- [Node.js](https://nodejs.org/) (Version 12.x oder höher)
-- [npm](https://www.npmjs.com/) (Node Package Manager, normalerweise mit Node.js installiert)
+## Before start working on ionic project be sure you have installed the following:
+- [Node.js](https://nodejs.org/) (Version 12.x or higher)
+- [npm](https://www.npmjs.com/) (Node Package Manager, usually isntalled with Node.js)
 
-## Installation von Ionic CLI
+## Installation of Ionic CLI
 $npm install -g @ionic/cli
 $npm install @capacitor/android
 
-## Projekt starten
+## Starting a Projekt
 $cd myTimer
 $ionic build
 $ionic serve
