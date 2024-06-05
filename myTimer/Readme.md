@@ -4,7 +4,7 @@
 - [Node.js](https://nodejs.org/) (Version 12.x or higher)
 - [npm](https://www.npmjs.com/) (Node Package Manager, usually isntalled with Node.js)
 
-<a id="tasks"></a> ## Jump to Tasks
+[Jump to Tasks:](#tasks) 
 
 ## Installation of Ionic CLI
 $npm install -g @ionic/cli
@@ -51,7 +51,8 @@ $npx cap add @capacitor/haptics      //Plugin for vibration --> use it pls
 $npm install cordova-plugin-media        //Plugin for media or use following command
 
 
-# [TODO next:](#tasks) 
+<a id="tasks"></a> 
+# TODO next:
 ## Notice: Doing tasks should be in seperate branches. Pls do not make changes in main branch.
 
 ### Add Icon                    =====> Ashraf   =====>WIP
