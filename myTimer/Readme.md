@@ -4,7 +4,7 @@
 - [Node.js](https://nodejs.org/) (Version 12.x or higher)
 - [npm](https://www.npmjs.com/) (Node Package Manager, usually isntalled with Node.js)
 
-<a id="tasks"></a> ## Jump to Tasks
+<a id="tasks">## Jump to Tasks</a> 
 
 ## Installation of Ionic CLI
 $npm install -g @ionic/cli
