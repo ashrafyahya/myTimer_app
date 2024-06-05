@@ -33,14 +33,14 @@ or
 $npx cap run android
 
 
-npm run build
+$npm run build
 
 # TODO next:
-### Add Icon
-### Upload app into Cloud
-### Check App-Responsivity
+### Add Icon                    =====> Ashraf
+### Upload app into Cloud       =====> Ashraf
+### Check App-Responsivity      =====> Ashraf
 ### Uopdating App using claud
-### Add vibration and Sound
+### Add vibration and Sound     =====> Ashraf
 
 # New Tasks
 ### Display time when is timer done
@@ -49,4 +49,6 @@ npm run build
 ### Switch language
 ### Modal for news
 ### List for background's colors
+### Share Button or at least copy downloading link
+
 
