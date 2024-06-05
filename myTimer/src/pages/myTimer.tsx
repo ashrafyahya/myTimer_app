@@ -3,7 +3,6 @@ import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, I
 import { useMediaQuery } from '@react-hook/media-query';
 import { useEffect, useRef, useState } from 'react';
 import './myTimer.css';
-import useSound from './useSound'; // Import the useSound hook
 
 function MyTimer() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -20,7 +19,7 @@ function MyTimer() {
   const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const stopVibrationRef = useRef(false);
 
-  const ringingSound = useSound('C:\\Users\\dell\\Programming\\eigeneProjekte\\Software\\myTimer\\dist\\assets/ringing-sound.mp3'); // Import and use the useSound hook
+  // const ringingSound = useSound('dist\\assets/ringing-sound.mp3'); // Import and use the useSound hook
 
   const vibrationOn = async () => {
     const duration = 300;
@@ -30,7 +29,7 @@ function MyTimer() {
 
     setIsVibrating(true);
     stopVibrationRef.current = false;
-    ringingSound.play(); // Play sound when vibration starts
+    // ringingSound.play(); // Play sound when vibration starts
 
     for (let i = 0; i < repetitions; i++) {
       if (stopVibrationRef.current) break;
