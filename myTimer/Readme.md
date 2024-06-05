@@ -1,4 +1,4 @@
-# Installation und Nutzung von Ionic mit React
+# Installation and using von Ionic mit React
 
 ## Before start working on ionic project be sure you have installed the following:
 - [Node.js](https://nodejs.org/) (Version 12.x or higher)
