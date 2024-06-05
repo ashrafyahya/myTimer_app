@@ -1,5 +1,3 @@
-# This Repo is for learinging purposes and practicing App devloping
- 
 # Installation und Nutzung von Ionic mit React
 
 ## Before start working on ionic project be sure you have installed the following:
