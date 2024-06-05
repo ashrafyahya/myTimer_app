@@ -34,6 +34,8 @@ $npx cap run android
 $npm run build
 
 # TODO next:
+## Notice: Doing tasks should be in seperate branches. Pls do not make changes in main branch.
+
 ### Add Icon                    =====> Ashraf
 ### Upload app into Cloud       =====> Ashraf
 ### Check App-Responsivity      =====> Ashraf
