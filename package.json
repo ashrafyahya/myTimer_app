@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "cordova-plugin-media": "^7.0.0"
+  }
+}
