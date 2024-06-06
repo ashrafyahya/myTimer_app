@@ -60,12 +60,12 @@ $npm install cordova-plugin-media        //Plugin for media or use following com
 
 ## Notice: Doing tasks should be in seperate branches. Pls do not make changes in main branch.
 
-### ~~Add Icons                    =====> Ashraf   =====>WIP =====>Done~~  
-### Upload app into Cloud       =====> Ashraf  =====>WIP
-### Check App-Responsivity      =====> Ashraf  
+### ~~Add Icons                 =====> Ashraf       =====>WIP =====>Done~~  
+### Upload app into Cloud       =====> Ashraf       =====>WIP  
+### ~~Check App-Responsivity      =====> Ashraf       =====>WIP =====>Done~~  
 ### Uopdating App using claud  
-### ~~Add vibration               =====> Ashraf =====> Done~~
-### ~~Add Sound                   =====> Ashraf   =====>WIP =====> Done~~  
+### ~~Add vibration               =====> Ashraf     =====> Done~~  
+### ~~Add Sound                   =====> Ashraf     =====>WIP =====> Done~~  
 
 
 # New Tasks

@@ -1,421 +1,191 @@
-/* myTimer.css */
-.my-display {
-  padding: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-@media (min-width: 344px) {
-  .my-display {
-    padding: 10px;
-    padding-right: 30px;
-    padding-left: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-}
-
-@media (min-width: 912px) {
-  .my-display {
-    padding: 10px;
-    padding-right: 50px;
-    padding-left: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-}
-
-@media (min-width: 360px)and (max-width: 740px) {
-  .my-display {
-    min-width: 200px;
-    max-width: 200px;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-}
-
-@media (min-width: 412px)and (max-width: 911px) {
-  .my-display {
-    font-size: 2.5rem;
-    max-width: 250px;
-    padding: 10px;
-    padding-right: 50px;
-    padding-left: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 0px;
-    height: 100%;
-  }
-}
-
-@media (min-width: 852px) {
-  .my-display {
-    min-width: 500px;
-    padding: 30px;
-    /* min-width: 700px; */
-    /* margin-left: 250px; */
-    padding-right: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3.5rem;
-    height: 100%;
-  }
-}
-
-@media (min-width: 1024px) {
-  .my-display {
-    min-width: 500px;
-    padding: 40px;
-    /* min-width: 700px; */
-    /* margin-left: 250px; */
-    padding-right: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3.5rem;
-    height: 100%;
-  }
-}
-
-@media (min-width: 1368px) {
-  .my-display {
-    min-width: 500px;
-    padding: 40px;
-    /* min-width: 700px; */
-    /* margin-left: 250px; */
-    /* padding-right: 250px; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3.5rem;
-    height: 100%;
-  }
-}
-
-.center-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-@media (min-width: 1368px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-@media (min-width: 912px) and (max-width: 1368px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-@media (min-width: 853px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-.custom-grid {
-  width: 60%;
-  height: 50%;
-  margin: auto;
-}
-
-@media screen and (max-width: 480px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-@media (min-width: 540px) and (max-width: 720px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-@media (min-width: 853px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-@media (min-width: 912px) and (max-width: 1368px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-@media (min-width: 1368px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-.center-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
+/* Update custom-content for Breakpoint.Xs */
+@media (min-width: 0px) and (max-width: 575px) {
 .custom-content {
-  width: 30%;
-  height: 35%;
-  margin: auto;
+  width: 95%;
+  /* height: 35%; */
+  /* min-width: auto; */
+  /* margin: auto; */
   background-color: #f0f0f0;
-  padding: 0.1%;
-  border-radius: 1%;
+  /* padding: 0.1%; */
+  border-radius: 2%;
   display: flex;
   flex-wrap: wrap;
-}
-
-@media screen and (max-width: 480px) {
-  .custom-content {
-    width: 30%;
-    height: 35%;
-    margin: auto;
-    background-color: #f0f0f0;
-    padding: 0.1%;
-    border-radius: 1%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .custom-content {
-    width: 95%;
-    height: 25%;
-    /* margin: auto; Zentriert den Inhalt horizontal */
-    background-color: #f0f0f0;
-    padding: 5px;
-    border-radius: 5%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media (min-width: 853px) {
-  .custom-content {
-    width: 95%;
-    height: 25%;
-    /* margin: auto; Zentriert den Inhalt horizontal */
-    /* margin-left: 100px; */
-    background-color: #f0f0f0;
-    padding: 5px;
-    border-radius: 5%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media (min-width: 412px) and (max-width: 915px) {
-  .custom-content {
-    width: 95%;
-    height: 20.5%;
-    margin-left: auto;
-    background-color: #f0f0f0;
-    padding: 0.3%;
-    border-radius: 1%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media (min-width: 540px) and (max-width: 720px) {
-  .custom-content {
-    width: 80%;
-    height: 28%;
-    margin: auto;
-    background-color: #f0f0f0;
-    padding: 2%;
-    border-radius: 1%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media screen and (min-width: 1023px) {
-  .custom-content {
-    width: 440%;
-    height: 40%;
-    background-color: #f0f0f0;
-    padding: 1%;
-    border-radius: 1%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media (min-width: 912px) and (max-width: 1368px) {
-  .custom-content {
-    width: 70%;
-    height: 20%;
-    background-color: #f0f0f0;
-    padding: 1%;
-    border-radius: 1%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media (min-width: 1368px) {
-  .custom-content {
-    width: 50%;
-    height: 45%;
-    background-color: #f0f0f0;
-    padding: .1%;
-    border-radius: 1%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-.responsive-item {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 10px;
+  align-items: center;
+  /* justify-content: center; */
   box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
 }
-
-@media (min-width: 300px) and (max-width: 768px) {
-  .responsive-item {
-    margin-left: 15px;
-    border: 1px solid #ccc;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
-    padding: 5px;
-    font-size: 2.4rem;
-    min-width: 205px;
-    color: bisque;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-  }
+.my-display {
+  /* padding: auto; */
+  /* margin-left: 10px; */
+  /* padding-right: 50%; */
+  /* padding-left: 50%; */
+  width:100%;
+  /* min-height: auto; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
-
-@media (min-width: 540px) and (max-width: 720px) {
   .responsive-item {
-    margin-left: 15px;
+    /* margin-left: 0%; */
+    /* margin-right: 0%; */
+    width:100%;
     border: 1px solid #ccc;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
-    padding: 5px;
+    padding: 2px;
     font-size: 2.4rem;
-    min-width: 205px;
+    /* min-width: 130%; */
+    /* max-width: 160%; */
     min-height: 100%;
     color: bisque;
     border: 1px solid #ccc;
     border-radius: 2px;
   }
+  }
+
+/* Update custom-content for Breakpoint.Sm (576-767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .custom-content {
+    width: 70%;
+    height: auto;
+    /* margin: auto; */
+    background-color: #f0f0f0;
+    /* padding: 0.1%; */
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+  }
+  .my-display {
+    padding: 5px;
+    /* padding-right: 30px; */
+    /* padding-left: 30px; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .responsive-item {
+    margin-left: 3%;
+    margin-right: 3%;
+    border: 1px solid #ccc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+    width:95%;
+    font-size: 2.4rem;
+    color: bisque;
+    border: 1px solid #ccc;
+    /* display: flex; */
+    border-radius: 2px;
+    /* align-items: center; */
+    /* justify-content: center; */
+  }
 }
 
-@media (min-width: 412px) and (max-width: 915px) {
+/* Update custom-content for Breakpoint.Md (768-991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .custom-content {
+    width: 90%;
+    height: auto;
+    margin: auto;
+    background-color: #f0f0f0;
+    /* padding: 0.1%; */
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+  }
+  .my-display {
+    padding: 10px;
+    /* padding-right: 50px; */
+    /* padding-left: 50px; */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
   .responsive-item {
     padding: 5px;
-    margin-right: 8%;
-    margin-left: 5%;
+    /* margin-right: 8%; */
+    /* margin-left: 5%; */
+    width: 100%;
     font-size: 3rem;
     border: 1px solid #ccc;
     border-radius: 1px;
   }
 }
 
-@media (min-width: 912px) and (max-width: 1368px) {
+/* Update custom-content for Breakpoint.Lg (992-1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .custom-content {
+    width: 90%;
+    height: auto;
+    /* margin: auto; */
+    background-color: #f0f0f0;
+    /* padding: 1%; */
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+  }
+  .my-display {
+    /* padding: 0px; */
+    padding-top: 6%;
+    padding-bottom: 6%;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
   .responsive-item {
-    min-width: 460px;
-    min-height: 50%;
+    /* min-width: 460px; */
+    /* min-height: 50%; */
+    width: 100%;
+    height: auto;
     padding: 2%;
-    /* margin-top: 20px; */
-    /* padding-right: 15px; */
-    font-size: 3rem;
+    font-size: 4rem;
     border: 1px solid #ccc;
     border-radius: 1px;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
 }
 
-@media (min-width: 915px) and (max-width: 1023px) {
-  .responsive-item {
-    padding: 8%;
-    font-size: 3rem;
-    border: 1px solid #ccc;
-    border-radius: 1px;
+/* Update custom-content for Breakpoint.Xl (1200px and above) */
+@media (min-width: 1200px) {
+  .custom-content {
+    width: 60%;
+    height: auto;
+    margin: auto;
+    background-color: #f0f0f0;
+    /* padding: 0.1%; */
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
-}
-
-@media (min-width: 1025px) {
+  .my-display {
+    padding: 10px;
+    /* padding-right: 50px; */
+    /* padding-left: 50px; */
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
   .responsive-item {
     padding: 2%;
-    margin-left: 10px;
-    /* margin-right: 10px; */
-    margin-bottom: 5px;
-    min-width: 605px;
-    font-size: 2rem;
+    /* margin-left: 10px; */
+    /* margin-bottom: 5px; */
+    /* min-width: 605px; */
+    width: 100%;
+    font-size: 4rem;
     border: 1px solid #ccc;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
