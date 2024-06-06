@@ -60,16 +60,16 @@ $npm install cordova-plugin-media        //Plugin for media or use following com
 
 ## Notice: Doing tasks should be in seperate branches. Pls do not make changes in main branch.
 
-### ~~Add Icons                    =====> Ashraf   =====>WIP =====>Done~~  
+### ~~Add Icons                    =====> Ashraf  =====>WIP =====>Done~~  
 ### Upload app into Cloud       =====> Ashraf  =====>WIP
 ### Check App-Responsivity      =====> Ashraf  
 ### Uopdating App using claud  
-### ~~Add vibration               =====> Ashraf =====> Done~~
-### ~~Add Sound                   =====> Ashraf   =====>WIP =====> Done~~  
+### ~~Add vibration               =====> Ashraf  =====> Done~~
+### ~~Add Sound                   =====> Ashraf  =====>WIP =====> Done~~  
 
 
 # New Tasks
-### Stop sound after a while like the vibration after 20s
+### Stop sound after a while like the vibration after 20s =====> Ashraf  =====>WIP =====>Done~~  
 ### Display time when timer is done
 ### count the seted work hours
 ### Side menue
