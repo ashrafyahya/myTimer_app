@@ -3,6 +3,7 @@ import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, I
 import { useMediaQuery } from '@react-hook/media-query';
 import { useEffect, useRef, useState } from 'react';
 import './myTimer.css';
+import MySound from './myAlaram';
 
 function MyTimer() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -16,10 +17,9 @@ function MyTimer() {
   const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
   const isXLargeScreen = useMediaQuery('only screen and (min-width: 1500px)');
   const [isVibrating, setIsVibrating] = useState(false);
+  const [isSoundStopped, setIsSoundStopped] = useState(false); // New state
   const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const stopVibrationRef = useRef(false);
-
-  // const ringingSound = useSound('dist\\assets/ringing-sound.mp3'); // Import and use the useSound hook
 
   const vibrationOn = async () => {
     const duration = 300;
@@ -29,7 +29,6 @@ function MyTimer() {
 
     setIsVibrating(true);
     stopVibrationRef.current = false;
-    // ringingSound.play(); // Play sound when vibration starts
 
     for (let i = 0; i < repetitions; i++) {
       if (stopVibrationRef.current) break;
@@ -62,6 +61,7 @@ function MyTimer() {
             setIsCountdownActive(false);
             setTimerRunning(false);
             setIsTimeout(true);
+            setIsSoundStopped(false); // Reset sound stopped state
             console.log("Timeout");
             vibrationOn();
             return 0;
@@ -71,7 +71,11 @@ function MyTimer() {
       }, 1000);
       return () => clearInterval(intervalId);
     }
-  }, [timerRunning, currentButton, isCountdownActive, countdownTime]);
+    if (isSoundStopped) {
+      setCurrentButton("");
+      setIsTriggered(false);
+    }
+  }, [timerRunning, currentButton, isCountdownActive, countdownTime, isSoundStopped]);
 
   useEffect(() => {
     if (isTimeout) {
@@ -106,7 +110,7 @@ function MyTimer() {
       setIsTimeout(false);
     } else if (clickedButton === "ST/SP" && isTriggered) {
       setTimerRunning(!timerRunning);
-      setIsTimeout(false);
+      // setIsTimeout(false);
     } else if (clickedButton === "Time" && !timerRunning && !isTriggered) {
       setCurrentButton("Time");
     } else if (clickedButton === "Date" && !timerRunning && !isTriggered) {
@@ -186,9 +190,9 @@ function MyTimer() {
               </IonButton>
             </IonCol>
             <IonCol sizeXs="2" sizeMd="2" sizeLg="4" sizeXl="2.8">
-              <IonButton shape="round" color={timerRunning ? "danger" : "success"} size={isLargeScreen ? 'large' : 'default'} fill="solid"
+              <IonButton shape="round" color={timerRunning && !isTimeout ? "danger" : "success"} size={isLargeScreen ? 'large' : 'default'} fill="solid"
                 onClick={() => handleClick("ST/SP")} style={{ width: isXLargeScreen ? "100%" : "100%", paddingLeft: isXLargeScreen ? "60px" : "default" }}>
-                {timerRunning ? "SP" : "ST"}
+                {timerRunning && !isTimeout ? "SP" : "ST"}
               </IonButton>
             </IonCol>
             <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8">
@@ -213,6 +217,7 @@ function MyTimer() {
             </IonCol>
           </IonRow>
         </IonGrid>
+        < MySound isTimeout={isTimeout} onSoundEnd={() => setIsSoundStopped(true)}></MySound>
       </IonContent>
     </IonPage>
   );
