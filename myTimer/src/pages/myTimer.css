@@ -1,240 +1,65 @@
-/* myTimer.css */
-.my-display {
-  padding: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-@media (min-width: 344px) {
-  .my-display {
-    padding: 10px;
-    padding-right: 30px;
-    padding-left: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-}
-
-@media (min-width: 912px) {
-  .my-display {
-    padding: 10px;
-    padding-right: 50px;
-    padding-left: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-}
-
-@media (min-width: 360px)and (max-width: 740px) {
-  .my-display {
-    min-width: 200px;
-    max-width: 200px;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-}
-
-@media (min-width: 412px)and (max-width: 911px) {
-  .my-display {
-    font-size: 2.5rem;
-    max-width: 250px;
-    padding: 10px;
-    padding-right: 50px;
-    padding-left: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 0px;
-    height: 100%;
-  }
-}
-
-@media (min-width: 852px) {
-  .my-display {
-    min-width: 500px;
-    padding: 30px;
-    /* min-width: 700px; */
-    /* margin-left: 250px; */
-    padding-right: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3.5rem;
-    height: 100%;
-  }
-}
-
-@media (min-width: 1024px) {
-  .my-display {
-    min-width: 500px;
-    padding: 40px;
-    /* min-width: 700px; */
-    /* margin-left: 250px; */
-    padding-right: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3.5rem;
-    height: 100%;
-  }
-}
-
-@media (min-width: 1368px) {
-  .my-display {
-    min-width: 500px;
-    padding: 40px;
-    /* min-width: 700px; */
-    /* margin-left: 250px; */
-    /* padding-right: 250px; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3.5rem;
-    height: 100%;
-  }
-}
-
-.center-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
-@media (min-width: 1368px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-@media (min-width: 912px) and (max-width: 1368px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-@media (min-width: 853px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-.custom-grid {
-  width: 60%;
-  height: 50%;
-  margin: auto;
-}
-
-@media screen and (max-width: 480px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-@media (min-width: 540px) and (max-width: 720px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-@media (min-width: 853px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-@media (min-width: 912px) and (max-width: 1368px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-@media (min-width: 1368px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-.center-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-
+/* Update custom-content for Breakpoint.Xs */
+@media (min-width: 0px) and (max-width: 575px) {
 .custom-content {
-  width: 30%;
-  height: 35%;
-  margin: auto;
+  /* width: 40%; */
+  /* height: 35%; */
+  /* min-width: auto; */
+  /* margin: auto; */
   background-color: #f0f0f0;
-  padding: 0.1%;
-  border-radius: 1%;
+  /* padding: 0.1%; */
+  border-radius: 2%;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  /* justify-content: center; */
+}
 }
 
-@media screen and (max-width: 480px) {
+/* Update custom-grid for Breakpoint.Xs */
+@media (min-width: 0px) and (max-width: 575px) {
+.custom-grid {
+  width: 95%;
+  height: auto;
+  margin: auto;
+}
+}
+
+/* Update my-display for Breakpoint.Xs */
+@media (min-width: 0px) and (max-width: 575px) {
+.my-display {
+  /* padding: auto; */
+  /* margin-left: 10px; */
+  /* padding-right: 50%; */
+  /* padding-left: 50%; */
+  min-width:270px;
+  min-height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+}
+
+/* Update responsive-item for Breakpoint.Xs */
+@media (min-width: 0px) and (max-width: 575px) {
+  .responsive-item {
+    /* margin-left: 0%; */
+    /* margin-right: 0%; */
+    border: 1px solid #ccc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+    font-size: 2.4rem;
+    /* min-width: 130%; */
+    /* max-width: 160%; */
+    min-height: 100%;
+    color: bisque;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+  }
+  }
+
+/* Update custom-content for Breakpoint.Sm (576-767px) */
+@media (min-width: 576px) and (max-width: 767px) {
   .custom-content {
     width: 30%;
     height: 35%;
@@ -247,117 +72,30 @@
   }
 }
 
-@media screen and (max-width: 768px) {
-  .custom-content {
-    width: 95%;
-    height: 25%;
-    /* margin: auto; Zentriert den Inhalt horizontal */
-    background-color: #f0f0f0;
-    padding: 5px;
-    border-radius: 5%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media (min-width: 853px) {
-  .custom-content {
-    width: 95%;
-    height: 25%;
-    /* margin: auto; Zentriert den Inhalt horizontal */
-    /* margin-left: 100px; */
-    background-color: #f0f0f0;
-    padding: 5px;
-    border-radius: 5%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media (min-width: 412px) and (max-width: 915px) {
-  .custom-content {
-    width: 95%;
-    height: 20.5%;
-    margin-left: auto;
-    background-color: #f0f0f0;
-    padding: 0.3%;
-    border-radius: 1%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media (min-width: 540px) and (max-width: 720px) {
-  .custom-content {
-    width: 80%;
-    height: 28%;
+/* Update custom-grid for Breakpoint.Sm (576-767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .custom-grid {
+    width: 60%;
+    height: 50%;
     margin: auto;
-    background-color: #f0f0f0;
-    padding: 2%;
-    border-radius: 1%;
+  }
+}
+
+/* Update my-display for Breakpoint.Sm (576-767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .my-display {
+    padding: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
   }
 }
 
-@media screen and (min-width: 1023px) {
-  .custom-content {
-    width: 440%;
-    height: 40%;
-    background-color: #f0f0f0;
-    padding: 1%;
-    border-radius: 1%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media (min-width: 912px) and (max-width: 1368px) {
-  .custom-content {
-    width: 70%;
-    height: 20%;
-    background-color: #f0f0f0;
-    padding: 1%;
-    border-radius: 1%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-@media (min-width: 1368px) {
-  .custom-content {
-    width: 50%;
-    height: 45%;
-    background-color: #f0f0f0;
-    padding: .1%;
-    border-radius: 1%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-
-.responsive-item {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
-}
-
-@media (min-width: 300px) and (max-width: 768px) {
-  .responsive-item {
-    margin-left: 15px;
-    border: 1px solid #ccc;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
-    padding: 5px;
-    font-size: 2.4rem;
-    min-width: 205px;
-    color: bisque;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-  }
-}
-
-@media (min-width: 540px) and (max-width: 720px) {
+/* Update responsive-item for Breakpoint.Sm (576-767px) */
+@media (min-width: 576px) and (max-width: 767px) {
   .responsive-item {
     margin-left: 15px;
     border: 1px solid #ccc;
@@ -372,7 +110,45 @@
   }
 }
 
-@media (min-width: 412px) and (max-width: 915px) {
+
+/* Update custom-content for Breakpoint.Md (768-991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .custom-content {
+    width: 30%;
+    height: 35%;
+    margin: auto;
+    background-color: #f0f0f0;
+    padding: 0.1%;
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+/* Update custom-grid for Breakpoint.Md (768-991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .custom-grid {
+    width: 60%;
+    height: 50%;
+    margin: auto;
+  }
+}
+
+/* Update my-display for Breakpoint.Md (768-991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .my-display {
+    padding: 10px;
+    padding-right: 50px;
+    padding-left: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+/* Update responsive-item for Breakpoint.Md (768-991px) */
+@media (min-width: 768px) and (max-width: 991px) {
   .responsive-item {
     padding: 5px;
     margin-right: 8%;
@@ -383,13 +159,48 @@
   }
 }
 
-@media (min-width: 912px) and (max-width: 1368px) {
+/* Update custom-content for Breakpoint.Lg (992-1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .custom-content {
+    width: 30%;
+    height: 35%;
+    margin: auto;
+    background-color: #f0f0f0;
+    padding: 0.1%;
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+/* Update custom-grid for Breakpoint.Lg (992-1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .custom-grid {
+    width: 60%;
+    height: 50%;
+    margin: auto;
+  }
+}
+
+/* Update my-display for Breakpoint.Lg (992-1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .my-display {
+    padding: 10px;
+    padding-right: 50px;
+    padding-left: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+/* Update responsive-item for Breakpoint.Lg (992-1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
   .responsive-item {
     min-width: 460px;
     min-height: 50%;
     padding: 2%;
-    /* margin-top: 20px; */
-    /* padding-right: 15px; */
     font-size: 3rem;
     border: 1px solid #ccc;
     border-radius: 1px;
@@ -399,24 +210,106 @@
   }
 }
 
-@media (min-width: 915px) and (max-width: 1023px) {
-  .responsive-item {
-    padding: 8%;
-    font-size: 3rem;
-    border: 1px solid #ccc;
-    border-radius: 1px;
+/* Update custom-content for Breakpoint.Xl (1200px and above) */
+@media (min-width: 1200px) {
+  .custom-content {
+    width: 30%;
+    height: 35%;
+    margin: auto;
+    background-color: #f0f0f0;
+    padding: 0.1%;
+    border-radius: 1%;
+    display: flex;
+    flex-wrap: wrap;
   }
 }
 
-@media (min-width: 1025px) {
+/* Update custom-grid for Breakpoint.Xl (1200px and above) */
+@media (min-width: 1200px) {
+  .custom-grid {
+    width: 60%;
+    height: 50%;
+    margin: auto;
+  }
+}
+
+/* Update my-display for Breakpoint.Xl (1200px and above) */
+@media (min-width: 1200px) {
+  .my-display {
+    padding: 10px;
+    padding-right: 50px;
+    padding-left: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+/* Update responsive-item for Breakpoint.Xl (1200px and above) */
+@media (min-width: 1200px) {
   .responsive-item {
     padding: 2%;
     margin-left: 10px;
-    /* margin-right: 10px; */
     margin-bottom: 5px;
     min-width: 605px;
     font-size: 2rem;
     border: 1px solid #ccc;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/* For Breakpoint.Xs (max-width: 575px) */
+@media (max-width: 575px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+/* For Breakpoint.Sm (min-width: 576px) and (max-width: 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+/* For Breakpoint.Md (min-width: 768px) and (max-width: 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+/* For Breakpoint.Lg (min-width: 992px) and (max-width: 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+/* For Breakpoint.Xl (min-width: 1200px) */
+@media (min-width: 1200px) {
+  .center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
   }
 }

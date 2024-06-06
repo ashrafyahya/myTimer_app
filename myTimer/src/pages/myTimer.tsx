@@ -1,9 +1,10 @@
 import { Haptics } from '@capacitor/haptics';
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useMediaQuery } from '@react-hook/media-query';
 import { useEffect, useRef, useState } from 'react';
-import './myTimer.css';
 import MySound from './myAlaram';
+import './myTimer.css';
+import { useResponsiveBreakpoints } from './useResponsiveBreakpoints';
 
 function MyTimer() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -20,6 +21,10 @@ function MyTimer() {
   const [isSoundStopped, setIsSoundStopped] = useState(false); // New state
   const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const stopVibrationRef = useRef(false);
+  // const currentBreakpoint = useResponsiveBreakpoints();
+
+  const width = 768; // Beispielwert für die Bildschirmbreite
+  const tableClass = useResponsiveBreakpoints(width);
 
   const vibrationOn = async () => {
     const duration = 300;
@@ -52,6 +57,12 @@ function MyTimer() {
     if (timerRunning && currentButton === "Timer") {
       const intervalId = setInterval(() => {
         setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
+      }, 1000);
+      return () => clearInterval(intervalId);
+    } else if (timerRunning && currentButton === "Reset") {
+      const intervalId = setInterval(() => {
+        setElapsedTime(0);
+        setCurrentButton("Timer")
       }, 1000);
       return () => clearInterval(intervalId);
     } else if (timerRunning && isCountdownActive && countdownTime > 0) {
@@ -113,7 +124,14 @@ function MyTimer() {
       // setIsTimeout(false);
     } else if (clickedButton === "Time" && !timerRunning && !isTriggered) {
       setCurrentButton("Time");
-    } else if (clickedButton === "Date" && !timerRunning && !isTriggered) {
+    } else if (clickedButton === "Reset" && isTriggered) {
+      setCurrentButton("Reset");
+      setIsCountdownActive(false);
+      setTimerRunning(!timerRunning);
+      setCountdownTime(0);
+      setElapsedTime(0);
+      setIsTimeout(false);
+    }else if (clickedButton === "Date" && !timerRunning && !isTriggered) {
       setCurrentButton("Date");
     } else if (clickedButton === "1H" && !timerRunning && isTriggered) {
       setCurrentButton("1H");
@@ -146,6 +164,7 @@ function MyTimer() {
     });
   };
 
+
   return (
     <IonPage>
       <IonHeader>
@@ -153,68 +172,80 @@ function MyTimer() {
           <IonTitle>My Timer</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent color="danger">
-        <IonGrid className="custom-grid custom-content center-grid" style={{ marginTop: "5%" }}>
+      <IonContent style={{ justifyContent: "center" }} color="danger">
+        <IonGrid className="custom-grid custom-content" style={{ marginTop: "5%", justifyContent: "center" }}>
           <IonRow>
-            <IonCol sizeXs="2.5" sizeMd="2" sizeLg="6" sizeXl="2">
-              <IonRow>
-                <IonButton size={isLargeScreen ? 'large' : 'default'} color="success" onClick={() => handleClick("Time")}>
-                  Time
-                </IonButton>
-              </IonRow>
-              <IonRow>
-                <IonButton size={isLargeScreen ? 'large' : 'default'} style={{ border: "1px solid #ccc", borderRadius: "10px" }} onClick={() => handleClick("Date")} color="success">
-                  Date
-                </IonButton>
-              </IonRow>
-            </IonCol>
-            <IonCol sizeXs="9.5" sizeMd="9" sizeLg="6" sizeXl="10">
-              <IonItem className="responsive-item" lines="none">
-                <IonLabel className="ion-text-center">
-                  <div className="my-display">
-                    {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
-                      currentButton === "Date" ? formatDate(new Date()) :
-                        currentButton === "Timer" ? `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}` :
-                          `${String(Math.floor(countdownTime / 3600)).padStart(2, '0')}:${String(Math.floor((countdownTime % 3600) / 60)).padStart(2, '0')}:${String(countdownTime % 60).padStart(2, '0')}`}
-                  </div>
-                </IonLabel>
-              </IonItem>
-            </IonCol>
+            {/* <IonCol sizeXs="9.5" sizeMd="9" sizeLg="6" sizeXl="10"> */}
+            <IonItem className="responsive-item" lines="none">
+              <IonLabel className="ion-text-center">
+                <div className="my-display">
+                  {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
+                    currentButton === "Date" ? formatDate(new Date()) :
+                      currentButton === "Timer" ? `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}` :
+                        `${String(Math.floor(countdownTime / 3600)).padStart(2, '0')}:${String(Math.floor((countdownTime % 3600) / 60)).padStart(2, '0')}:${String(countdownTime % 60).padStart(2, '0')}`}
+                </div>
+              </IonLabel>
+            </IonItem>
+            {/* </IonCol> */}
           </IonRow>
-          <IonRow>
-            <IonCol sizeXs="3" sizeMd="3" sizeLg="1" sizeXl="2">
+          <IonRow style={{ justifyContent: "center",  paddingTop:"20px" }}>
+            {/* <IonCol sizeXs="2.5" sizeMd="2" sizeLg="6" sizeXl="2"> */}
+            <IonRow>
+              <IonButton size={isLargeScreen ? 'large' : 'default'} color="success" onClick={() => handleClick("Time")}>
+                Time
+              </IonButton>
+              {/* </IonRow> */}
+              {/* <IonRow> */}
+              <IonButton size={isLargeScreen ? 'large' : 'default'} style={{ border: "1px solid #ccc", borderRadius: "10px" }} onClick={() => handleClick("Date")} color="success">
+                Date
+              </IonButton>
+              {/* </IonRow> */}
+              {/* </IonCol> */}
               <IonButton
                 style={{ paddingLeft: isLargeScreen && !isXLargeScreen ? "2px" : "default" }}
                 onClick={() => handleClick("Timer")} color={isTriggered ? "danger" : "success"} fill="solid" size={isLargeScreen ? 'large' : 'default'}>
                 Timer
               </IonButton>
-            </IonCol>
-            <IonCol sizeXs="2" sizeMd="2" sizeLg="4" sizeXl="2.8">
+            <IonButton
+              style={{ paddingLeft: isLargeScreen && !isXLargeScreen ? "2px" : "default" }}
+              onClick={() => handleClick("Reset")} color={"success"} fill="solid" size={isLargeScreen ? 'large' : 'default'}>
+              Reset
+            </IonButton>
+            </IonRow>
+            <IonRow style={{ justifyContent: "center"}}>
+              {/* <IonCol sizeXs="3" sizeMd="3" sizeLg="1" sizeXl="2"> */}
+
+              {/* </IonCol> */}
+              {/* <IonCol sizeXs="2" sizeMd="2" sizeLg="4" sizeXl="2.8"> */}
               <IonButton shape="round" color={timerRunning && !isTimeout ? "danger" : "success"} size={isLargeScreen ? 'large' : 'default'} fill="solid"
-                onClick={() => handleClick("ST/SP")} style={{ width: isXLargeScreen ? "100%" : "100%", paddingLeft: isXLargeScreen ? "60px" : "default" }}>
+                onClick={() => handleClick("ST/SP")} style={{ paddingLeft: isXLargeScreen ? "60px" : "default" }}>
                 {timerRunning && !isTimeout ? "SP" : "ST"}
               </IonButton>
-            </IonCol>
-            <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8">
+              {/* </IonCol> */}
+              {/* <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8"> */}
               <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("1H")}>
                 1H
               </IonButton>
-            </IonCol>
-            <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8">
+              {/* </IonCol> */}
+              {/* <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8"> */}
               <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("5M")}>
                 5M
               </IonButton>
-            </IonCol>
-            <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8">
+              {/* </IonCol> */}
+              {/* <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8"> */}
               <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("1M")}>
                 1M
               </IonButton>
-            </IonCol>
-            <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8">
-              <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("5S")}>
+              {/* </IonCol> */}
+              {/* <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8"> */}
+              <IonButton className='ion-hide-md-down' shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("5S")}>
                 5S
               </IonButton>
-            </IonCol>
+              <IonButton className='ion-hide-md-down' shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("1S")}>
+                1S
+              </IonButton>
+              {/* </IonCol> */}
+            </IonRow>
           </IonRow>
         </IonGrid>
         < MySound isTimeout={isTimeout} onSoundEnd={() => setIsSoundStopped(true)}></MySound>
