@@ -1,15 +1,15 @@
 // import { useEffect, useState } from 'react';
 // Draft, we dont use this currently, but is very important to learn
 
- enum Breakpoint {
+ export enum Breakpoint {
   Xs, // 0-576px
   Sm, // 576-768px
   Md, // 768-992px
   Lg, // 992-1200px
-  Xl  // >1200px
+  Xl,  // >1200px
 }
 export const useResponsiveBreakpoints = (width: number) => {
-  const getBreakpoint = (width: number) => {
+  // const getBreakpoint = (width: number) => {
     if (width < 576) {
       return Breakpoint.Xs;
     } else if (width < 768) {
@@ -21,32 +21,32 @@ export const useResponsiveBreakpoints = (width: number) => {
     } else {
       return Breakpoint.Xl;
     }
-  };
-
-  let tableClass = '';
-
-  switch (getBreakpoint(width)) {
-    case Breakpoint.Xs:
-      tableClass = 'responsive-xs';
-      break;
-    case Breakpoint.Sm:
-      tableClass = 'responsive-sm';
-      break;
-    case Breakpoint.Md:
-      tableClass = 'responsive-md';
-      break;
-    case Breakpoint.Lg:
-      tableClass = 'responsive-lg';
-      break;
-    case Breakpoint.Xl:
-      tableClass = 'responsive-xl';
-      break;
-    default:
-      tableClass = 'responsive-xs'; // Fallback für den kleinsten Breakpoint
-      break;
-  }
-
-  return tableClass;
+    return Breakpoint;
+  // };
+  // let tableClass = '';
+  // switch (getBreakpoint(width)) {
+  //   case Breakpoint.Xs:
+  //     tableClass = 'responsive-xs';
+  //     break;
+  //   case Breakpoint.Sm:
+  //     tableClass = 'responsive-sm';
+  //     break;
+  //   case Breakpoint.Md:
+  //     tableClass = 'responsive-md';
+  //     break;
+  //   case Breakpoint.Lg:
+  //     tableClass = 'responsive-lg';
+  //     break;
+  //   case Breakpoint.Xl:
+  //     tableClass = 'responsive-xl';
+  //     break;
+  //   default:
+  //     tableClass = 'responsive-xs'; // Fallback für den kleinsten Breakpoint
+  //     break;
+  // }
+  // return tableClass;
 };
 
-export default useResponsiveBreakpoints;
+// export default useResponsiveBreakpoints;
+export default Breakpoint;
+

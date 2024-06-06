@@ -1,7 +1,7 @@
 /* Update custom-content for Breakpoint.Xs */
 @media (min-width: 0px) and (max-width: 575px) {
 .custom-content {
-  /* width: 40%; */
+  width: 95%;
   /* height: 35%; */
   /* min-width: auto; */
   /* margin: auto; */
@@ -12,42 +12,27 @@
   flex-wrap: wrap;
   align-items: center;
   /* justify-content: center; */
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
 }
-}
-
-/* Update custom-grid for Breakpoint.Xs */
-@media (min-width: 0px) and (max-width: 575px) {
-.custom-grid {
-  width: 95%;
-  height: auto;
-  margin: auto;
-}
-}
-
-/* Update my-display for Breakpoint.Xs */
-@media (min-width: 0px) and (max-width: 575px) {
 .my-display {
   /* padding: auto; */
   /* margin-left: 10px; */
   /* padding-right: 50%; */
   /* padding-left: 50%; */
-  min-width:270px;
-  min-height: auto;
+  width:100%;
+  /* min-height: auto; */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
 }
-}
-
-/* Update responsive-item for Breakpoint.Xs */
-@media (min-width: 0px) and (max-width: 575px) {
   .responsive-item {
     /* margin-left: 0%; */
     /* margin-right: 0%; */
+    width:100%;
     border: 1px solid #ccc;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
-    padding: 5px;
+    padding: 2px;
     font-size: 2.4rem;
     /* min-width: 130%; */
     /* max-width: 160%; */
@@ -61,98 +46,71 @@
 /* Update custom-content for Breakpoint.Sm (576-767px) */
 @media (min-width: 576px) and (max-width: 767px) {
   .custom-content {
-    width: 30%;
-    height: 35%;
-    margin: auto;
+    width: 70%;
+    height: auto;
+    /* margin: auto; */
     background-color: #f0f0f0;
-    padding: 0.1%;
+    /* padding: 0.1%; */
     border-radius: 1%;
     display: flex;
     flex-wrap: wrap;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
-}
-
-/* Update custom-grid for Breakpoint.Sm (576-767px) */
-@media (min-width: 576px) and (max-width: 767px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-/* Update my-display for Breakpoint.Sm (576-767px) */
-@media (min-width: 576px) and (max-width: 767px) {
   .my-display {
-    padding: 10px;
-    padding-right: 30px;
-    padding-left: 30px;
+    padding: 5px;
+    /* padding-right: 30px; */
+    /* padding-left: 30px; */
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
   }
-}
-
-/* Update responsive-item for Breakpoint.Sm (576-767px) */
-@media (min-width: 576px) and (max-width: 767px) {
   .responsive-item {
-    margin-left: 15px;
+    margin-left: 3%;
+    margin-right: 3%;
     border: 1px solid #ccc;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
     padding: 5px;
+    width:95%;
     font-size: 2.4rem;
-    min-width: 205px;
-    min-height: 100%;
     color: bisque;
     border: 1px solid #ccc;
+    /* display: flex; */
     border-radius: 2px;
+    /* align-items: center; */
+    /* justify-content: center; */
   }
 }
-
 
 /* Update custom-content for Breakpoint.Md (768-991px) */
 @media (min-width: 768px) and (max-width: 991px) {
   .custom-content {
-    width: 30%;
-    height: 35%;
+    width: 90%;
+    height: auto;
     margin: auto;
     background-color: #f0f0f0;
-    padding: 0.1%;
+    /* padding: 0.1%; */
     border-radius: 1%;
     display: flex;
     flex-wrap: wrap;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
-}
-
-/* Update custom-grid for Breakpoint.Md (768-991px) */
-@media (min-width: 768px) and (max-width: 991px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-/* Update my-display for Breakpoint.Md (768-991px) */
-@media (min-width: 768px) and (max-width: 991px) {
   .my-display {
     padding: 10px;
-    padding-right: 50px;
-    padding-left: 50px;
+    /* padding-right: 50px; */
+    /* padding-left: 50px; */
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
   }
-}
-
-/* Update responsive-item for Breakpoint.Md (768-991px) */
-@media (min-width: 768px) and (max-width: 991px) {
   .responsive-item {
     padding: 5px;
-    margin-right: 8%;
-    margin-left: 5%;
+    /* margin-right: 8%; */
+    /* margin-left: 5%; */
+    width: 100%;
     font-size: 3rem;
     border: 1px solid #ccc;
     border-radius: 1px;
@@ -162,154 +120,73 @@
 /* Update custom-content for Breakpoint.Lg (992-1199px) */
 @media (min-width: 992px) and (max-width: 1199px) {
   .custom-content {
-    width: 30%;
-    height: 35%;
-    margin: auto;
+    width: 90%;
+    height: auto;
+    /* margin: auto; */
     background-color: #f0f0f0;
-    padding: 0.1%;
+    /* padding: 1%; */
     border-radius: 1%;
     display: flex;
     flex-wrap: wrap;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
-}
-
-/* Update custom-grid for Breakpoint.Lg (992-1199px) */
-@media (min-width: 992px) and (max-width: 1199px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-/* Update my-display for Breakpoint.Lg (992-1199px) */
-@media (min-width: 992px) and (max-width: 1199px) {
   .my-display {
-    padding: 10px;
-    padding-right: 50px;
-    padding-left: 50px;
+    /* padding: 0px; */
+    padding-top: 6%;
+    padding-bottom: 6%;
+    width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: auto;
   }
-}
-
-/* Update responsive-item for Breakpoint.Lg (992-1199px) */
-@media (min-width: 992px) and (max-width: 1199px) {
   .responsive-item {
-    min-width: 460px;
-    min-height: 50%;
+    /* min-width: 460px; */
+    /* min-height: 50%; */
+    width: 100%;
+    height: auto;
     padding: 2%;
-    font-size: 3rem;
+    font-size: 4rem;
     border: 1px solid #ccc;
     border-radius: 1px;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
 }
 
 /* Update custom-content for Breakpoint.Xl (1200px and above) */
 @media (min-width: 1200px) {
   .custom-content {
-    width: 30%;
-    height: 35%;
+    width: 60%;
+    height: auto;
     margin: auto;
     background-color: #f0f0f0;
-    padding: 0.1%;
+    /* padding: 0.1%; */
     border-radius: 1%;
     display: flex;
     flex-wrap: wrap;
-  }
-}
-
-/* Update custom-grid for Breakpoint.Xl (1200px and above) */
-@media (min-width: 1200px) {
-  .custom-grid {
-    width: 60%;
-    height: 50%;
-    margin: auto;
-  }
-}
-
-/* Update my-display for Breakpoint.Xl (1200px and above) */
-@media (min-width: 1200px) {
-  .my-display {
-    padding: 10px;
-    padding-right: 50px;
-    padding-left: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-}
-
-/* Update responsive-item for Breakpoint.Xl (1200px and above) */
-@media (min-width: 1200px) {
-  .responsive-item {
-    padding: 2%;
-    margin-left: 10px;
-    margin-bottom: 5px;
-    min-width: 605px;
-    font-size: 2rem;
-    border: 1px solid #ccc;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
-}
-
-/* For Breakpoint.Xs (max-width: 575px) */
-@media (max-width: 575px) {
-  .center-content {
+  .my-display {
+    padding: 10px;
+    /* padding-right: 50px; */
+    /* padding-left: 50px; */
+    width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 100%;
+    height: auto;
   }
-}
-
-/* For Breakpoint.Sm (min-width: 576px) and (max-width: 767px) */
-@media (min-width: 576px) and (max-width: 767px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+  .responsive-item {
+    padding: 2%;
+    /* margin-left: 10px; */
+    /* margin-bottom: 5px; */
+    /* min-width: 605px; */
     width: 100%;
-  }
-}
-
-/* For Breakpoint.Md (min-width: 768px) and (max-width: 991px) */
-@media (min-width: 768px) and (max-width: 991px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-/* For Breakpoint.Lg (min-width: 992px) and (max-width: 1199px) */
-@media (min-width: 992px) and (max-width: 1199px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
-  }
-}
-
-/* For Breakpoint.Xl (min-width: 1200px) */
-@media (min-width: 1200px) {
-  .center-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    width: 100%;
+    font-size: 4rem;
+    border: 1px solid #ccc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
 }

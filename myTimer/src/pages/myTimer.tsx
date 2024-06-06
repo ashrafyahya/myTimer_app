@@ -4,7 +4,7 @@ import { useMediaQuery } from '@react-hook/media-query';
 import { useEffect, useRef, useState } from 'react';
 import MySound from './myAlaram';
 import './myTimer.css';
-import { useResponsiveBreakpoints } from './useResponsiveBreakpoints';
+import { Breakpoint, useResponsiveBreakpoints } from './useResponsiveBreakpoints';
 
 function MyTimer() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -18,13 +18,11 @@ function MyTimer() {
   const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
   const isXLargeScreen = useMediaQuery('only screen and (min-width: 1500px)');
   const [isVibrating, setIsVibrating] = useState(false);
-  const [isSoundStopped, setIsSoundStopped] = useState(false); // New state
+  const [isSoundStopped, setIsSoundStopped] = useState(false);
   const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const stopVibrationRef = useRef(false);
-  // const currentBreakpoint = useResponsiveBreakpoints();
-
-  // const width = 768; // Beispielwert für die Bildschirmbreite
-  // const tableClass = useResponsiveBreakpoints(width);
+  const currentBreakpoint: any = useResponsiveBreakpoints(window.innerWidth);
+  let isSize: any = currentBreakpoint >= Breakpoint.Sm ? 'large' : 'default'; 
 
   const vibrationOn = async () => {
     const duration = 300;
@@ -72,7 +70,7 @@ function MyTimer() {
             setIsCountdownActive(false);
             setTimerRunning(false);
             setIsTimeout(true);
-            setIsSoundStopped(false); // Reset sound stopped state
+            setIsSoundStopped(false);
             console.log("Timeout");
             vibrationOn();
             return 0;
@@ -173,11 +171,10 @@ function MyTimer() {
         </IonToolbar>
       </IonHeader>
       <IonContent style={{ justifyContent: "center" }} color="danger">
-        <IonGrid className="custom-grid custom-content" style={{ marginTop: "5%", justifyContent: "center" }}>
-          <IonRow>
-            {/* <IonCol sizeXs="9.5" sizeMd="9" sizeLg="6" sizeXl="10"> */}
+        <IonGrid className=" custom-content " style={{marginTop: "5%", justifyContent: "center" }}>
+          <IonRow style={{width:"100%"}}>
             <IonItem className="responsive-item" lines="none">
-              <IonLabel className="ion-text-center">
+              <IonLabel>
                 <div className="my-display">
                   {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
                     currentButton === "Date" ? formatDate(new Date()) :
@@ -186,65 +183,46 @@ function MyTimer() {
                 </div>
               </IonLabel>
             </IonItem>
-            {/* </IonCol> */}
           </IonRow>
-          <IonRow style={{ justifyContent: "center",  paddingTop:"20px" }}>
-            {/* <IonCol sizeXs="2.5" sizeMd="2" sizeLg="6" sizeXl="2"> */}
+          <IonRow style={{ justifyContent: "center", paddingTop:"20px", width:currentBreakpoint>= Breakpoint.Md?"80%":"100%" }}>
             <IonRow>
-              <IonButton size={isLargeScreen ? 'large' : 'default'} color="success" onClick={() => handleClick("Time")}>
+              <IonButton size={isSize} color="success" onClick={() => handleClick("Time")}>
                 Time
               </IonButton>
-              {/* </IonRow> */}
-              {/* <IonRow> */}
-              <IonButton size={isLargeScreen ? 'large' : 'default'} style={{ border: "1px solid #ccc", borderRadius: "10px" }} onClick={() => handleClick("Date")} color="success">
+              <IonButton size={isSize} style={{ border: "1px solid #ccc", borderRadius: "10px" }} onClick={() => handleClick("Date")} color="success">
                 Date
               </IonButton>
-              {/* </IonRow> */}
-              {/* </IonCol> */}
               <IonButton
                 style={{ paddingLeft: isLargeScreen && !isXLargeScreen ? "2px" : "default" }}
-                onClick={() => handleClick("Timer")} color={isTriggered ? "danger" : "success"} fill="solid" size={isLargeScreen ? 'large' : 'default'}>
+                onClick={() => handleClick("Timer")} color={isTriggered ? "danger" : "success"} fill="solid" size={isSize}>
                 Timer
               </IonButton>
             <IonButton
               style={{ paddingLeft: isLargeScreen && !isXLargeScreen ? "2px" : "default" }}
-              onClick={() => handleClick("Reset")} color={"success"} fill="solid" size={isLargeScreen ? 'large' : 'default'}>
+              onClick={() => handleClick("Reset")} color={"success"} fill="solid" size={isSize}>
               Reset
             </IonButton>
             </IonRow>
             <IonRow style={{ justifyContent: "center"}}>
-              {/* <IonCol sizeXs="3" sizeMd="3" sizeLg="1" sizeXl="2"> */}
-
-              {/* </IonCol> */}
-              {/* <IonCol sizeXs="2" sizeMd="2" sizeLg="4" sizeXl="2.8"> */}
-              <IonButton shape="round" color={timerRunning && !isTimeout ? "danger" : "success"} size={isLargeScreen ? 'large' : 'default'} fill="solid"
+              <IonButton shape="round" color={timerRunning && !isTimeout ? "danger" : "success"} size={isSize} fill="solid"
                 onClick={() => handleClick("ST/SP")} style={{ paddingLeft: isXLargeScreen ? "60px" : "default" }}>
                 {timerRunning && !isTimeout ? "SP" : "ST"}
               </IonButton>
-              {/* </IonCol> */}
-              {/* <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8"> */}
-              <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("1H")}>
+              <IonButton shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1H")}>
                 1H
               </IonButton>
-              {/* </IonCol> */}
-              {/* <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8"> */}
-              <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("5M")}>
+              <IonButton shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("5M")}>
                 5M
               </IonButton>
-              {/* </IonCol> */}
-              {/* <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8"> */}
-              <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("1M")}>
+              <IonButton shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1M")}>
                 1M
               </IonButton>
-              {/* </IonCol> */}
-              {/* <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8"> */}
-              <IonButton className='ion-hide-md-down' shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("5S")}>
+              <IonButton className='ion-hide-md-down' shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("5S")}>
                 5S
               </IonButton>
-              <IonButton className='ion-hide-md-down' shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("1S")}>
+              <IonButton className='ion-hide-md-down' shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1S")}>
                 1S
               </IonButton>
-              {/* </IonCol> */}
             </IonRow>
           </IonRow>
         </IonGrid>
