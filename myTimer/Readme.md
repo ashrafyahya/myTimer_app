@@ -51,7 +51,8 @@ $npx cap add @capacitor/haptics      //Plugin for vibration --> use it pls
 $npm install cordova-plugin-media        //Plugin for media or use following command
 
 
-<a id="tasks"></a> # TODO next:
+<a id="tasks"></a> 
+# TODO next:
 
 ## Notice: Doing tasks should be in seperate branches. Pls do not make changes in main branch.
 
