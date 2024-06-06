@@ -2,8 +2,8 @@ import { Haptics } from '@capacitor/haptics';
 import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useMediaQuery } from '@react-hook/media-query';
 import { useEffect, useRef, useState } from 'react';
-import './myTimer.css';
 import MySound from './myAlaram';
+import './myTimer.css';
 
 function MyTimer() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -34,9 +34,12 @@ function MyTimer() {
       if (stopVibrationRef.current) break;
       await Haptics.vibrate({ duration });
       await new Promise(resolve => setTimeout(resolve, interval));
+      console.log("vib on")
     }
-
+    console.log("vib end")
+    setIsTimeout(false)
     setIsVibrating(false);
+    setIsTriggered(false)
   };
 
   useEffect(() => {
@@ -71,10 +74,10 @@ function MyTimer() {
       }, 1000);
       return () => clearInterval(intervalId);
     }
-    if (isSoundStopped) {
-      setCurrentButton("");
-      setIsTriggered(false);
-    }
+    // if (isSoundStopped) {
+    //   setCurrentButton("");
+    //   setIsTriggered(false);
+    // }
   }, [timerRunning, currentButton, isCountdownActive, countdownTime, isSoundStopped]);
 
   useEffect(() => {
@@ -82,6 +85,9 @@ function MyTimer() {
       vibrationTimeoutRef.current = setTimeout(() => {
         stopVibrationRef.current = true;
         setIsVibrating(false);
+        setIsTimeout(false)
+        console.log("vib off")
+        // setIsSoundStopped(true)
       }, 30000);
     }
 
