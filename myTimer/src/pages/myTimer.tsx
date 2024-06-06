@@ -151,6 +151,11 @@ function MyTimer() {
       setCountdownTime(prevElapsedTime => prevElapsedTime + 5);
       setIsCountdownActive(true);
       setTimerRunning(false);
+    } else if (clickedButton === "1S" && !timerRunning && isTriggered) {
+      setCurrentButton("1S");
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 1);
+      setIsCountdownActive(true);
+      setTimerRunning(false);
     }
   }
 
