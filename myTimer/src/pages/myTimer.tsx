@@ -23,8 +23,8 @@ function MyTimer() {
   const stopVibrationRef = useRef(false);
   // const currentBreakpoint = useResponsiveBreakpoints();
 
-  const width = 768; // Beispielwert für die Bildschirmbreite
-  const tableClass = useResponsiveBreakpoints(width);
+  // const width = 768; // Beispielwert für die Bildschirmbreite
+  // const tableClass = useResponsiveBreakpoints(width);
 
   const vibrationOn = async () => {
     const duration = 300;
@@ -127,7 +127,7 @@ function MyTimer() {
     } else if (clickedButton === "Reset" && isTriggered) {
       setCurrentButton("Reset");
       setIsCountdownActive(false);
-      setTimerRunning(!timerRunning);
+      setTimerRunning(false);
       setCountdownTime(0);
       setElapsedTime(0);
       setIsTimeout(false);
