@@ -61,12 +61,12 @@ $npm install cordova-plugin-media        //Plugin for media or use following com
 ### Upload app into Cloud       =====> Ashraf
 ### Check App-Responsivity      =====> Ashraf
 ### Uopdating App using claud
-### ~~Add vibration               =====> Ashraf Done~~
+### ~~Add vibration               =====> Ashraf =====> Done~~
 ### Add Sound                   =====> Ashraf   =====>WIP
 
 
 # New Tasks
-### Display time when is timer done
+### Display time when timer is done
 ### count the seted work hours
 ### Side menue
 ### Switch language
