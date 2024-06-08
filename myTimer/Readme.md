@@ -42,11 +42,11 @@ or
 ```$set JAVA_HOME=C:\Program Files\Java\jdk-<version>```  
 
 #### If having problems with ADB  
-```$cd C:\Users\dell\AppData\Local\Android\Sdk\platform-tools´´´ 
+```$cd C:\Users\dell\AppData\Local\Android\Sdk\platform-tools```  
 then  
-```$adb kill-server´´´ 
+```$adb kill-server``` 
 then  
-```$adb start-server´´´  
+```$adb start-server```  
 
 
 ## Plugins:
