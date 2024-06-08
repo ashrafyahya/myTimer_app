@@ -208,7 +208,7 @@ function MyTimer() {
               Reset
             </IonButton>
             </IonRow>
-            <IonRow style={{ justifyContent: "center", width:currentBreakpoint>= Breakpoint.Md?"80%":"100%"}}>
+            <IonRow style={{ justifyContent: "center", width:currentBreakpoint>= Breakpoint.Md?"100%":"100%"}}>
               <IonButton shape="round" color={timerRunning && !isTimeout ? "danger" : "success"} size={isSize} fill="solid"
                 onClick={() => handleClick("ST/SP")} style={{ paddingLeft: isXLargeScreen ? "60px" : "default" }}>
                 {timerRunning && !isTimeout ? "SP" : "ST"}
@@ -222,10 +222,10 @@ function MyTimer() {
               <IonButton shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1M")}>
                 1M
               </IonButton>
-              <IonButton className='ion-hide-md-down' shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("5S")}>
+              <IonButton className='ion-hide-sm-down' shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("5S")}>
                 5S
               </IonButton>
-              <IonButton className='ion-hide-md-down' shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1S")}>
+              <IonButton className='ion-hide-sm-down' shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1S")}>
                 1S
               </IonButton>
             </IonRow>

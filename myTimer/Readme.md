@@ -70,6 +70,7 @@ then
 
 # New Tasks
 ### ~~Stop sound after a while like the vibration after 20s  =====> Ashraf     =====>WIP =====> Done~~  
+### Bug: Timer does not work in off-display  
 ### Display time when timer is done  
 ### count the seted work hours  
 ### Side menue  

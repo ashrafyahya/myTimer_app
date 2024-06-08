@@ -7,7 +7,7 @@
   /* margin: auto; */
   background-color: #f0f0f0;
   /* padding: 0.1%; */
-  border-radius: 2%;
+  border-radius: 10px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -25,6 +25,8 @@
   justify-content: center;
   align-items: center;
   height: 100%;
+  border-radius: 20px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
 }
   .responsive-item {
     /* margin-left: 0%; */
@@ -40,7 +42,7 @@
     color: bisque;
     background-color: #060606;
     border: 4px solid #ffffff;
-    border-radius: 05%;
+    border-radius: 20px;
   }
   }
 
@@ -48,33 +50,38 @@
 @media (min-width: 576px) and (max-width: 767px) {
   .custom-content {
     width: 70%;
-    height: auto;
+    height: 50%;
+    padding-top: 2%;
     background-color: #f0f0f0;
-    border-radius: 1%;
+    border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
   .my-display {
-    padding: 5px;
+    /* padding: 5%; */
     width: 100%;
+    height: 100%;
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
   .responsive-item {
-    margin-left: 3%;
-    margin-right: 3%;
-    border: 1px solid #ccc;
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
-    padding: 5px;
+    /* margin-left: 3%; */
+    /* margin-right: 3%; */
+    /* border: 1px solid #ccc; */
+    padding: 10%;
     width:95%;
-    font-size: 2.4rem;
+    height: 95%;
+    font-size: 4rem;
     color: bisque;
-    border: 1px solid #ccc;
-    border-radius: 2px;
+    border: 4px solid #ffffff;
+    border-radius: 20px;
     background-color: #060606;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+
   }
 }
 
@@ -82,60 +89,69 @@
 @media (min-width: 768px) and (max-width: 991px) {
   .custom-content {
     width: 90%;
-    height: auto;
-    margin: auto;
+    height: 60%;
+    /* margin: auto; */
+    padding-top: 2%;
     background-color: #f0f0f0;
-    border-radius: 1%;
+    border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
   .my-display {
-    padding: 10px;
+    /* padding: 10px; */
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
   .responsive-item {
-    padding: 5px;
-    width: 100%;
-    font-size: 3rem;
-    border: 1px solid #ccc;
+    /* padding: 10%; */
+    width: 90%;
+    height: 90%;
+    font-size: 4rem;
+    border: 4px solid #ffffff;
     color: bisque;
     background-color: #060606;
-    border-radius: 1px;
+    border-radius: 20px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
 }
 
 /* Update custom-content for Breakpoint.Lg (992-1199px) */
 @media (min-width: 992px) and (max-width: 1199px) {
   .custom-content {
-    width: 90%;
-    height: auto;
+    width: 60%;
+    height: 60%;
+    /* padding-top: 5%; */
     background-color: #f0f0f0;
-    border-radius: 1%;
+    border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
   .my-display {
-    padding-top: 6%;
-    padding-bottom: 6%;
+    /* padding-top: 6%; */
+    /* padding-bottom: 6%; */
     width:100%;
+    height: 100%;
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: auto;
+    /* height: auto; */
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
   .responsive-item {
-    width: 100%;
-    height: auto;
-    padding: 2%;
+    width: 90%;
+    height: 100%;
+    padding: 1px;
     font-size: 4rem;
-    border: 1px solid #ccc;
-    border-radius: 1px;
+    border: 4px solid #ccc;
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -149,28 +165,28 @@
 @media (min-width: 1200px) {
   .custom-content {
     width: 60%;
-    height: auto;
-    margin: auto;
+    height: 60%;
+    padding-top: 20px;
     background-color: #f0f0f0;
-    border-radius: 1%;
+    border-radius: 10px;
     display: flex;
     flex-wrap: wrap;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
   }
   .my-display {
-    padding: 10px;
     width:100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: auto;
+    height: 100%;
   }
   .responsive-item {
-    padding: 2%;
-    width: 100%;
+    width: 80%;
+    height: 100%;
     font-size: 4rem;
-    border: 1px solid #ccc;
+    border: 4px solid #fffcfc;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
     background-color: #060606;
     color: bisque;
   }
