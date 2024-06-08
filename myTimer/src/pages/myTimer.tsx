@@ -1,5 +1,5 @@
 import { Haptics } from '@capacitor/haptics';
-import { IonButton, IonContent, IonGrid, IonHeader, IonItem, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useMediaQuery } from '@react-hook/media-query';
 import { useEffect, useRef, useState } from 'react';
 import MySound from './myAlaram';
@@ -177,9 +177,9 @@ function MyTimer() {
       </IonHeader>
       <IonContent style={{ justifyContent: "center" }} color="danger">
         <IonGrid className=" custom-content " style={{marginTop: "5%", justifyContent: "center" }}>
-          <IonRow style={{width:"100%"}}>
-            <IonItem className="responsive-item" lines="none">
-              <IonLabel>
+          <IonRow style={{width:"100%", height:"50%", justifyContent: "center"}}>
+            {/* <IonItem className="responsive-item" lines="none"> */}
+              <IonLabel className="responsive-item">
                 <div className="my-display">
                   {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
                     currentButton === "Date" ? formatDate(new Date()) :
@@ -187,9 +187,9 @@ function MyTimer() {
                         `${String(Math.floor(countdownTime / 3600)).padStart(2, '0')}:${String(Math.floor((countdownTime % 3600) / 60)).padStart(2, '0')}:${String(countdownTime % 60).padStart(2, '0')}`}
                 </div>
               </IonLabel>
-            </IonItem>
+            {/* </IonItem> */}
           </IonRow>
-          <IonRow style={{ justifyContent: "center", paddingTop:"20px", width:currentBreakpoint>= Breakpoint.Md?"80%":"100%" }}>
+          <IonRow style={{ justifyContent: "center", padding:currentBreakpoint>= Breakpoint.Md?"20px":"0px", width:currentBreakpoint>= Breakpoint.Md?"80%":"100%" }}>
             <IonRow>
               <IonButton size={isSize} color="success" onClick={() => handleClick("Time")}>
                 Time
@@ -208,7 +208,7 @@ function MyTimer() {
               Reset
             </IonButton>
             </IonRow>
-            <IonRow style={{ justifyContent: "center"}}>
+            <IonRow style={{ justifyContent: "center", width:currentBreakpoint>= Breakpoint.Md?"80%":"100%"}}>
               <IonButton shape="round" color={timerRunning && !isTimeout ? "danger" : "success"} size={isSize} fill="solid"
                 onClick={() => handleClick("ST/SP")} style={{ paddingLeft: isXLargeScreen ? "60px" : "default" }}>
                 {timerRunning && !isTimeout ? "SP" : "ST"}

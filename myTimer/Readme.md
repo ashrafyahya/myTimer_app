@@ -44,7 +44,7 @@ or
 #### If having problems with ADB  
 ```$cd C:\Users\dell\AppData\Local\Android\Sdk\platform-tools```  
 then  
-```$adb kill-server``` 
+```$adb kill-server```  
 then  
 ```$adb start-server```  
 
@@ -63,7 +63,7 @@ then
 ### ~~Add Icons                 =====> Ashraf       =====>WIP =====>Done~~  
 ### Upload app into Cloud       =====> Ashraf       =====>WIP  
 ### ~~Check App-Responsivity      =====> Ashraf       =====>WIP =====>Done~~  
-### Uopdating App using claud  
+### Updating App using claud  
 ### ~~Add vibration               =====> Ashraf     =====> Done~~  
 ### ~~Add Sound                   =====> Ashraf     =====>WIP =====> Done~~  
 
