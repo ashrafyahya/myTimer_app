@@ -50,9 +50,9 @@ $´´´adb start-server´´´
 
 
 ## Plugins:
-$'''npm install cordova-plugin-media'''        //Plugin for vibration --> avoid it pls  
-$'''npx cap add @capacitor/haptics'''        //Plugin for vibration --> use it pls  
-$'''npm install cordova-plugin-media'''        //Plugin for media or use following command  
+$```npm install cordova-plugin-media```       //Plugin for vibration --> avoid it pls  
+$```npx cap add @capacitor/haptics```        //Plugin for vibration --> use it pls  
+$```npm install cordova-plugin-media```        //Plugin for media or use following command  
 
 
 <a id="tasks"></a> 
