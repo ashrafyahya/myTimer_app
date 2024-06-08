@@ -42,17 +42,17 @@ $npm install cordova-plugin-file@^8.0.0
 $set JAVA_HOME=C:\Program Files\Java\jdk-<version>  
 
 #### If having problems with ADB  
-$cd C:\Users\dell\AppData\Local\Android\Sdk\platform-tools  
+$'''cd C:\Users\dell\AppData\Local\Android\Sdk\platform-tools'''  
 then  
-$adb kill-server    
+$'''adb kill-server'''    
 then  
-$adb start-server  
+$'''adb start-server'''  
 
 
 ## Plugins:
-$npm install cordova-plugin-media <\t>   //Plugin for vibration --> avoid it pls  
-$npx cap add @capacitor/haptics  <\t>    //Plugin for vibration --> use it pls  
-$npm install cordova-plugin-media <\t>  //Plugin for media or use following command  
+$'''npm install cordova-plugin-media'''        //Plugin for vibration --> avoid it pls  
+$'''npx cap add @capacitor/haptics'''        //Plugin for vibration --> use it pls  
+$'''npm install cordova-plugin-media'''        //Plugin for media or use following command  
 
 
 <a id="tasks"></a> 
