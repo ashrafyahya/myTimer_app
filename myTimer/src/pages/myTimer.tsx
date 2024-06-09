@@ -136,9 +136,9 @@ function MyTimer() {
       setCountdownTime(prevElapsedTime => prevElapsedTime + 60);
       setIsCountdownActive(true);
       setTimerRunning(false);
-    } else if (clickedButton === "5S" && !timerRunning && isTriggered) {
-      setCurrentButton("5S");
-      setCountdownTime(prevElapsedTime => prevElapsedTime + 5);
+    } else if (clickedButton === "2S" && !timerRunning && isTriggered) {
+      setCurrentButton("2S");
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 2);
       setIsCountdownActive(true);
       setTimerRunning(false);
     }
@@ -217,8 +217,8 @@ function MyTimer() {
               </IonButton>
             </IonCol>
             <IonCol sizeXs="3" sizeMd="2" sizeLg="4" sizeXl="2.8">
-              <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("5S")}>
-                5S
+              <IonButton shape="round" color="success" size={isLargeScreen ? 'large' : 'default'} fill="solid" onClick={() => handleClick("2S")}>
+                2S
               </IonButton>
             </IonCol>
           </IonRow>

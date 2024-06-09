@@ -81,3 +81,7 @@ $npm install cordova-plugin-media        //Plugin for media or use following com
 ### Share Button or at least copy downloading link
 
 
+##Note: modified gradle version in file 'android/gradle/wrapper/gradle-wrapper.properties' <distributionUrl> from gradle-8.2.1-all.zip to gradle-8.1-bin.zip
+##Note: modified project's android gradle version in file 'android/build.gradle' from 8.2.1 to  8.1.3
+
+
