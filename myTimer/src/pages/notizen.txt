@@ -1,0 +1,139 @@
+notizen
+
+import React, { useEffect, useRef, useState } from 'react';
+import useSound from './useSound';
+
+interface MySoundProps {
+  isTimeout: boolean;
+  onSoundEnd: () => void;
+}
+
+const MySound: React.FC<MySoundProps> = ({ isTimeout, onSoundEnd }) => {
+  const [isRinging, setIsRinging] = useState(false);
+
+  // Use a relative path or serve the audio file from a web server
+  const ringingSound = useSound('resources/ringing-sound.mp3'); // Assuming assets folder is in the project root
+
+  useEffect(() => {
+    const initializeBackgroundMode = () => {
+      const backgroundMode = (cordova.plugins as any).backgroundMode;
+      backgroundMode.enable();
+
+      backgroundMode.setDefaults({
+        title: 'App is running in background',
+        text: 'Doing heavy tasks.',
+        icon: 'icon', // this will look for icon.png in platforms/android/res/drawable|mipmap
+        color: 'F14F4D', // hex format like 'F14F4D'
+        resume: true,
+        hidden: true,
+        bigText: false,
+      });
+
+      backgroundMode.on('activate', () => {
+        console.log('Background mode activated');
+      });
+
+      backgroundMode.on('deactivate', () => {
+        console.log('Background mode deactivated');
+      });
+    };
+
+    document.addEventListener('deviceready', initializeBackgroundMode);
+
+    if (isTimeout) {
+      setIsRinging(true);
+      ringingSound.play();
+    } else {
+      setIsRinging(false);
+      ringingSound.stop();
+    }
+
+    return () => {
+      document.removeEventListener('deviceready', initializeBackgroundMode);
+    };
+  }, [isTimeout, ringingSound]);
+
+  return null; // This component doesn't render anything
+};
+
+export default MySound;
+##########################################################################
+
+interface MySoundProps {
+  isTimeout: boolean;
+  onSoundEnd: () => void;
+}
+
+const MySound: React.FC<MySoundProps> = ({ isTimeout, onSoundEnd }) => {
+  const [isRinging, setIsRinging] = useState(false);
+  const ringingSound = useSound('resources/ringing-sound.mp3'); // Assuming assets folder is in the project root
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const initializeBackgroundMode = () => {
+      const backgroundMode = (cordova.plugins as any).backgroundMode;
+      backgroundMode.enable();
+
+      backgroundMode.setDefaults({
+        title: 'App is running in background',
+        text: 'Doing heavy tasks.',
+        icon: 'icon', // this will look for icon.png in platforms/android/res/drawable|mipmap
+        color: 'F14F4D', // hex format like 'F14F4D'
+        resume: true,
+        hidden: true,
+        bigText: false,
+      });
+
+      backgroundMode.on('activate', () => {
+        console.log('Background mode activated');
+        if (isTimeout) {
+          ringingSound.play();
+          startTimer();
+        }
+      });
+
+      backgroundMode.on('deactivate', () => {
+        console.log('Background mode deactivated');
+        ringingSound.stop();
+        stopTimer();
+      });
+    };
+
+    document.addEventListener('deviceready', initializeBackgroundMode);
+
+    if (isTimeout) {
+      setIsRinging(true);
+      ringingSound.play();
+      startTimer();
+    } else {
+      setIsRinging(false);
+      ringingSound.stop();
+      stopTimer();
+    }
+
+    return () => {
+      document.removeEventListener('deviceready', initializeBackgroundMode);
+      ringingSound.stop();
+      stopTimer();
+    };
+  }, [isTimeout, ringingSound]);
+
+  const startTimer = () => {
+    stopTimer();
+    timerRef.current = setInterval(() => {
+      console.log('Timer running');
+      // Update your state or perform any other task
+    }, 1000); // Adjust the interval as needed
+  };
+
+  const stopTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
+  return null; // This component doesn't render anything
+};
+
+export default MySound;
