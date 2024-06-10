@@ -1,139 +1,331 @@
-notizen
+import { App } from '@capacitor/app';
+import { BackgroundTask } from '@capawesome/capacitor-background-task';
 
-import React, { useEffect, useRef, useState } from 'react';
-import useSound from './useSound';
-
-interface MySoundProps {
-  isTimeout: boolean;
-  onSoundEnd: () => void;
+// Function to simulate some background task (replace with your actual logic)
+async function performBackgroundTask() {
+  console.log('Running background task...');
+  // Simulate some work (replace with your actual work)
+  await new Promise((resolve) => setTimeout(resolve, 3000)); // Wait for 3 seconds
+  console.log('Background task completed.');
 }
 
-const MySound: React.FC<MySoundProps> = ({ isTimeout, onSoundEnd }) => {
-  const [isRinging, setIsRinging] = useState(false);
+App.addListener('appStateChange', async ({ isActive }) => {
+  if (isActive) {
+    return;
+  }
 
-  // Use a relative path or serve the audio file from a web server
-  const ringingSound = useSound('resources/ringing-sound.mp3'); // Assuming assets folder is in the project root
+  console.log('App entering background state.');
 
-  useEffect(() => {
-    const initializeBackgroundMode = () => {
-      const backgroundMode = (cordova.plugins as any).backgroundMode;
-      backgroundMode.enable();
+  try {
+    const taskId = await BackgroundTask.beforeExit(async () => {
+      await performBackgroundTask();
+      BackgroundTask.finish({ taskId });
+    });
+    console.log('Background task started with ID:', taskId);
+  } catch (error) {
+    console.error('Error starting background task:', error);
+  }
+});
 
-      backgroundMode.setDefaults({
-        title: 'App is running in background',
-        text: 'Doing heavy tasks.',
-        icon: 'icon', // this will look for icon.png in platforms/android/res/drawable|mipmap
-        color: 'F14F4D', // hex format like 'F14F4D'
-        resume: true,
-        hidden: true,
-        bigText: false,
-      });
+console.log('App started!');
+###########################################################
+import { Haptics } from '@capacitor/haptics';
+import { IonButton, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { useMediaQuery } from '@react-hook/media-query';
+import { useEffect, useRef, useState } from 'react';
+import MySound from './myAlaram';
+import './myTimer.css';
+import { Breakpoint, useResponsiveBreakpoints } from './useResponsiveBreakpoints';
+import { App } from '@capacitor/app';
+import { BackgroundTask } from '@capawesome/capacitor-background-task';
+import { PluginListenerHandle } from '@capacitor/core';
 
-      backgroundMode.on('activate', () => {
-        console.log('Background mode activated');
-      });
-
-      backgroundMode.on('deactivate', () => {
-        console.log('Background mode deactivated');
-      });
-    };
-
-    document.addEventListener('deviceready', initializeBackgroundMode);
-
-    if (isTimeout) {
-      setIsRinging(true);
-      ringingSound.play();
-    } else {
-      setIsRinging(false);
-      ringingSound.stop();
-    }
-
-    return () => {
-      document.removeEventListener('deviceready', initializeBackgroundMode);
-    };
-  }, [isTimeout, ringingSound]);
-
-  return null; // This component doesn't render anything
-};
-
-export default MySound;
-##########################################################################
-
-interface MySoundProps {
-  isTimeout: boolean;
-  onSoundEnd: () => void;
-}
-
-const MySound: React.FC<MySoundProps> = ({ isTimeout, onSoundEnd }) => {
-  const [isRinging, setIsRinging] = useState(false);
-  const ringingSound = useSound('resources/ringing-sound.mp3'); // Assuming assets folder is in the project root
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+function MyTimer() {
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [currentButton, setCurrentButton] = useState("Time");
+  const [timerRunning, setTimerRunning] = useState(false);
+  const [countdownTime, setCountdownTime] = useState(0);
+  const [isCountdownActive, setIsCountdownActive] = useState(false);
+  const [isTriggered, setIsTriggered] = useState(false);
+  const [isTimeout, setIsTimeout] = useState(false);
+  const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
+  const isXLargeScreen = useMediaQuery('only screen and (min-width: 1500px)');
+  const [isVibrating, setIsVibrating] = useState(false);
+  const [isSoundStopped, setIsSoundStopped] = useState(false);
+  const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const stopVibrationRef = useRef(false);
+  const currentBreakpoint: any = useResponsiveBreakpoints(window.innerWidth);
+  let isSize: any = currentBreakpoint >= Breakpoint.Sm ? 'large' : 'default'; 
 
   useEffect(() => {
-    const initializeBackgroundMode = () => {
-      const backgroundMode = (cordova.plugins as any).backgroundMode;
-      backgroundMode.enable();
-
-      backgroundMode.setDefaults({
-        title: 'App is running in background',
-        text: 'Doing heavy tasks.',
-        icon: 'icon', // this will look for icon.png in platforms/android/res/drawable|mipmap
-        color: 'F14F4D', // hex format like 'F14F4D'
-        resume: true,
-        hidden: true,
-        bigText: false,
-      });
-
-      backgroundMode.on('activate', () => {
-        console.log('Background mode activated');
-        if (isTimeout) {
-          ringingSound.play();
-          startTimer();
+    const handleAppStateChange = async ({ isActive }: { isActive: boolean }) => {
+      if (isActive) {
+        return;
+      }
+      const taskId = await BackgroundTask.beforeExit(async () => {
+        // Run your background code...
+        if (timerRunning && currentButton === "Timer") {
+          const intervalId = setInterval(() => {
+            setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
+          }, 1000);
+          return () => clearInterval(intervalId);
+        } else if (timerRunning && currentButton === "Reset") {
+          const intervalId = setInterval(() => {
+            setElapsedTime(0);
+            setCurrentButton("Timer")
+          }, 1000);
+          return () => clearInterval(intervalId);
+        } else if (timerRunning && isCountdownActive && countdownTime > 0) {
+          const intervalId = setInterval(() => {
+            setCountdownTime(prevCountdownTime => {
+              if (prevCountdownTime <= 1) {
+                setIsCountdownActive(false);
+                setTimerRunning(false);
+                setIsTimeout(true);
+                setIsSoundStopped(false);
+                console.log("Timeout");
+                vibrationOn();
+                return 0;
+              }
+              return prevCountdownTime - 1;
+            });
+          }, 1000);
+          return () => clearInterval(intervalId);
         }
-      });
-
-      backgroundMode.on('deactivate', () => {
-        console.log('Background mode deactivated');
-        ringingSound.stop();
-        stopTimer();
+        BackgroundTask.finish({ taskId });
       });
     };
 
-    document.addEventListener('deviceready', initializeBackgroundMode);
+    const setupListener = async () => {
+      const appStateChangeListener = await App.addListener('appStateChange', handleAppStateChange);
+      return appStateChangeListener;
+    };
 
+    let listener: PluginListenerHandle | null = null;
+
+    setupListener().then(handle => {
+      listener = handle;
+    });
+
+    return () => {
+      if (listener) {
+        listener.remove();
+      }
+    };
+  }, [timerRunning, currentButton, isCountdownActive, countdownTime, isSoundStopped]);
+
+  const vibrationOn = async () => {
+    const duration = 300;
+    const interval = 100;
+    const totalVibrationTime = 30000;
+    const repetitions = Math.ceil(totalVibrationTime / (duration + interval));
+
+    setIsVibrating(true);
+    stopVibrationRef.current = false;
+
+    for (let i = 0; i < repetitions; i++) {
+      if (stopVibrationRef.current) break;
+      await Haptics.vibrate({ duration });
+      await new Promise(resolve => setTimeout(resolve, interval));
+    }
+
+    setIsVibrating(false);
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (!isCountdownActive) {
+        setCurrentDateTime(new Date());
+      }
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [isCountdownActive]);
+
+  useEffect(() => {
+    if (timerRunning && currentButton === "Timer") {
+      const intervalId = setInterval(() => {
+        setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
+      }, 1000);
+      return () => clearInterval(intervalId);
+    } else if (timerRunning && currentButton === "Reset") {
+      const intervalId = setInterval(() => {
+        setElapsedTime(0);
+        setCurrentButton("Timer")
+      }, 1000);
+      return () => clearInterval(intervalId);
+    } else if (timerRunning && isCountdownActive && countdownTime > 0) {
+      const intervalId = setInterval(() => {
+        setCountdownTime(prevCountdownTime => {
+          if (prevCountdownTime <= 1) {
+            setIsCountdownActive(false);
+            setTimerRunning(false);
+            setIsTimeout(true);
+            setIsSoundStopped(false);
+            console.log("Timeout");
+            vibrationOn();
+            return 0;
+          }
+          return prevCountdownTime - 1;
+        });
+      }, 1000);
+      return () => clearInterval(intervalId);
+    }
+    if (isSoundStopped) {
+      setCurrentButton("");
+      setIsTriggered(false);
+    }
+  }, [timerRunning, currentButton, isCountdownActive, countdownTime, isSoundStopped]);
+
+  useEffect(() => {
     if (isTimeout) {
-      setIsRinging(true);
-      ringingSound.play();
-      startTimer();
-    } else {
-      setIsRinging(false);
-      ringingSound.stop();
-      stopTimer();
+      vibrationTimeoutRef.current = setTimeout(() => {
+        stopVibrationRef.current = true;
+        setIsVibrating(false);
+      }, 30000);
     }
 
     return () => {
-      document.removeEventListener('deviceready', initializeBackgroundMode);
-      ringingSound.stop();
-      stopTimer();
+      if (vibrationTimeoutRef.current) {
+        clearTimeout(vibrationTimeoutRef.current);
+      }
     };
-  }, [isTimeout, ringingSound]);
+  }, [isTimeout]);
 
-  const startTimer = () => {
-    stopTimer();
-    timerRef.current = setInterval(() => {
-      console.log('Timer running');
-      // Update your state or perform any other task
-    }, 1000); // Adjust the interval as needed
-  };
+  function handleClick(clickedButton: string) {
+    const duration = 100;
+    setCurrentDateTime(new Date());
+    stopVibrationRef.current = true;
 
-  const stopTimer = () => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
+    console.log("Button clicked");
+    Haptics.vibrate({ duration });
+
+    if (clickedButton === "Timer") {
+      setCurrentButton("Timer");
+      setElapsedTime(0);
+      setCountdownTime(0);
+      setIsCountdownActive(false);
+      setTimerRunning(false);
+      setIsTriggered(!isTriggered);
+      setIsTimeout(false);
+    } else if (clickedButton === "ST/SP" && isTriggered) {
+      setTimerRunning(!timerRunning);
+      // setIsTimeout(false);
+    } else if (clickedButton === "Time" && !timerRunning && !isTriggered) {
+      setCurrentButton("Time");
+    } else if (clickedButton === "Reset" && isTriggered) {
+      setCurrentButton("Reset");
+      setIsCountdownActive(false);
+      setTimerRunning(false);
+      setCountdownTime(0);
+      setElapsedTime(0);
+      setIsTimeout(false);
+    }else if (clickedButton === "Date" && !timerRunning && !isTriggered) {
+      setCurrentButton("Date");
+    } else if (clickedButton === "1H" && !timerRunning && isTriggered) {
+      setCurrentButton("1H");
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 3600);
+      setIsCountdownActive(true);
+      setTimerRunning(false);
+    } else if (clickedButton === "5M" && !timerRunning && isTriggered) {
+      setCurrentButton("5M");
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 300);
+      setIsCountdownActive(true);
+      setTimerRunning(false);
+    } else if (clickedButton === "1M" && !timerRunning && isTriggered) {
+      setCurrentButton("1M");
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 60);
+      setIsCountdownActive(true);
+      setTimerRunning(false);
+    } else if (clickedButton === "5S" && !timerRunning && isTriggered) {
+      setCurrentButton("5S");
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 5);
+      setIsCountdownActive(true);
+      setTimerRunning(false);
+    } else if (clickedButton === "1S" && !timerRunning && isTriggered) {
+      setCurrentButton("1S");
+      setCountdownTime(prevElapsedTime => prevElapsedTime + 1);
+      setIsCountdownActive(true);
+      setTimerRunning(false);
     }
+  }
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('de-DE', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    });
   };
 
-  return null; // This component doesn't render anything
-};
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>My Timer</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent style={{ justifyContent: "center" }} color="danger">
+        <IonGrid className=" custom-content " style={{marginTop: "5%", justifyContent: "center" }}>
+          <IonRow style={{width:"100%", height:"50%", justifyContent: "center"}}>
+            {/* <IonItem className="responsive-item" lines="none"> */}
+              <IonLabel className="responsive-item">
+                <div className="my-display">
+                  {currentButton === "Time" ? currentDateTime.toLocaleTimeString() :
+                    currentButton === "Date" ? formatDate(new Date()) :
+                      currentButton === "Timer" ? `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}` :
+                        `${String(Math.floor(countdownTime / 3600)).padStart(2, '0')}:${String(Math.floor((countdownTime % 3600) / 60)).padStart(2, '0')}:${String(countdownTime % 60).padStart(2, '0')}`}
+                </div>
+              </IonLabel>
+            {/* </IonItem> */}
+          </IonRow>
+          <IonRow style={{ justifyContent: "center", padding:currentBreakpoint>= Breakpoint.Md?"20px":"0px", width:currentBreakpoint>= Breakpoint.Md?"80%":"100%" }}>
+            <IonRow>
+              <IonButton size={isSize} color="success" onClick={() => handleClick("Time")}>
+                Time
+              </IonButton>
+              <IonButton size={isSize} style={{ border: "1px solid #ccc", borderRadius: "10px" }} onClick={() => handleClick("Date")} color="success">
+                Date
+              </IonButton>
+              <IonButton
+                style={{ paddingLeft: isLargeScreen && !isXLargeScreen ? "2px" : "default" }}
+                onClick={() => handleClick("Timer")} color={isTriggered ? "danger" : "success"} fill="solid" size={isSize}>
+                Timer
+              </IonButton>
+            <IonButton
+              style={{ paddingLeft: isLargeScreen && !isXLargeScreen ? "2px" : "default" }}
+              onClick={() => handleClick("Reset")} color={"success"} fill="solid" size={isSize}>
+              Reset
+            </IonButton>
+            </IonRow>
+            <IonRow style={{ justifyContent: "center", width:currentBreakpoint>= Breakpoint.Md?"100%":"100%"}}>
+              <IonButton shape="round" color={timerRunning && !isTimeout ? "danger" : "success"} size={isSize} fill="solid"
+                onClick={() => handleClick("ST/SP")} style={{ paddingLeft: isXLargeScreen ? "60px" : "default" }}>
+                {timerRunning && !isTimeout ? "SP" : "ST"}
+              </IonButton>
+              <IonButton shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1H")}>
+                1H
+              </IonButton>
+              <IonButton shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("5M")}>
+                5M
+              </IonButton>
+              <IonButton shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1M")}>
+                1M
+              </IonButton>
+              <IonButton className='ion-hide-sm-down' shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("5S")}>
+                5S
+              </IonButton>
+              <IonButton className='ion-hide-sm-down' shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1S")}>
+                1S
+              </IonButton>
+            </IonRow>
+          </IonRow>
+        </IonGrid>
+        < MySound isTimeout={isTimeout} onSoundEnd={() => setIsSoundStopped(true)}></MySound>
+      </IonContent>
+    </IonPage>
+  );
+}
 
-export default MySound;
+export default MyTimer;
+

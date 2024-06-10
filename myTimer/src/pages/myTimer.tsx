@@ -5,6 +5,9 @@ import { useEffect, useRef, useState } from 'react';
 import MySound from './myAlaram';
 import './myTimer.css';
 import { Breakpoint, useResponsiveBreakpoints } from './useResponsiveBreakpoints';
+import { App } from '@capacitor/app';
+import { BackgroundTask } from '@capawesome/capacitor-background-task';
+import { PluginListenerHandle } from '@capacitor/core';
 
 function MyTimer() {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -23,6 +26,63 @@ function MyTimer() {
   const stopVibrationRef = useRef(false);
   const currentBreakpoint: any = useResponsiveBreakpoints(window.innerWidth);
   let isSize: any = currentBreakpoint >= Breakpoint.Sm ? 'large' : 'default'; 
+
+  useEffect(() => {
+    const handleAppStateChange = async ({ isActive }: { isActive: boolean }) => {
+      if (isActive) {
+        return;
+      }
+      const taskId = await BackgroundTask.beforeExit(async () => {
+        // Run your background code...
+        if (timerRunning && currentButton === "Timer") {
+          const intervalId = setInterval(() => {
+            setElapsedTime(prevElapsedTime => prevElapsedTime + 1);
+          }, 1000);
+          return () => clearInterval(intervalId);
+        } else if (timerRunning && currentButton === "Reset") {
+          const intervalId = setInterval(() => {
+            setElapsedTime(0);
+            setCurrentButton("Timer")
+          }, 1000);
+          return () => clearInterval(intervalId);
+        } else if (timerRunning && isCountdownActive && countdownTime > 0) {
+          const intervalId = setInterval(() => {
+            setCountdownTime(prevCountdownTime => {
+              if (prevCountdownTime <= 1) {
+                setIsCountdownActive(false);
+                setTimerRunning(false);
+                setIsTimeout(true);
+                setIsSoundStopped(false);
+                console.log("Timeout");
+                vibrationOn();
+                return 0;
+              }
+              return prevCountdownTime - 1;
+            });
+          }, 1000);
+          return () => clearInterval(intervalId);
+        }
+        BackgroundTask.finish({ taskId });
+      });
+    };
+
+    const setupListener = async () => {
+      const appStateChangeListener = await App.addListener('appStateChange', handleAppStateChange);
+      return appStateChangeListener;
+    };
+
+    let listener: PluginListenerHandle | null = null;
+
+    setupListener().then(handle => {
+      listener = handle;
+    });
+
+    return () => {
+      if (listener) {
+        listener.remove();
+      }
+    };
+  }, [timerRunning, currentButton, isCountdownActive, countdownTime, isSoundStopped]);
 
   const vibrationOn = async () => {
     const duration = 300;
@@ -166,7 +226,6 @@ function MyTimer() {
       year: 'numeric'
     });
   };
-
 
   return (
     <IonPage>
