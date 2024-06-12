@@ -82,3 +82,5 @@ then
 ### Share Button or at least copy downloading link  
 
 
+Project Console: https://console.firebase.google.com/project/mytimer-ab4a6/overview  
+## Hosting URL: https://mytimer-ab4a6.web.app  
