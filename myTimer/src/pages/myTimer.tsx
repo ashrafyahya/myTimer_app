@@ -16,7 +16,7 @@ function Example() {
     <IonReactRouter>
       <IonTabs>
         <IonRouterOutlet>
-          <Redirect exact path="/" to="/home" />
+          <Redirect exact path="/" to="/Time/Time" />
           {/*
           Use the render method to reduce the number of renders your component will have due to a route change.
           Use the component prop when your component depends on the RouterComponentProps passed in automatically.

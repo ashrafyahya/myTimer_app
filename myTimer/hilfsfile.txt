@@ -246,3 +246,87 @@ function MyTimer() {
 
 export default MyTimer;
 
+#########################################################
+ return (
+        <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <IonTitle>My Timer</IonTitle>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent  color="danger">
+                {/* <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}> */}
+                <IonRow class='content-row'>
+                    <IonLabel style={{ justifyContent: "center"}} className="content-label">
+                        <div className="my-display">  {currentDateTime.toLocaleTimeString()} </div>
+                    </IonLabel>
+                </IonRow>
+                {/* </IonGrid> */}
+            </IonContent>
+        </IonPage>
+    );
+}
+###########################################################
+return (
+        <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <IonTitle>My Timer</IonTitle>
+                </IonToolbar>
+            </IonHeader>
+            <IonContent color="danger">
+                {/* <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}> */}
+                <IonRow class='content-row'>
+                    {/* <IonItem className="responsive-item" lines="none"> */}
+                    <IonLabel className="content-label">
+                        <div className="my-display">
+                            {`${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}`}
+                        </div>
+                    </IonLabel>
+                </IonRow>
+                <IonRow style={{justifyContent: "center", width:"100%", paddingTop:"5%"}}>
+                    <IonButton size={isSize} color="success" onClick={() => setIsStart(!isStart)}>
+                        {isStart ? "Stop" : "Start"}
+                    </IonButton>
+                    <IonButton size={isSize} color="success" onClick={() => setIsReset(true)}>
+                        Reset
+                    </IonButton>
+                </IonRow>
+                {/* </IonGrid> */}
+            </IonContent>
+        </IonPage>
+    );
+    ##########################################################
+    .my-display {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  .content-label {
+    width: 30%;
+    height: 100%;
+    font-size: 4rem;
+     margin-top: 3%;
+    border: 4px solid #fffcfc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    background-color: #060606;
+    color: bisque;
+  }
+  .content-row{
+    justify-content: center;
+     width:100%; 
+     height:70%;
+  }
+}
+#########################################################
+ return (
+        <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <IonTitle>My Timer</IonTitle>
+                </IonToolbar>
+            </IonHeader>
+    
