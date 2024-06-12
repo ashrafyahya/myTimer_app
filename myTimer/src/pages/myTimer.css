@@ -181,12 +181,12 @@
     height: 100%;
   }
   .responsive-item {
-    width: 80%;
-    height: 100%;
+    width: 30%;
+    height: 90%;
     font-size: 4rem;
     border: 4px solid #fffcfc;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
-    border-radius: 20px;
+    border-radius: 50%;
     background-color: #060606;
     color: bisque;
   }
