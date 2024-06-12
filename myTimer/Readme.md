@@ -61,7 +61,7 @@ then
 ## Notice: Doing tasks should be in seperate branches. Pls do not make changes in main branch.  
 
 ### ~~Add Icons                 =====> Ashraf       =====>WIP =====>Done~~  
-### Upload app into Cloud       =====> Ashraf       =====>WIP  
+### ~~Upload app into Cloud       =====> Ashraf       =====>WIP  =====>Done~~  
 ### ~~Check App-Responsivity      =====> Ashraf       =====>WIP =====>Done~~  
 ### Updating App using claud  
 ### ~~Add vibration               =====> Ashraf     =====> Done~~  
@@ -70,6 +70,7 @@ then
 
 # New Tasks
 ### ~~Stop sound after a while like the vibration after 20s  =====> Ashraf     =====>WIP =====> Done~~  
+### Restruct the project files        =====> Ashraf     =====>WIP
 ### Bug: Timer does not work in off-display  
 ### Display time when timer is done  
 ### count the seted work hours  
