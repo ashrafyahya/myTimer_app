@@ -36,7 +36,7 @@ const App: React.FC = () => (
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
-    <IonContent color="danger">
+    <IonContent>
       <MyTimer />
     </IonContent>
   </IonApp>
