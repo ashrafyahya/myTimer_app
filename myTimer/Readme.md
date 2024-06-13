@@ -70,17 +70,18 @@ then
 
 # New Tasks
 ### ~~Stop sound after a while like the vibration after 20s  =====> Ashraf     =====>WIP =====> Done~~  
-### Restruct the project files        =====> Ashraf     =====>WIP
+### ~~Restruct the project files        =====> Ashraf     =====>WIP  =====> Done~~ 
 ### Bug: Timer does not work in off-display  
 ### Display time when timer is done  
 ### count the seted work hours  
-### Side menue  
-### Button for deacttivation of Vibration  
-### Button for deacttivation of Sound  
-### Switch language  
-### Modal for news  
-### List for background's colors  
-### Share Button or at least copy downloading link  
+### ~~Setting modal   =====> Ashraf     =====>WIP  =====> Done~~ 
+### Setting:  Button for de/reacttivation of Vibration  
+### Setting: Button for de/reacttivation of Sound  
+### Setting: Choices for sounds
+### Setting:  Switch language  
+### Setting: Modal for news  
+### Setting: List for background's colors  
+### Setting: Share Button or at least copy downloading link  
 
 
 Project Console: https://console.firebase.google.com/project/mytimer-ab4a6/overview  
