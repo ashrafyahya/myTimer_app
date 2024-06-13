@@ -1,26 +1,28 @@
 import React from 'react';
-import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet } from '@ionic/react';
+import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-
 import { Route, Redirect } from 'react-router';
-
-import { playCircle, radio, library, search, timeOutline, stopwatch, stopwatchOutline, timerOutline, calendarOutline } from 'ionicons/icons';
+import { timeOutline, stopwatchOutline, timerOutline, calendarOutline } from 'ionicons/icons';
 
 import TimeClass from "./Time/Time"
 import StopWatchClas from './StopWatch/StopWatch';
 import TimerClass from './Timer/Timer';
 import DateClass from './Date/Date';
+import SettingModal from './Menu/SettingModal'
 
-function Example() {
+function myTimer() {
   return (
     <IonReactRouter>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>My Timer</IonTitle>
+          <SettingModal />
+        </IonToolbar>
+      </IonHeader>
       <IonTabs>
+        <SettingModal />
         <IonRouterOutlet>
           <Redirect exact path="/" to="/Time/Time" />
-          {/*
-          Use the render method to reduce the number of renders your component will have due to a route change.
-          Use the component prop when your component depends on the RouterComponentProps passed in automatically.
-        */}
           <Route path="/StopWatch/StopWatch" render={() => <StopWatchClas />} exact={true} />
           <Route path="/Timer/Timer" render={() => <TimerClass />} exact={true} />
           <Route path="/Date/Date" render={() => <DateClass />} exact={true} />
@@ -52,4 +54,4 @@ function Example() {
     </IonReactRouter>
   );
 }
-export default Example;
+export default myTimer;

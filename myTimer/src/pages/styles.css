@@ -166,7 +166,7 @@
   .custom-content {
     width: 60%;
     height: 60%;
-    padding-top: 20px;
+    /* padding-top: 10px; */
     background-color: #f0f0f0;
     border-radius: 10px;
     display: flex;
@@ -181,8 +181,8 @@
     height: 100%;
   }
   .responsive-item {
-    width: 30%;
-    height: 90%;
+    width: 50%;
+    height: 100%;
     font-size: 4rem;
     border: 4px solid #fffcfc;
     box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
@@ -191,3 +191,11 @@
     color: bisque;
   }
 }
+.header-setting{
+  /* color: chartreuse; */
+  padding-right: 2%;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  /* align-items: center; */
+}
+/* we nee css for our setting modal */

@@ -1,6 +1,6 @@
 import { IonButton, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect, useState } from 'react';
-import '../myTimer.css';
+import '../styles.css';
 import { Breakpoint, useResponsiveBreakpoints } from '../useResponsiveBreakpoints';
 
 function StopWatchClass() {
@@ -35,14 +35,9 @@ function StopWatchClass() {
 
     return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>My Timer</IonTitle>
-                </IonToolbar>
-            </IonHeader>
             <IonContent style={{ justifyContent: "center" }} color="danger">
                 <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}>
-                    <IonRow style={{ width: "100%", height: "50%", justifyContent: "center" }}>
+                    <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
                         {/* <IonItem className="responsive-item" lines="none"> */}
                         <IonLabel className="responsive-item">
                             <div className="my-display">

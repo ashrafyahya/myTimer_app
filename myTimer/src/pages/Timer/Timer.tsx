@@ -3,7 +3,7 @@ import { IonButton, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, I
 import { useMediaQuery } from '@react-hook/media-query';
 import { useEffect, useRef, useState } from 'react';
 import MySound from './myAlaram';
-import '../myTimer.css';
+import '../styles.css';
 import { Breakpoint, useResponsiveBreakpoints } from '../useResponsiveBreakpoints';
 
 function TimerClass() {
@@ -129,14 +129,9 @@ function TimerClass() {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>My Timer</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent style={{ justifyContent: "center" }} color="danger">
         <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}>
-          <IonRow style={{ width: "100%", height: "50%", justifyContent: "center" }}>
+          <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
             <IonLabel className="responsive-item">
               <div className="my-display">
                 { currentButton === "Timer" ? `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}` :
