@@ -4,7 +4,10 @@
 - [Node.js](https://nodejs.org/) (Version 12.x or higher)        
 - [npm](https://www.npmjs.com/) (Node Package Manager, usually isntalled with Node.js)        
 
-## [Jump to Tasks:](#tasks) 
+## [Jump to PlugIns](#plugin)  
+## [Jump to Tasks](#tasks)  
+## [Jump to Bugs](#bugs) 
+## [Jump to Firebase](#firebase) 
 
 ## Installation of Ionic CLI  
 ```$npm install -g @ionic/cli```  
@@ -48,11 +51,12 @@ then
 then  
 ```$adb start-server```  
 
-
+<a id="plugin"></a> 
 ## Plugins:
 ```$npm install cordova-plugin-media```       //Plugin for vibration --> avoid it pls  
 ```$npx cap add @capacitor/haptics```        //Plugin for vibration --> use it pls  
 ```$npm install cordova-plugin-media```        //Plugin for media or use following command  
+Add installation command for vibration plugin here ...  
 
 
 <a id="tasks"></a> 
@@ -71,8 +75,6 @@ then
 # New Tasks
 ### ~~Stop sound after a while like the vibration after 20s  =====> Ashraf     =====>WIP =====> Done~~  
 ### ~~Restruct the project files        =====> Ashraf     =====>WIP  =====> Done~~ 
-### Bug: Timer does not work in off-display  
-### Display time when timer is done  
 ### count the seted work hours  
 ### ~~Setting modal   =====> Ashraf     =====>WIP  =====> Done~~ 
 ### Setting:  Button for de/reacttivation of Vibration  
@@ -84,5 +86,15 @@ then
 ### Setting: Share Button or at least copy downloading link  
 
 
-Project Console: https://console.firebase.google.com/project/mytimer-ab4a6/overview  
-## Hosting URL: https://mytimer-ab4a6.web.app  
+
+<a id="bugs"></a> 
+# Bugs:  
+### Bug: Timer does not work in off-display  
+
+
+
+<a id="firebase"></a> 
+# Firebase:  
+## Installation and deploying  
+...
+### Hosting URL: https://mytimer-ab4a6.web.app  
