@@ -13,7 +13,7 @@ type RingtonesType = {
 };
 
 const ringtones: RingtonesType = {
-  'Ringtone 1': '../resources/ringtone1.mp3',
+  'Ringtone 1': '../resources/ringing-sound.mp3',
   'Ringtone 2': '../resources/ringtone2.mp3',
   'Ringtone 3': '../resources/ringtone3.mp3',
 };
@@ -30,7 +30,7 @@ const MySound: React.FC<MySoundProps> = ({ isTimeout, onSoundEnd }) => {
         setIsRinging(true);
         if(selectedRingtone == "defualt"){
           ringtoneRef.current = new Howl({
-            src: ringtones['Ringtone 1'],
+            src: [ringtones["Ringtone 1"]],
             loop: true,
             autoplay: false,
             volume: 1,
@@ -58,7 +58,7 @@ const MySound: React.FC<MySoundProps> = ({ isTimeout, onSoundEnd }) => {
   }
 
   ringtoneRef.current = new Howl({       // Initialize the Howl instance with the selected ringtone
-    src: ringtones[selectedKey],
+    src: [ringtones[selectedKey]],
     loop: true,
     autoplay: false,
     volume: 1,
