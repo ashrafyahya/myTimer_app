@@ -3,8 +3,16 @@
 ## Before start working on ionic project be sure you have installed the following:  
 - [Node.js](https://nodejs.org/) (Version 12.x or higher)        
 - [npm](https://www.npmjs.com/) (Node Package Manager, usually isntalled with Node.js)        
+  
 
-## [Jump to Tasks:](#tasks) 
+
+## [Jump to PlugIns](#plugin)  
+## [Jump to Tasks](#tasks)  
+## [Jump to Bugs](#bugs) 
+## [Jump to Firebase](#firebase) 
+  
+
+
 
 ## Installation of Ionic CLI  
 ```$npm install -g @ionic/cli```  
@@ -49,45 +57,69 @@ then
 ```$adb start-server```  
 
 
+  
+
+
+<a id="plugin"></a>  
 ## Plugins:
 ```$npm install cordova-plugin-media```       //Plugin for vibration --> avoid it pls  
 ```$npx cap add @capacitor/haptics```        //Plugin for vibration --> use it pls  
 ```$npm install cordova-plugin-media```        //Plugin for media or use following command  
+Add installation command for vibration plugin here ...  
+
+
+
+  
 
 
 <a id="tasks"></a> 
 # TODO next:  
-
+  
 ## Notice: Doing tasks should be in seperate branches. Pls do not make changes in main branch.  
-
+  
 ### ~~Add Icons                 =====> Ashraf       =====>WIP =====>Done~~  
 ### ~~Upload app into Cloud       =====> Ashraf       =====>WIP  =====>Done~~  
 ### ~~Check App-Responsivity      =====> Ashraf       =====>WIP =====>Done~~  
 ### Updating App using claud  
 ### ~~Add vibration               =====> Ashraf     =====> Done~~  
 ### ~~Add Sound                   =====> Ashraf     =====>WIP =====> Done~~  
-
-
+  
+  
 # New Tasks
 ### ~~Stop sound after a while like the vibration after 20s  =====> Ashraf     =====>WIP =====> Done~~  
-### Restruct the project files        =====> Ashraf     =====>WIP
-### Bug: Timer does not work in off-display  
-### Display time when timer is done  
+### ~~Restruct the project files        =====> Ashraf     =====>WIP  =====> Done~~ 
 ### count the seted work hours  
-### Side menue  
-### Button for deacttivation of Vibration  
-### Button for deacttivation of Sound  
-### Switch language  
-### Modal for news  
-### List for background's colors  
-### Share Button or at least copy downloading link  
+### ~~Setting modal   =====> Ashraf     =====>WIP  =====> Done~~ 
+### Setting:  Button for de/reacttivation of Vibration  
+### Setting: Button for de/reacttivation of Sound  
+### Setting: Choices for sounds
+### Setting:  Switch language  
+### Setting: Modal for news  
+### Setting: List for background's colors  
+### Setting: Share Button or at least copy downloading link  
 
 
+  
 
 # Notes:
 ### Note: modified gradle version in file 'android/gradle/wrapper/gradle-wrapper.properties' <distributionUrl> from gradle-8.2.1-all.zip to gradle-8.1-bin.zip
 ### Note: modified project's android gradle version in file 'android/build.gradle' from 8.2.1 to  8.1.3
 
 
-Project Console: https://console.firebase.google.com/project/mytimer-ab4a6/overview  
-## Hosting URL: https://mytimer-ab4a6.web.app  
+
+  
+
+
+<a id="bugs"></a> 
+# Bugs:  
+### Bug: Timer does not work in off-display  
+
+
+  
+
+
+<a id="firebase"></a> 
+# Firebase:  
+## Installation and deploying  
+...
+### Hosting URL: https://mytimer-ab4a6.web.app  
