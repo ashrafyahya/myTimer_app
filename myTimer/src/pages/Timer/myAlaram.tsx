@@ -1,47 +1,86 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Howl } from 'howler';
+import RingtoneSelector from './ringtoneSelector';  
+
 
 interface MySoundProps {
   isTimeout: boolean;
   onSoundEnd: () => void;
 }
 
-var ringtone = new Howl({
-  src: [ '../resources/ringing-sound.mp3'],
-  loop: false,
-  autoplay:false,
-  volume: 1,
-  // onend: function() {
-  //   console.log('finished playing ringtone!');
-  // },
-  // onstop: function() {
-  //   console.log('stopped playing ringtone!');
-  // }
-  
-});
+type RingtonesType = {
+  [key: string]: string;
+};
 
-const MySound: React.FC<MySoundProps> = ({ isTimeout, onSoundEnd  }) => {
+const ringtones: RingtonesType = {
+  'Ringtone 1': '../resources/ringtone1.mp3',
+  'Ringtone 2': '../resources/ringtone2.mp3',
+  'Ringtone 3': '../resources/ringtone3.mp3',
+};
+
+
+const MySound: React.FC<MySoundProps> = ({ isTimeout, onSoundEnd }) => {
   const [isRinging, setIsRinging] = useState(false);
-
+  const [selectedRingtone, setSelectedRingtone] = useState("defualt");
+  const ringtoneRef = useRef<Howl | null>(null);
+  
   useEffect(() => {
-
     if (isTimeout) {
-      if (!isRinging){
+      if (!isRinging) {
         setIsRinging(true);
-        ringtone.play();
+        if(selectedRingtone == "defualt"){
+          ringtoneRef.current = new Howl({
+            src: ringtones['Ringtone 1'],
+            loop: true,
+            autoplay: false,
+            volume: 1,
+          });
+
+        }
+        ringtoneRef.current?.play();
         console.log('started playing ringtone');
-    }
-      
+      }
     } else {
-      if(isRinging){
+      if (isRinging) {
         setIsRinging(false);
-        ringtone.stop();
+        ringtoneRef.current?.stop();
         console.log('stopped playing ringtone');
       }
     }
-  }, [isTimeout, onSoundEnd]);
+  }, [isTimeout, isRinging]);
 
-  return null; // This component doesn't render anything
+  const handleRingtoneChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedKey = event.target.value as keyof RingtonesType;
+    setSelectedRingtone(ringtones[selectedKey]);
+
+    if (ringtoneRef.current) {        
+    ringtoneRef.current.unload();     // Unload the previous instance if it exists
+  }
+
+  ringtoneRef.current = new Howl({       // Initialize the Howl instance with the selected ringtone
+    src: ringtones[selectedKey],
+    loop: true,
+    autoplay: false,
+    volume: 1,
+  });
+
+  if(!isTimeout){
+    ringtoneRef.current.play();             // Play selected ringtone for two seconds
+    setTimeout(() => {
+      ringtoneRef.current?.stop();
+      console.log('finished playing selected ringtone for 3 seconds');
+    }, 2000);
+  }
+
+  return () => {
+    ringtoneRef.current?.unload();
+  };
+
+  };
+
+  return (
+    <RingtoneSelector ringtones={ringtones} onChange={handleRingtoneChange} />
+  );
 };
 
 export default MySound;

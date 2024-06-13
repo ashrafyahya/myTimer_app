@@ -157,6 +157,8 @@ function TimerClass() {
                 onClick={() => handleClick("Reset")} color={"success"} fill="solid" size={isSize}>
                 Reset
               </IonButton>
+              <MySound  isTimeout={isTimeout} onSoundEnd ={() => setIsSoundStopped(true)} />
+
             </IonRow>
             <IonRow style={{ justifyContent: "center", width: currentBreakpoint >= Breakpoint.Md ? "100%" : "100%" }}>
               <IonButton shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1H")}>
@@ -171,13 +173,12 @@ function TimerClass() {
               <IonButton className='ion-hide-sm-down' shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("5S")}>
                 5S
               </IonButton>
-              <IonButton className='ion-hide-sm-down' shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1S")}>
+              <IonButton shape="round" color="success" size={isSize} fill="solid" onClick={() => handleClick("1S")}>
                 1S
               </IonButton>
             </IonRow>
           </IonRow>
         </IonGrid>
-        <MySound isTimeout={isTimeout} onSoundEnd ={() => setIsSoundStopped(true)} />
       </IonContent>
     </IonPage>
   );
