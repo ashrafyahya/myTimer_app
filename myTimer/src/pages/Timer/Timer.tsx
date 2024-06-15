@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import MySound from './myAlaram';
 import '../styles.css';
 import { Breakpoint, useResponsiveBreakpoints } from '../useResponsiveBreakpoints';
+import SettingModal from '../Menu/SettingModal';
 
 function TimerClass() {
   const [elapsedTime, setElapsedTime] = useState(0);
@@ -16,6 +17,7 @@ function TimerClass() {
   const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
   const isXLargeScreen = useMediaQuery('only screen and (min-width: 1500px)');
   const [isSoundStopped, setIsSoundStopped] = useState(false);
+  const [vibrationEnabled, setVibration] = useState<boolean | ((prevState: boolean) => boolean)>(true);
   const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const stopVibrationRef = useRef(false);
   const currentBreakpoint: any = useResponsiveBreakpoints(window.innerWidth);
@@ -23,21 +25,23 @@ function TimerClass() {
   const [isStart, setIsStart] = useState(false);
 
   const vibrationOn = async () => {
-    const duration = 300;
-    const interval = 100;
-    const totalVibrationTime = 30000;
-    const repetitions = Math.ceil(totalVibrationTime / (duration + interval));
+    if (vibrationEnabled === true) {
+      const duration = 300;
+      const interval = 100;
+      const totalVibrationTime = 30000;
+      const repetitions = Math.ceil(totalVibrationTime / (duration + interval));
 
-    stopVibrationRef.current = false;
+      stopVibrationRef.current = false;
 
-    for (let i = 0; i < repetitions; i++) {
-      if (stopVibrationRef.current) break;
-      await Haptics.vibrate({ duration });
-      await new Promise(resolve => setTimeout(resolve, interval));
-      console.log("vib on")
+      for (let i = 0; i < repetitions; i++) {
+        if (stopVibrationRef.current) break;
+        await Haptics.vibrate({ duration });
+        await new Promise(resolve => setTimeout(resolve, interval));
+        console.log("vib on")
+      }
+      console.log("vib end")
+      setIsTimeout(false)
     }
-    console.log("vib end")
-    setIsTimeout(false)
   };
 
   useEffect(() => {
@@ -129,6 +133,12 @@ function TimerClass() {
 
   return (
     <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonTitle>My Timer</IonTitle>
+          <SettingModal setVibration={setVibration} />
+        </IonToolbar>
+      </IonHeader>
       <IonContent style={{ justifyContent: "center" }} color="danger">
         <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}>
           <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>

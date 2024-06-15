@@ -1,16 +1,19 @@
 import { IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonList, IonModal, IonPage, IonRange, IonSelect, IonSelectOption, IonText, IonTitle, IonToast, IonToolbar } from '@ionic/react';
 import { settingsOutline, shareOutline } from 'ionicons/icons';
 import { useState } from 'react';
-
-export function SettingModal() {
+ interface dataProps{
+    setVibration: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const SettingModal:React.FC<dataProps> = ({setVibration }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [showToast, setShowToast] = useState(false);
 
     const handleCheckboxChange = (event: { detail: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
         setChecked(event.detail.checked);
         console.log('Checkbox value:', event.detail.checked);
+        setVibration(event.detail.checked);
     };
     const handleShare = () => {
         const shareData = {

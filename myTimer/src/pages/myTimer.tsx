@@ -13,14 +13,13 @@ import SettingModal from './Menu/SettingModal'
 function myTimer() {
   return (
     <IonReactRouter>
-      <IonHeader>
+      {/* <IonHeader>
         <IonToolbar>
           <IonTitle>My Timer</IonTitle>
           <SettingModal />
         </IonToolbar>
-      </IonHeader>
+      </IonHeader> */}
       <IonTabs>
-        <SettingModal />
         <IonRouterOutlet>
           <Redirect exact path="/" to="/Time/Time" />
           <Route path="/StopWatch/StopWatch" render={() => <StopWatchClas />} exact={true} />
