@@ -73,7 +73,7 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                 <IonToolbar>
                     <IonTitle>My Timer</IonTitle>
                     <IonButtons class='header-setting' slot="end">
-                        <IonButton onClick={() => setShowModal(true)}>
+                        <IonButton size='large' onClick={() => setShowModal(true)}>
                             <IonIcon icon={settingsOutline}></IonIcon>
                         </IonButton>
                     </IonButtons>
@@ -98,7 +98,7 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                                     <IonSelectOption value="danger">Red</IonSelectOption>
                                     <IonSelectOption value="Dark">Black</IonSelectOption>
                                     <IonSelectOption value="success">Green</IonSelectOption>
-                                    <IonSelectOption value="light">White</IonSelectOption>
+                                    <IonSelectOption value="dark">White</IonSelectOption>
                                 </IonSelect>
                             </IonItem>
 

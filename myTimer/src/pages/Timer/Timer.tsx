@@ -150,8 +150,8 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
           <SettingModal setVibration={setVibration} setSound={setSound} setColor={setColor} setSoundStrenght={setSoundStrenght}/>
         </IonToolbar>
       </IonHeader> */}
-      <IonContent style={{ justifyContent: "center" }} color={setColor}>
-        <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}>
+      <IonContent style={{ justifyContent: "center"}} color={setColor}>
+        <IonGrid className=" custom-content " style={{ marginTop: "20%", justifyContent: "center" }}>
           <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
             <IonLabel className="responsive-item">
               <div className="my-display">
