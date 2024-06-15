@@ -77,16 +77,15 @@ Add installation command for vibration plugin here ...
 ### ~~Restruct the project files        =====> Ashraf     =====>WIP  =====> Done~~ 
 ### count the seted work hours  
 ### ~~Setting modal   =====> Ashraf     =====>WIP  =====> Done~~ 
-### Setting:  Button for de/reacttivation of Vibration  
-### Setting: Button for de/reacttivation of Sound  
-### Setting: Choices for sounds
+### ~~Setting:  Button for de/reacttivation of Vibration   =====> Ashraf     =====>WIP =====> Done~~ 
+### Setting: Button for de/reacttivation of Sound  =====> Ashraf     =====>WIP 
+### Setting: Choices for sounds  =====> Abdo     =====>WIP 
 ### Setting:  Switch language  
 ### Setting: Modal for news  
-### Setting: List for background's colors  
-### Setting: Share Button or at least copy downloading link  
+### Setting: List for background's colors  =====> Ashraf     =====>WIP 
+### Setting: Share Button or at least copy downloading link  =====> Ashraf     =====>WIP 
 
-# Third level of Tasks
-### Save the app values
+## For more tasks look repo issues
 
 <a id="bugs"></a> 
 # Bugs:  
