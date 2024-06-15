@@ -3,43 +3,56 @@ import { Howl } from 'howler';
 
 interface MySoundProps {
   isTimeout: boolean;
-  onSoundEnd: () => void;
+  soundVolume: number
+  // onSoundEnd: () => void;
 }
 
-var ringtone = new Howl({
-  src: [ '../resources/ringing-sound.mp3'],
-  loop: false,
-  autoplay:false,
-  volume: 1,
-  // onend: function() {
-  //   console.log('finished playing ringtone!');
-  // },
-  // onstop: function() {
-  //   console.log('stopped playing ringtone!');
-  // }
-  
-});
-
-const MySound: React.FC<MySoundProps> = ({ isTimeout, onSoundEnd  }) => {
+const MySound: React.FC<MySoundProps> = ({ isTimeout, soundVolume }) => {
   const [isRinging, setIsRinging] = useState(false);
+
+
+  const ringtoneRef = useRef<Howl | null>(null);
+
+  useEffect(() => {
+    // Initialize Howl instance
+    ringtoneRef.current = new Howl({
+      src: ['../resources/ringing-sound.mp3'],
+      loop: false,
+      autoplay: false,
+      volume: soundVolume,
+      // onend: onSoundEnd,
+    }, [soundVolume]);
+
+    // Cleanup Howl instance on unmount
+    return () => {
+      ringtoneRef.current?.unload();
+    };
+  }, []);
+
+  useEffect(() => {
+    // Update the volume whenever soundVolume prop changes
+    if (ringtoneRef.current) {
+      ringtoneRef.current.volume(soundVolume);
+    }
+  }, [soundVolume]);
 
   useEffect(() => {
 
     if (isTimeout) {
       if (!isRinging){
         setIsRinging(true);
-        ringtone.play();
+        ringtoneRef.current.play();
         console.log('started playing ringtone');
     }
       
     } else {
       if(isRinging){
         setIsRinging(false);
-        ringtone.stop();
+        ringtoneRef.current.stop();
         console.log('stopped playing ringtone');
       }
     }
-  }, [isTimeout, onSoundEnd]);
+  }, [isTimeout, soundVolume]);
 
   return null; // This component doesn't render anything
 };
