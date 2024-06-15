@@ -3,11 +3,16 @@
 ## Before start working on ionic project be sure you have installed the following:  
 - [Node.js](https://nodejs.org/) (Version 12.x or higher)        
 - [npm](https://www.npmjs.com/) (Node Package Manager, usually isntalled with Node.js)        
+  
+
 
 ## [Jump to PlugIns](#plugin)  
 ## [Jump to Tasks](#tasks)  
 ## [Jump to Bugs](#bugs) 
 ## [Jump to Firebase](#firebase) 
+  
+
+
 
 ## Installation of Ionic CLI  
 ```$npm install -g @ionic/cli```  
@@ -51,7 +56,11 @@ then
 then  
 ```$adb start-server```  
 
-<a id="plugin"></a> 
+
+  
+
+
+<a id="plugin"></a>  
 ## Plugins:
 ```$npm install cordova-plugin-media```       //Plugin for vibration --> avoid it pls  
 ```$npx cap add @capacitor/haptics```        //Plugin for vibration --> use it pls  
@@ -59,38 +68,53 @@ then
 Add installation command for vibration plugin here ...  
 
 
+
+  
+
+
 <a id="tasks"></a> 
 # TODO next:  
-
+  
 ## Notice: Doing tasks should be in seperate branches. Pls do not make changes in main branch.  
-
+  
 ### ~~Add Icons                 =====> Ashraf       =====>WIP =====>Done~~  
 ### ~~Upload app into Cloud       =====> Ashraf       =====>WIP  =====>Done~~  
 ### ~~Check App-Responsivity      =====> Ashraf       =====>WIP =====>Done~~  
 ### Updating App using claud  
 ### ~~Add vibration               =====> Ashraf     =====> Done~~  
 ### ~~Add Sound                   =====> Ashraf     =====>WIP =====> Done~~  
-
-
+  
+  
 # New Tasks
 ### ~~Stop sound after a while like the vibration after 20s  =====> Ashraf     =====>WIP =====> Done~~  
 ### ~~Restruct the project files        =====> Ashraf     =====>WIP  =====> Done~~ 
 ### count the seted work hours  
-### ~~Setting modal   =====> Ashraf     =====>WIP  =====> Done~~ 
+### ~~Setting modal   =====> Ashraf     =====>WIP  =====> Done~~  
 ### ~~Setting:  Button for de/reacttivation of Vibration   =====> Ashraf     =====>WIP =====> Done~~ 
-### Setting: Button for de/reacttivation of Sound  =====> Ashraf     =====>WIP 
+### ~~Setting: Button for de/reacttivation of Sound  =====> Ashraf     =====>WIP   =====> Done~~  
 ### Setting: Choices for sounds  =====> Abdo     =====>WIP 
 ### Setting:  Switch language  
 ### Setting: Modal for news  
-### Setting: List for background's colors  =====> Ashraf     =====>WIP 
-### Setting: Share Button or at least copy downloading link  =====> Ashraf     =====>WIP 
+### ~~Setting: List for background's colors  =====> Ashraf     =====>WIP  =====> Done~~  
+### ~~Setting: Share Button or at least copy downloading link  =====> Ashraf     =====>WIP  =====> Done~~ 
 
 ## For more tasks look repo issues
+  
+  
+  
+# Notes:
+### Note: modified gradle version in file 'android/gradle/wrapper/gradle-wrapper.properties' <distributionUrl> from gradle-8.2.1-all.zip to gradle-8.1-bin.zip
+### Note: modified project's android gradle version in file 'android/build.gradle' from 8.2.1 to  8.1.3
+  
+    
+      
 
 <a id="bugs"></a> 
 # Bugs:  
 ### Bug: Timer does not work in off-display  
 
+
+  
 
 
 <a id="firebase"></a> 
