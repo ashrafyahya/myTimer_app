@@ -3,17 +3,43 @@ import { settingsOutline, shareOutline } from 'ionicons/icons';
 import { useState } from 'react';
  interface dataProps{
     setVibration: React.Dispatch<React.SetStateAction<boolean>>;
+    setSound: React.Dispatch<React.SetStateAction<boolean>>;
+    setColor: React.Dispatch<React.SetStateAction<string>>;
+    setSoundStrenght: React.Dispatch<React.SetStateAction<number>>;
 }
-export const SettingModal:React.FC<dataProps> = ({setVibration }) => {
+export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSound, setSoundStrenght }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [checked, setChecked] = useState(true);
+    const [soundChecked, setSoundChecked] = useState(true);
+    const [soundStrenght, setSoundStrength] = useState<50>();
+    const [colorChecked, setColorChecked] = useState<string>("red");
     const [showModal, setShowModal] = useState(false);
     const [showToast, setShowToast] = useState(false);
 
-    const handleCheckboxChange = (event: { detail: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
+    const handleVibrationCheckboxChange = (event: { detail: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
         setChecked(event.detail.checked);
-        console.log('Checkbox value:', event.detail.checked);
+        console.log('Vibration Checkbox value:', event.detail.checked);
         setVibration(event.detail.checked);
+    };
+    
+    const handleSoundCheckboxChange = (event: { detail: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
+        setSoundChecked(event.detail.checked);
+        console.log('Sound checkbox value:', event.detail.checked);
+        setSound(event.detail.checked);
+    };
+
+    const handleColorCheckboxChange  = (event: CustomEvent) => {
+        const value = event.detail.value as string;
+        setColorChecked(value)
+        console.log('color value:', event.detail.value);
+        setColor(event.detail.value);
+    };
+
+    const handleSoundStrenghtCheckboxChange= (event: CustomEvent) => {
+        const value = event.detail.value as number;
+        setSoundStrength(event.detail.value);
+        console.log('Sound checkbox value:', event.detail.value);
+        setSoundStrenght(event.detail.value);
     };
     const handleShare = () => {
         const shareData = {
@@ -73,7 +99,14 @@ export const SettingModal:React.FC<dataProps> = ({setVibration }) => {
                             </IonItem>
 
                             <IonItem>
-                                <IonSelect label="Sound" labelPlacement="fixed" placeholder="Favorite sound">
+                            <IonCheckbox id='checkBox'
+                                checked={soundChecked}
+                                onIonChange={handleSoundCheckboxChange}
+                                style={{ marginLeft: 'auto' }}>Sound</IonCheckbox>
+                        </IonItem>
+
+                            <IonItem>
+                                <IonSelect value={colorChecked} onIonChange={handleColorCheckboxChange} label="Sound" labelPlacement="fixed" placeholder="Favorite sound">
                                     <IonSelectOption value="sound1">Sound1</IonSelectOption>
                                     <IonSelectOption value="sound2">Sound2</IonSelectOption>
                                     <IonSelectOption value="sound3">Sound3</IonSelectOption>
@@ -81,7 +114,7 @@ export const SettingModal:React.FC<dataProps> = ({setVibration }) => {
                             </IonItem>
                         </IonList>
 
-                        <IonRange>
+                        <IonRange value={soundStrenght} onIonChange={handleSoundStrenghtCheckboxChange}>
                             <div slot="label">
                                 <IonText color="primary">Sound strength</IonText>
                             </div>
@@ -90,7 +123,7 @@ export const SettingModal:React.FC<dataProps> = ({setVibration }) => {
                         <IonItem>
                             <IonCheckbox id='checkBox'
                                 checked={checked}
-                                onIonChange={handleCheckboxChange}
+                                onIonChange={handleVibrationCheckboxChange}
                                 style={{ marginLeft: 'auto' }}>Vibration</IonCheckbox>
                         </IonItem>
                     </IonContent>

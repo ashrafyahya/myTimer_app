@@ -18,6 +18,14 @@ function TimerClass() {
   const isXLargeScreen = useMediaQuery('only screen and (min-width: 1500px)');
   const [isSoundStopped, setIsSoundStopped] = useState(false);
   const [vibrationEnabled, setVibration] = useState<boolean | ((prevState: boolean) => boolean)>(true);
+  const [soundEnabled, setSound] = useState<boolean | ((prevState: boolean) => boolean)>(true);
+  const [colorChoice, setColor] = useState<string>("red");
+  const [soundStrength, setSoundStrenght] = useState<number>(50); 
+    {/* <IonTitle>My Timer</IonTitle>
+          setVibration: React.Dispatch<React.SetStateAction<boolean>>;
+    setSound: React.Dispatch<React.SetStateAction<boolean>>;
+    setColor: React.Dispatch<React.SetStateAction<string>>;
+    setSoundStrenght: React.Dispatch<React.SetStateAction<number>>; */}
   const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const stopVibrationRef = useRef(false);
   const currentBreakpoint: any = useResponsiveBreakpoints(window.innerWidth);
@@ -135,8 +143,7 @@ function TimerClass() {
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>My Timer</IonTitle>
-          <SettingModal setVibration={setVibration} />
+          <SettingModal setVibration={setVibration} setSound={setSound} setColor={setColor} setSoundStrenght={setSoundStrenght}/>
         </IonToolbar>
       </IonHeader>
       <IonContent style={{ justifyContent: "center" }} color="danger">
@@ -182,7 +189,7 @@ function TimerClass() {
             </IonRow>
           </IonRow>
         </IonGrid>
-        <MySound isTimeout={isTimeout} onSoundEnd ={() => setIsSoundStopped(true)} />
+        <MySound isTimeout={isTimeout && soundEnabled? true: false} onSoundEnd ={() => setIsSoundStopped(true)} />
       </IonContent>
     </IonPage>
   );
