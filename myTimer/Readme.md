@@ -89,26 +89,25 @@ Add installation command for vibration plugin here ...
 ### ~~Stop sound after a while like the vibration after 20s  =====> Ashraf     =====>WIP =====> Done~~  
 ### ~~Restruct the project files        =====> Ashraf     =====>WIP  =====> Done~~ 
 ### count the seted work hours  
-### ~~Setting modal   =====> Ashraf     =====>WIP  =====> Done~~ 
-### Setting:  Button for de/reacttivation of Vibration  =====> Ashraf     =====>WIP
-### Setting: Button for de/reacttivation of Sound  
-### Setting: Choices for sounds  =====> Abdo        =====>WIP  
+### ~~Setting modal   =====> Ashraf     =====>WIP  =====> Done~~  
+### ~~Setting:  Button for de/reacttivation of Vibration   =====> Ashraf     =====>WIP =====> Done~~ 
+### ~~Setting: Button for de/reacttivation of Sound  =====> Ashraf     =====>WIP   =====> Done~~  
+### Setting: Choices for sounds  =====> Abdo     =====>WIP 
 ### Setting:  Switch language  
 ### Setting: Modal for news  
-### Setting: List for background's colors  
-### ~~Setting: Share Button or at least copy downloading link  =====> Ashraf        =====>WIP  =====> Done~~ 
+### ~~Setting: List for background's colors  =====> Ashraf     =====>WIP  =====> Done~~  
+### ~~Setting: Share Button or at least copy downloading link  =====> Ashraf     =====>WIP  =====> Done~~ 
 
-
+## For more tasks look repo issues
   
-
+  
+  
 # Notes:
 ### Note: modified gradle version in file 'android/gradle/wrapper/gradle-wrapper.properties' <distributionUrl> from gradle-8.2.1-all.zip to gradle-8.1-bin.zip
 ### Note: modified project's android gradle version in file 'android/build.gradle' from 8.2.1 to  8.1.3
-
-
-
   
-
+    
+      
 
 <a id="bugs"></a> 
 # Bugs:  
