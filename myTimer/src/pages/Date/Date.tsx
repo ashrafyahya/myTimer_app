@@ -1,8 +1,12 @@
 import { IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useMediaQuery } from '@react-hook/media-query';
 import '../styles.css';
+import { useEffect } from 'react';
+interface Props {
+    setColor: string
+}
 
-function DateClass() {
+const DateClass: React.FC<Props> = ({ setColor }) => {
 
     const formatDate = (date: Date) => {
         return date.toLocaleDateString('de-DE', {
@@ -11,10 +15,13 @@ function DateClass() {
             year: 'numeric'
         });
     };
+    useEffect(()=>{
+        //checking color
+    }, [setColor])
 
     return (
         <IonPage>
-            <IonContent style={{ justifyContent: "center" }} color="danger">
+            <IonContent style={{ justifyContent: "center" }} color={setColor}>
                 <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}>
                     <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
                         <IonLabel className="responsive-item">

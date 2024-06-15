@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Route, Redirect } from 'react-router';
@@ -11,21 +11,26 @@ import DateClass from './Date/Date';
 import SettingModal from './Menu/SettingModal'
 
 function myTimer() {
+  const [vibrationEnabled, setVibration] = useState<boolean | ((prevState: boolean) => boolean)>(true);
+  const [soundEnabled, setSound] = useState<boolean | ((prevState: boolean) => boolean)>(true);
+  const [colorChoice, setColor] = useState<string>("danger");
+  const [soundStrength, setSoundStrenght] = useState<number>(50); 
   return (
     <IonReactRouter>
-      {/* <IonHeader>
+      <IonHeader>
         <IonToolbar>
           <IonTitle>My Timer</IonTitle>
-          <SettingModal />
+          <SettingModal setVibration={setVibration} setSound={setSound} setColor={setColor} setSoundStrenght={setSoundStrenght}/>
         </IonToolbar>
-      </IonHeader> */}
+      </IonHeader>
       <IonTabs>
         <IonRouterOutlet>
           <Redirect exact path="/" to="/Time/Time" />
-          <Route path="/StopWatch/StopWatch" render={() => <StopWatchClas />} exact={true} />
-          <Route path="/Timer/Timer" render={() => <TimerClass />} exact={true} />
-          <Route path="/Date/Date" render={() => <DateClass />} exact={true} />
-          <Route path="/Time/Time" render={() => <TimeClass />} exact={true} />
+          <Route path="/StopWatch/StopWatch" render={() => <StopWatchClas setColor={colorChoice}  />} exact={true} />
+          <Route path="/Timer/Timer" render={() => <TimerClass soundEnabled={soundEnabled} 
+            soundStrength={soundStrength} vibrationEnabled={vibrationEnabled} setColor={colorChoice} />} exact={true} />
+          <Route path="/Date/Date" render={() => <DateClass setColor={colorChoice}  />} exact={true} />
+          <Route path="/Time/Time" render={() => <TimeClass setColor={colorChoice}  />} exact={true} />
         </IonRouterOutlet>
 
         <IonTabBar slot="bottom">

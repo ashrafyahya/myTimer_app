@@ -2,8 +2,10 @@ import { IonButton, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, I
 import { useEffect, useState } from 'react';
 import '../styles.css';
 import { Breakpoint, useResponsiveBreakpoints } from '../useResponsiveBreakpoints';
-
-function StopWatchClass() {
+interface Props{
+    setColor: string
+  }
+const StopWatchClass: React.FC<Props> = ({ setColor }) => {
     const [elapsedTime, setElapsedTime] = useState(0);
     const currentBreakpoint: any = useResponsiveBreakpoints(window.innerWidth);
     let isSize: any = currentBreakpoint >= Breakpoint.Sm ? 'large' : 'default';
@@ -23,7 +25,7 @@ function StopWatchClass() {
               }, 1000);
               return () => clearInterval(intervalId);
         } 
-    }, [isStart, elapsedTime]);
+    }, [isStart, elapsedTime, setColor]);
 
     useEffect(() => {
         if (isReset) {
@@ -35,7 +37,7 @@ function StopWatchClass() {
 
     return (
         <IonPage>
-            <IonContent style={{ justifyContent: "center" }} color="danger">
+            <IonContent style={{ justifyContent: "center" }} color={setColor}>
                 <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}>
                     <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
                         {/* <IonItem className="responsive-item" lines="none"> */}

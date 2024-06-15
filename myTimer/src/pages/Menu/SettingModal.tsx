@@ -1,6 +1,6 @@
 import { IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonList, IonModal, IonPage, IonRange, IonSelect, IonSelectOption, IonText, IonTitle, IonToast, IonToolbar } from '@ionic/react';
 import { settingsOutline, shareOutline } from 'ionicons/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
  interface dataProps{
     setVibration: React.Dispatch<React.SetStateAction<boolean>>;
     setSound: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,7 +12,9 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
     const [checked, setChecked] = useState(true);
     const [soundChecked, setSoundChecked] = useState(true);
     const [soundStrenght, setSoundStrength] = useState<number>(50);
-    const [colorChecked, setColorChecked] = useState<string>("red");
+    const [colorChecked, setColorChecked] = useState<string>("Favorite color");
+    const [showColor, setShowColor] = useState<string>(colorChecked);
+
     const [showModal, setShowModal] = useState(false);
     const [showToast, setShowToast] = useState(false);
 
@@ -30,9 +32,10 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
 
     const handleColorCheckboxChange  = (event: CustomEvent) => {
         const value = event.detail.value as string;
+        setShowColor(value === "danger"? "Red": value === "Dark"? "Black": value === "success"?"Green": value === "light"? "White":"Favorite color" )
         setColorChecked(value)
-        console.log('color value:', event.detail.value);
-        setColor(event.detail.value);
+        console.log('color value:', value);
+        setColor(value);
     };
 
     const handleSoundStrenghtCheckboxChange= (event: CustomEvent) => {
@@ -61,6 +64,9 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                 .catch((error) => console.log('Error copying to clipboard', error));
         }
     };
+    useEffect(()=>{
+        //updation show color
+    }, [showColor, handleColorCheckboxChange])
     return (
         <IonPage>
             <IonHeader>
@@ -83,18 +89,16 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                             </IonButtons>
                         </IonToolbar>
                     </IonHeader>
-                    <IonContent className="ion-padding">
-                        {/* TODO
-                        use the valuse below to specify the color, sound and sound strenght, vibration ...
-                        use for that a varibale or functions, that allow you sending this values to the tabs
-                        suggestion: find out how to set the color in myTimer.tsx, so it would be easier
-                        */}
+                    <IonContent className="ion-padding"> 
+                        
                         <IonList>
                             <IonItem>
-                                <IonSelect label="Color" placeholder="Favorite color">
-                                    <IonSelectOption value="red">Red</IonSelectOption>
-                                    <IonSelectOption value="black">Black</IonSelectOption>
-                                    <IonSelectOption value="white">White</IonSelectOption>
+                                <IonSelect label="Color" placeholder={showColor}
+                                    onIonChange={handleColorCheckboxChange}>
+                                    <IonSelectOption value="danger">Red</IonSelectOption>
+                                    <IonSelectOption value="Dark">Black</IonSelectOption>
+                                    <IonSelectOption value="success">Green</IonSelectOption>
+                                    <IonSelectOption value="light">White</IonSelectOption>
                                 </IonSelect>
                             </IonItem>
 
@@ -102,7 +106,7 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                             <IonCheckbox id='checkBox'
                                 checked={soundChecked}
                                 onIonChange={handleSoundCheckboxChange}
-                                style={{ marginLeft: 'auto' }}>Sound</IonCheckbox>
+                                style={{ marginLeft: 'auto' }}>Enable sound</IonCheckbox>
                         </IonItem>
 
                             <IonItem>
@@ -124,7 +128,7 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                             <IonCheckbox id='checkBox'
                                 checked={checked}
                                 onIonChange={handleVibrationCheckboxChange}
-                                style={{ marginLeft: 'auto' }}>Vibration</IonCheckbox>
+                                style={{ marginLeft: 'auto' }}>Enable vibration</IonCheckbox>
                         </IonItem>
                     </IonContent>
 

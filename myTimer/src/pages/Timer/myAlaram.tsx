@@ -3,7 +3,7 @@ import { Howl } from 'howler';
 
 interface MySoundProps {
   isTimeout: boolean;
-  soundVolume: number
+  soundVolume: number,
   // onSoundEnd: () => void;
 }
 

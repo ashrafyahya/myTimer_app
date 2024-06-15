@@ -1,8 +1,11 @@
 import { IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import '../styles.css';
+interface Props{
+  setColor: string
+}
 
-function TimeClass() {
+const TimeClass:React.FC<Props> = ({ setColor }) => {
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   useEffect(() => {
@@ -10,11 +13,11 @@ function TimeClass() {
         setCurrentDateTime(new Date());
     }, 1000);
     return () => clearInterval(intervalId);
-  }, []);
+  }, [setColor]);
 
   return (
     <IonPage>
-      <IonContent style={{ justifyContent: "center" }} color="danger">
+      <IonContent style={{ justifyContent: "center" }} color={setColor}>
         <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}>
           <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
             <IonLabel className="responsive-item">

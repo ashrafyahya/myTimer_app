@@ -7,7 +7,14 @@ import '../styles.css';
 import { Breakpoint, useResponsiveBreakpoints } from '../useResponsiveBreakpoints';
 import SettingModal from '../Menu/SettingModal';
 
-function TimerClass() {
+interface Props{
+  soundEnabled: boolean | ((prevState: boolean) => boolean),
+  vibrationEnabled:boolean | ((prevState: boolean) => boolean),
+  soundStrength: number,
+  setColor: string
+}
+
+const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabled, setColor} ) =>{
   const [elapsedTime, setElapsedTime] = useState(0);
   const [currentButton, setCurrentButton] = useState("Time");
   const [timerRunning, setTimerRunning] = useState(false);
@@ -17,10 +24,12 @@ function TimerClass() {
   const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
   const isXLargeScreen = useMediaQuery('only screen and (min-width: 1500px)');
   const [isSoundStopped, setIsSoundStopped] = useState(false);
-  const [vibrationEnabled, setVibration] = useState<boolean | ((prevState: boolean) => boolean)>(true);
-  const [soundEnabled, setSound] = useState<boolean | ((prevState: boolean) => boolean)>(true);
-  const [colorChoice, setColor] = useState<string>("red");
-  const [soundStrength, setSoundStrenght] = useState<number>(50); 
+
+  // const [vibrationEnabled, setVibration] = useState<boolean | ((prevState: boolean) => boolean)>(true);
+  // const [soundEnabled, setSound] = useState<boolean | ((prevState: boolean) => boolean)>(true);
+  // const [colorChoice, setColor] = useState<string>("red");
+  // const [soundStrength, setSoundStrenght] = useState<number>(50); 
+
   const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const stopVibrationRef = useRef(false);
   const currentBreakpoint: any = useResponsiveBreakpoints(window.innerWidth);
@@ -82,7 +91,7 @@ function TimerClass() {
         clearTimeout(vibrationTimeoutRef.current);
       }
     };
-  }, [isTimeout]);
+  }, [isTimeout, soundStrength, setColor]);
 
   function handleClick(clickedButton: string) {
     const duration = 100;
@@ -136,12 +145,12 @@ function TimerClass() {
 
   return (
     <IonPage>
-      <IonHeader>
+      {/* <IonHeader>
         <IonToolbar>
           <SettingModal setVibration={setVibration} setSound={setSound} setColor={setColor} setSoundStrenght={setSoundStrenght}/>
         </IonToolbar>
-      </IonHeader>
-      <IonContent style={{ justifyContent: "center" }} color="danger">
+      </IonHeader> */}
+      <IonContent style={{ justifyContent: "center" }} color={setColor}>
         <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}>
           <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
             <IonLabel className="responsive-item">
