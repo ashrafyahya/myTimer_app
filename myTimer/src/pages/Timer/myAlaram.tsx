@@ -21,13 +21,13 @@ const MySound: React.FC<MySoundProps> = ({ isTimeout, soundVolume }) => {
       autoplay: false,
       volume: soundVolume,
       // onend: onSoundEnd,
-    }, [soundVolume]);
+    });
 
     // Cleanup Howl instance on unmount
     return () => {
       ringtoneRef.current?.unload();
     };
-  }, []);
+  }, [soundVolume]);
 
   useEffect(() => {
     // Update the volume whenever soundVolume prop changes
