@@ -1,10 +1,11 @@
 import { Haptics } from '@capacitor/haptics';
-import { IonButton, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonGrid, IonHeader, IonIcon, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useMediaQuery } from '@react-hook/media-query';
 import { useEffect, useRef, useState } from 'react';
 import MySound from './myAlaram';
 import '../styles.css';
 import { Breakpoint, useResponsiveBreakpoints } from '../useResponsiveBreakpoints';
+import { stopCircleOutline, playCircleOutline, refreshCircleOutline } from 'ionicons/icons';
 interface Props{
   soundEnabled: boolean | ((prevState: boolean) => boolean),
   vibrationEnabled:boolean | ((prevState: boolean) => boolean),
@@ -187,12 +188,13 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
               style={{ paddingLeft: isLargeScreen && !isXLargeScreen ? "2px" : "default" }}
               color={timerRunning && !isTimeout ? "danger" : "success"} size={isSize} fill="solid"
                 onClick={() => handleClick("ST/SP")}>
-                {timerRunning && !isTimeout ? "Stop" : "Start"}
+                <IonIcon icon={timerRunning && !isTimeout?stopCircleOutline: playCircleOutline} />
+                {/* {timerRunning && !isTimeout ? "Stop" : "Start"} */}
               </IonButton>
               <IonButton
                 style={{ paddingLeft: isLargeScreen && !isXLargeScreen ? "2px" : "default" }}
                 onClick={() => handleClick("Reset")} color={"success"} fill="solid" size={isSize}>
-                Reset
+                <IonIcon icon={refreshCircleOutline} />
               </IonButton>
             </IonRow>
             <IonRow style={{ justifyContent: "center", width: currentBreakpoint >= Breakpoint.Md ? "100%" : "100%" }}>

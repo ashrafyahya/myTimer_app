@@ -1,7 +1,8 @@
-import { IonButton, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonGrid, IonHeader, IonIcon, IonLabel, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import '../styles.css';
 import { Breakpoint, useResponsiveBreakpoints } from '../useResponsiveBreakpoints';
+import { playCircleOutline, refreshCircleOutline, stopCircleOutline } from 'ionicons/icons';
 interface Props{
     setColor: string
   }
@@ -48,10 +49,11 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
                         </IonLabel>
                     </IonRow>
                     <IonButton size={isSize} color={ isStart? "danger":"success"} onClick={() => setIsStart(!isStart)}>
-                        {isStart?"Stop":"Start"}
+                    <IonIcon icon={isStart?stopCircleOutline: playCircleOutline} />
+                        {/* {isStart?"Stop":"Start"} */}
                     </IonButton>
                     <IonButton size={isSize} color="success" onClick={() => setIsReset(true)}>
-                        Reset
+                    <IonIcon icon={refreshCircleOutline} />
                     </IonButton>
                 </IonGrid>
             </IonContent>
