@@ -8,6 +8,9 @@ interface Props {
   setColor: string
 }
 const StopWatchClass: React.FC<Props> = ({ setColor }) => {
+  
+  const [isStart, setIsStart] = useState(false);
+  const [isReset, setIsReset] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
   const currentBreakpoint: any = useResponsiveBreakpoints(window.innerWidth);
   let isSize: any = currentBreakpoint >= Breakpoint.Sm ? 'large' : 'default';
@@ -26,8 +29,6 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
     Haptics.vibrate({ duration });
   }
 
-  const [isStart, setIsStart] = useState(false);
-  const [isReset, setIsReset] = useState(false);
 
   useEffect(() => {
     if (isStart) {
@@ -96,11 +97,11 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
               </div>
             </IonLabel>
           </IonRow>
-          <IonButton size={isSize} color={isStart ? "danger" : "success"} onClick={() => handleClick}>
+          <IonButton size={isSize} color={isStart ? "danger" : "success"} onClick={handleClick}>
             <IonIcon size='large' icon={isStart ? stopCircleOutline : playCircleOutline} />
             {/* {isStart?"Stop":"Start"} */}
           </IonButton>
-          <IonButton size={isSize} color="success" onClick={() => handleClickReset}>
+          <IonButton size={isSize} color="success" onClick={handleClickReset}>
             <IonIcon size='large' icon={refreshCircleOutline} />
           </IonButton>
         </IonGrid>

@@ -1,6 +1,8 @@
 import { IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonList, IonModal, IonPage, IonRange, IonSelect, IonSelectOption, IonText, IonTitle, IonToast, IonToolbar } from '@ionic/react';
 import { arrowBackOutline, settingsOutline, shareOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
+import { Share } from '@capacitor/share';
+
 interface dataProps {
     setVibration: React.Dispatch<React.SetStateAction<boolean>>;
     setSound: React.Dispatch<React.SetStateAction<boolean>>;
@@ -115,6 +117,16 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
         }
     };
 
+    async function shareURL() {
+        try {
+          await Share.share({
+            url: 'https://mytimer-ab4a6.web.app',
+          });
+        } catch (error) {
+          console.error('Error sharing:', error);
+        }
+      }
+
     useEffect(() => {
         //updation show color
     }, [showColor, handleColorCheckboxChange])
@@ -187,7 +199,7 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
                     </IonContent>
 
                     <IonFab vertical="bottom" horizontal="start" slot="fixed">
-                        <IonFabButton onClick={handleShare}>
+                        <IonFabButton onClick={shareURL}>
                             <IonIcon icon={shareOutline} />
                         </IonFabButton>
                     </IonFab>
