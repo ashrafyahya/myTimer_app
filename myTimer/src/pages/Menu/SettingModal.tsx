@@ -1,14 +1,13 @@
 import { IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonList, IonModal, IonPage, IonRange, IonSelect, IonSelectOption, IonText, IonTitle, IonToast, IonToolbar } from '@ionic/react';
-import { Icon } from 'ionicons/dist/types/components/icon/icon';
 import { arrowBackOutline, settingsOutline, shareOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
- interface dataProps{
+interface dataProps {
     setVibration: React.Dispatch<React.SetStateAction<boolean>>;
     setSound: React.Dispatch<React.SetStateAction<boolean>>;
     setColor: React.Dispatch<React.SetStateAction<string>>;
     setSoundStrenght: React.Dispatch<React.SetStateAction<number>>;
 }
-export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSound, setSoundStrenght }) => {
+export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setSound, setSoundStrenght }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [checked, setChecked] = useState(true);
     const [soundChecked, setSoundChecked] = useState(true);
@@ -24,22 +23,22 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
         console.log('Vibration Checkbox value:', event.detail.checked);
         setVibration(event.detail.checked);
     };
-    
+
     const handleSoundCheckboxChange = (event: { detail: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
         setSoundChecked(event.detail.checked);
         console.log('Sound checkbox value:', event.detail.checked);
         setSound(event.detail.checked);
     };
 
-    const handleColorCheckboxChange  = (event: CustomEvent) => {
+    const handleColorCheckboxChange = (event: CustomEvent) => {
         const value = event.detail.value as string;
-        setShowColor(value === "danger"? "Red": value === "Dark"? "Black": value === "success"?"Green": value === "dark"? "White":"Favorite color" )
+        setShowColor(value === "danger" ? "Red" : value === "Dark" ? "Black" : value === "success" ? "Green" : value === "dark" ? "White" : "Favorite color")
         setColorChecked(value)
         console.log('color value:', value);
         setColor(value);
     };
 
-    const handleSoundStrenghtCheckboxChange= (event: CustomEvent) => {
+    const handleSoundStrenghtCheckboxChange = (event: CustomEvent) => {
         const value = event.detail.value as number;
         setSoundStrength(event.detail.value);
         console.log('Sound checkbox value:', event.detail.value);
@@ -52,18 +51,18 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
             text: 'I found this awesome app, and I think you will love it!',
             url: 'https://mytimer-ab4a6.web.app',
         };
-    
+
         const whatsappURL = `https://wa.me/?text=${encodeURIComponent(`${shareData.text} ${shareData.url}`)}`;
         const smsURL = `sms:?body=${encodeURIComponent(`${shareData.text} ${shareData.url}`)}`;
         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    
+
         // Check if navigator.share is supported
         if (navigator.share) {
             navigator.share(shareData)
                 .then(() => console.log('Successful share'))
                 .catch((error) => console.log('Error sharing', error));
-                
+
         } else if (navigator.share && isMobile) {
             navigator.share(shareData)
                 .then(() => console.log('Successful share'))
@@ -75,7 +74,7 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                     console.log('Link copied to clipboard');
                 })
                 .catch((error) => console.log('Error copying to clipboard', error));
-        }  else {
+        } else {
             // Fallback options
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(shareData.url)
@@ -85,11 +84,11 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                     })
                     .catch((error) => console.log('Error copying to clipboard', error));
             }
-    
+
             const whatsappButton = document.createElement('button');
             whatsappButton.textContent = 'Share on WhatsApp';
             whatsappButton.onclick = () => window.open(whatsappURL, '_blank');
-            
+
             const smsButton = document.createElement('button');
             smsButton.textContent = 'Share via SMS';
             smsButton.onclick = () => window.open(smsURL, '_blank');
@@ -98,7 +97,7 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
             const shareContainer = document.createElement('div');
             shareContainer.appendChild(whatsappButton);
             shareContainer.appendChild(smsButton);
-    
+
             // Assuming you have a modal or toast to show these buttons
             // Here is a simple example of appending buttons to the body
             document.body.appendChild(whatsappButton);
@@ -106,8 +105,8 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
             document.body.appendChild(smsButton);
         }
     };
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         //updation show color
     }, [showColor, handleColorCheckboxChange])
     return (
@@ -123,20 +122,20 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-                <IonModal  isOpen={showModal}  onDidDismiss={() => setShowModal(false)}>
+                <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
                     <IonHeader>
                         <IonToolbar>
                             <IonTitle>Setting</IonTitle>
                             <IonButtons slot="end">
                                 <IonButton onClick={() => setShowModal(false)}>
-                                <IonIcon size='large' icon={arrowBackOutline}></IonIcon>
+                                    <IonIcon size='large' icon={arrowBackOutline}></IonIcon>
                                 </IonButton>
-                                
+
                             </IonButtons>
                         </IonToolbar>
                     </IonHeader>
-                    <IonContent className="ion-padding"> 
-                        
+                    <IonContent className="ion-padding">
+
                         <IonList>
                             <IonItem>
                                 <IonSelect label="Color" placeholder={showColor}
@@ -149,11 +148,11 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                             </IonItem>
 
                             <IonItem>
-                            <IonCheckbox id='checkBox'
-                                checked={soundChecked}
-                                onIonChange={handleSoundCheckboxChange}
-                                style={{ marginLeft: 'auto' }}>Enable sound</IonCheckbox>
-                        </IonItem>
+                                <IonCheckbox id='checkBox'
+                                    checked={soundChecked}
+                                    onIonChange={handleSoundCheckboxChange}
+                                    style={{ marginLeft: 'auto' }}>Enable sound</IonCheckbox>
+                            </IonItem>
 
                             <IonItem>
                                 <IonSelect value={colorChecked} onIonChange={handleColorCheckboxChange} label="Sound" labelPlacement="fixed" placeholder="Favorite sound">
@@ -178,15 +177,13 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                         </IonItem>
                     </IonContent>
 
-                    <IonContent>
-                        {/* Your modal content here */}
-                        <IonFab vertical="bottom" horizontal="start" slot="fixed">
-                            <IonFabButton onClick={handleShare}>
-                                <IonIcon icon={shareOutline} />
-                            </IonFabButton>
-                        </IonFab>
-                    </IonContent>
+                    <IonFab vertical="bottom" horizontal="start" slot="fixed">
+                        <IonFabButton onClick={handleShare}>
+                            <IonIcon icon={shareOutline} />
+                        </IonFabButton>
+                    </IonFab>
                 </IonModal>
+                
                 <IonToast
                     isOpen={showToast}
                     onDidDismiss={() => setShowToast(false)}
