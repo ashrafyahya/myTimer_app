@@ -1,20 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Route, Redirect } from 'react-router';
 import { timeOutline, stopwatchOutline, timerOutline, calendarOutline } from 'ionicons/icons';
+import useBackgroundMode from './background-mode';
 
 import TimeClass from "./Time/Time"
 import StopWatchClas from './StopWatch/StopWatch';
 import TimerClass from './Timer/Timer';
 import DateClass from './Date/Date';
-import SettingModal from './Menu/SettingModal'
+import SettingModal from './Setting/SettingModal'
+import { BackgroundMode } from '@awesome-cordova-plugins/background-mode';
 
 function myTimer() {
   const [vibrationEnabled, setVibration] = useState<boolean | ((prevState: boolean) => boolean)>(true);
   const [soundEnabled, setSound] = useState<boolean | ((prevState: boolean) => boolean)>(true);
   const [colorChoice, setColor] = useState<string>("danger");
-  const [soundStrength, setSoundStrenght] = useState<number>(50); 
+  const [soundStrength, setSoundStrenght] = useState<number>(1); 
+
+  useEffect(() => {
+    const savedVibration = localStorage.getItem('vibrationEnabled');
+    const savedSound = localStorage.getItem('soundEnabled');
+    const savedColor = localStorage.getItem('colorChoice');
+    const savedSoundStrength = localStorage.getItem('soundStrength');
+
+    if (savedVibration !== null) setVibration(JSON.parse(savedVibration));
+    if (savedSound !== null) setSound(JSON.parse(savedSound));
+    if (savedColor !== null) setColor(savedColor);
+    if (savedSoundStrength !== null) setSoundStrenght(Number(savedSoundStrength));
+  }, []);
+
+  // Save settings to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem('vibrationEnabled', JSON.stringify(vibrationEnabled));
+  }, [vibrationEnabled]);
+
+  useEffect(() => {
+    localStorage.setItem('soundEnabled', JSON.stringify(soundEnabled));
+  }, [soundEnabled]);
+
+  useEffect(() => {
+    localStorage.setItem('colorChoice', colorChoice);
+  }, [colorChoice]);
+
+  useEffect(() => {
+    localStorage.setItem('soundStrength', soundStrength.toString());
+  }, [soundStrength]);
+  
   return (
     <IonReactRouter>
       <IonHeader>

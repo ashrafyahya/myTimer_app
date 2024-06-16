@@ -1,70 +1,85 @@
 import { IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonList, IonModal, IonPage, IonRange, IonSelect, IonSelectOption, IonText, IonTitle, IonToast, IonToolbar } from '@ionic/react';
-import { settingsOutline, shareOutline } from 'ionicons/icons';
+import { arrowBackOutline, settingsOutline, shareOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
- interface dataProps{
+import { Share } from '@capacitor/share';
+import { Haptics } from '@capacitor/haptics';
+
+interface dataProps {
     setVibration: React.Dispatch<React.SetStateAction<boolean>>;
     setSound: React.Dispatch<React.SetStateAction<boolean>>;
     setColor: React.Dispatch<React.SetStateAction<string>>;
     setSoundStrenght: React.Dispatch<React.SetStateAction<number>>;
 }
-export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSound, setSoundStrenght }) => {
+export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setSound, setSoundStrenght }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [checked, setChecked] = useState(true);
     const [soundChecked, setSoundChecked] = useState(true);
-    const [soundStrenght, setSoundStrength] = useState<number>(50);
+    const [soundStrenght, setSoundStrength] = useState<number>(1);
     const [colorChecked, setColorChecked] = useState<string>("Favorite color");
+    const [soundTone, setSoundTone] = useState<string>("Favorite tone");
     const [showColor, setShowColor] = useState<string>(colorChecked);
+    const [showTone, setShowTone] = useState<string>(soundTone);
 
     const [showModal, setShowModal] = useState(false);
     const [showToast, setShowToast] = useState(false);
 
+    function runVibration(){
+        const duration = 100;
+        console.log("reset clicked");
+        Haptics.vibrate({ duration });
+    }
+
     const handleVibrationCheckboxChange = (event: { detail: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
+        runVibration()
         setChecked(event.detail.checked);
         console.log('Vibration Checkbox value:', event.detail.checked);
         setVibration(event.detail.checked);
     };
-    
+
     const handleSoundCheckboxChange = (event: { detail: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
+        runVibration()
         setSoundChecked(event.detail.checked);
         console.log('Sound checkbox value:', event.detail.checked);
         setSound(event.detail.checked);
     };
 
-    const handleColorCheckboxChange  = (event: CustomEvent) => {
+    const handleColorCheckboxChange = (event: CustomEvent) => {
+        runVibration()
         const value = event.detail.value as string;
-        setShowColor(value === "danger"? "Red": value === "Dark"? "Black": value === "success"?"Green": value === "light"? "White":"Favorite color" )
+        setShowColor(value === "danger" ? "Red" : value === "Dark" ? "Black" : value === "success" ? "Green" : value === "dark" ? "White" : "Favorite color")
         setColorChecked(value)
         console.log('color value:', value);
         setColor(value);
     };
 
-    const handleSoundStrenghtCheckboxChange= (event: CustomEvent) => {
-        const value = event.detail.value as number;
-        setSoundStrength(event.detail.value);
-        console.log('Sound checkbox value:', event.detail.value);
-        setSoundStrenght(event.detail.value);
+    const handleToneCheckboxChange = (event: CustomEvent) => {
+        runVibration()
+        const value = event.detail.value as string;
+        setShowTone(value === "Tone1" ? "Tone 1" : value === "Tone2" ? "Tone 2" : value === "Tone3" ? "Tone 3" : "Favorite tone")
+        setSoundTone(value)
+        console.log('tone value:', value);
     };
-    const handleShare = () => {
-        const shareData = {
-            title: 'Check out this app!',
-            text: 'I found this awesome app, and I think you will love it!',
-            url: 'https://mytimer-ab4a6.web.app',
-        };
 
-        if (navigator.share) {
-            navigator.share(shareData)
-                .then(() => console.log('Successful share'))
-                .catch((error) => console.log('Error sharing', error));
-        } else {
-            navigator.clipboard.writeText(shareData.url)
-                .then(() => {
-                    setShowToast(true);
-                    console.log('Link copied to clipboard');
-                })
-                .catch((error) => console.log('Error copying to clipboard', error));
-        }
+    const handleSoundStrenghtCheckboxChange = (event: CustomEvent) => {
+        runVibration()
+        const value = event.detail.value as number;
+        setSoundStrength(value);
+        console.log('Sound checkbox value:', value);
+        setSoundStrenght(value);
     };
-    useEffect(()=>{
+
+    async function shareURL() {
+        runVibration()
+        try {
+          await Share.share({
+            url: 'https://mytimer-ab4a6.web.app',
+          });
+        } catch (error) {
+          console.error('Error sharing:', error);
+        }
+      }
+
+    useEffect(() => {
         //updation show color
     }, [showColor, handleColorCheckboxChange])
     return (
@@ -80,17 +95,20 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-                <IonModal  isOpen={showModal}  onDidDismiss={() => setShowModal(false)}>
+                <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
                     <IonHeader>
                         <IonToolbar>
                             <IonTitle>Setting</IonTitle>
                             <IonButtons slot="end">
-                                <IonButton onClick={() => setShowModal(false)}>Close</IonButton>
+                                <IonButton onClick={() => setShowModal(false)}>
+                                    <IonIcon size='large' icon={arrowBackOutline}></IonIcon>
+                                </IonButton>
+
                             </IonButtons>
                         </IonToolbar>
                     </IonHeader>
-                    <IonContent className="ion-padding"> 
-                        
+                    <IonContent className="ion-padding">
+
                         <IonList>
                             <IonItem>
                                 <IonSelect label="Color" placeholder={showColor}
@@ -103,17 +121,17 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                             </IonItem>
 
                             <IonItem>
-                            <IonCheckbox id='checkBox'
-                                checked={soundChecked}
-                                onIonChange={handleSoundCheckboxChange}
-                                style={{ marginLeft: 'auto' }}>Enable sound</IonCheckbox>
-                        </IonItem>
+                                <IonCheckbox id='checkBox'
+                                    checked={soundChecked}
+                                    onIonChange={handleSoundCheckboxChange}
+                                    style={{ marginLeft: 'auto' }}>Enable sound</IonCheckbox>
+                            </IonItem>
 
                             <IonItem>
-                                <IonSelect value={colorChecked} onIonChange={handleColorCheckboxChange} label="Sound" labelPlacement="fixed" placeholder="Favorite sound">
-                                    <IonSelectOption value="sound1">Sound1</IonSelectOption>
-                                    <IonSelectOption value="sound2">Sound2</IonSelectOption>
-                                    <IonSelectOption value="sound3">Sound3</IonSelectOption>
+                                <IonSelect value={soundTone} onIonChange={handleToneCheckboxChange} label="Sound tone" labelPlacement="fixed" placeholder={showTone}>
+                                    <IonSelectOption value="Tone1">Tone 1</IonSelectOption>
+                                    <IonSelectOption value="Tone2">Tone 2</IonSelectOption>
+                                    <IonSelectOption value="Tone3">Tone 3</IonSelectOption>
                                 </IonSelect>
                             </IonItem>
                         </IonList>
@@ -132,15 +150,13 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                         </IonItem>
                     </IonContent>
 
-                    <IonContent>
-                        {/* Your modal content here */}
-                        <IonFab vertical="bottom" horizontal="start" slot="fixed">
-                            <IonFabButton onClick={handleShare}>
-                                <IonIcon icon={shareOutline} />
-                            </IonFabButton>
-                        </IonFab>
-                    </IonContent>
+                    <IonFab vertical="bottom" horizontal="start" slot="fixed">
+                        <IonFabButton onClick={shareURL}>
+                            <IonIcon icon={shareOutline} />
+                        </IonFabButton>
+                    </IonFab>
                 </IonModal>
+                
                 <IonToast
                     isOpen={showToast}
                     onDidDismiss={() => setShowToast(false)}
