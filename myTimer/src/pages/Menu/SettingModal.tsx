@@ -2,6 +2,7 @@ import { IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, I
 import { arrowBackOutline, settingsOutline, shareOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
 import { Share } from '@capacitor/share';
+import { Haptics } from '@capacitor/haptics';
 
 interface dataProps {
     setVibration: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,19 +23,28 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
     const [showModal, setShowModal] = useState(false);
     const [showToast, setShowToast] = useState(false);
 
+    function runVibration(){
+        const duration = 100;
+        console.log("reset clicked");
+        Haptics.vibrate({ duration });
+    }
+
     const handleVibrationCheckboxChange = (event: { detail: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
+        runVibration()
         setChecked(event.detail.checked);
         console.log('Vibration Checkbox value:', event.detail.checked);
         setVibration(event.detail.checked);
     };
 
     const handleSoundCheckboxChange = (event: { detail: { checked: boolean | ((prevState: boolean) => boolean); }; }) => {
+        runVibration()
         setSoundChecked(event.detail.checked);
         console.log('Sound checkbox value:', event.detail.checked);
         setSound(event.detail.checked);
     };
 
     const handleColorCheckboxChange = (event: CustomEvent) => {
+        runVibration()
         const value = event.detail.value as string;
         setShowColor(value === "danger" ? "Red" : value === "Dark" ? "Black" : value === "success" ? "Green" : value === "dark" ? "White" : "Favorite color")
         setColorChecked(value)
@@ -43,6 +53,7 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
     };
 
     const handleToneCheckboxChange = (event: CustomEvent) => {
+        runVibration()
         const value = event.detail.value as string;
         setShowTone(value === "Tone1" ? "Tone 1" : value === "Tone2" ? "Tone 2" : value === "Tone3" ? "Tone 3" : "Favorite tone")
         setSoundTone(value)
@@ -50,74 +61,15 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
     };
 
     const handleSoundStrenghtCheckboxChange = (event: CustomEvent) => {
+        runVibration()
         const value = event.detail.value as number;
         setSoundStrength(value);
         console.log('Sound checkbox value:', value);
         setSoundStrenght(value);
     };
 
-    const handleShare = () => {
-        const shareData = {
-            title: 'Check out this app!',
-            text: 'I found this awesome app, and I think you will love it!',
-            url: 'https://mytimer-ab4a6.web.app',
-        };
-
-        const whatsappURL = `https://wa.me/?text=${encodeURIComponent(`${shareData.text} ${shareData.url}`)}`;
-        const smsURL = `sms:?body=${encodeURIComponent(`${shareData.text} ${shareData.url}`)}`;
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-
-        // Check if navigator.share is supported
-        if (navigator.share) {
-            navigator.share(shareData)
-                .then(() => console.log('Successful share'))
-                .catch((error) => console.log('Error sharing', error));
-
-        } else if (navigator.share && isMobile) {
-            navigator.share(shareData)
-                .then(() => console.log('Successful share'))
-                .catch((error) => console.log('Error sharing', error));
-        } else if (navigator.clipboard && isMobile) {
-            navigator.clipboard.writeText(shareData.url)
-                .then(() => {
-                    setShowToast(true);
-                    console.log('Link copied to clipboard');
-                })
-                .catch((error) => console.log('Error copying to clipboard', error));
-        } else {
-            // Fallback options
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(shareData.url)
-                    .then(() => {
-                        setShowToast(true);
-                        console.log('Link copied to clipboard');
-                    })
-                    .catch((error) => console.log('Error copying to clipboard', error));
-            }
-
-            const whatsappButton = document.createElement('button');
-            whatsappButton.textContent = 'Share on WhatsApp';
-            whatsappButton.onclick = () => window.open(whatsappURL, '_blank');
-
-            const smsButton = document.createElement('button');
-            smsButton.textContent = 'Share via SMS';
-            smsButton.onclick = () => window.open(smsURL, '_blank');
-
-            // Create a container for the buttons
-            const shareContainer = document.createElement('div');
-            shareContainer.appendChild(whatsappButton);
-            shareContainer.appendChild(smsButton);
-
-            // Assuming you have a modal or toast to show these buttons
-            // Here is a simple example of appending buttons to the body
-            document.body.appendChild(whatsappButton);
-            document.body.appendChild(shareContainer);
-            document.body.appendChild(smsButton);
-        }
-    };
-
     async function shareURL() {
+        runVibration()
         try {
           await Share.share({
             url: 'https://mytimer-ab4a6.web.app',
