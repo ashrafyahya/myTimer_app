@@ -13,7 +13,9 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
     const [soundChecked, setSoundChecked] = useState(true);
     const [soundStrenght, setSoundStrength] = useState<number>(1);
     const [colorChecked, setColorChecked] = useState<string>("Favorite color");
+    const [soundTone, setSoundTone] = useState<string>("Favorite tone");
     const [showColor, setShowColor] = useState<string>(colorChecked);
+    const [showTone, setShowTone] = useState<string>(soundTone);
 
     const [showModal, setShowModal] = useState(false);
     const [showToast, setShowToast] = useState(false);
@@ -38,11 +40,18 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
         setColor(value);
     };
 
+    const handleToneCheckboxChange = (event: CustomEvent) => {
+        const value = event.detail.value as string;
+        setShowTone(value === "Tone1" ? "Tone 1" : value === "Tone2" ? "Tone 2" : value === "Tone3" ? "Tone 3" : "Favorite tone")
+        setSoundTone(value)
+        console.log('tone value:', value);
+    };
+
     const handleSoundStrenghtCheckboxChange = (event: CustomEvent) => {
         const value = event.detail.value as number;
-        setSoundStrength(event.detail.value);
-        console.log('Sound checkbox value:', event.detail.value);
-        setSoundStrenght(event.detail.value);
+        setSoundStrength(value);
+        console.log('Sound checkbox value:', value);
+        setSoundStrenght(value);
     };
 
     const handleShare = () => {
@@ -155,10 +164,10 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
                             </IonItem>
 
                             <IonItem>
-                                <IonSelect value={colorChecked} onIonChange={handleColorCheckboxChange} label="Sound tone" labelPlacement="fixed" placeholder="Favorite sound">
-                                    <IonSelectOption value="sound1">Sound1</IonSelectOption>
-                                    <IonSelectOption value="sound2">Sound2</IonSelectOption>
-                                    <IonSelectOption value="sound3">Sound3</IonSelectOption>
+                                <IonSelect value={soundTone} onIonChange={handleToneCheckboxChange} label="Sound tone" labelPlacement="fixed" placeholder={showTone}>
+                                    <IonSelectOption value="Tone1">Tone 1</IonSelectOption>
+                                    <IonSelectOption value="Tone2">Tone 2</IonSelectOption>
+                                    <IonSelectOption value="Tone3">Tone 3</IonSelectOption>
                                 </IonSelect>
                             </IonItem>
                         </IonList>
