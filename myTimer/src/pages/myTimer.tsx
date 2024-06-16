@@ -46,30 +46,6 @@ function myTimer() {
   useEffect(() => {
     localStorage.setItem('soundStrength', soundStrength.toString());
   }, [soundStrength]);
-
-  //the following code is making some problems for app starting and eding
-  
-  // useEffect(() => {
-  //   // Enable background mode
-  //   BackgroundMode.enable();
-
-  //   // Optional: Configure background mode
-  //   BackgroundMode.setDefaults({
-  //     title: 'Timer Running',
-  //     text: 'Your timer is running in the background',
-  //     icon: 'icon', // Name of the icon file in the assets folder
-  //     color: 'F14F4D', // Hex color code for Android 5.0+ devices
-  //     resume: true,
-  //     hidden: true,
-  //     bigText: false,
-  //   });
-    
-
-  //   return () => {
-  //     // Disable background mode when component unmounts
-  //     BackgroundMode.disable();
-  //   };
-  // }, []);
   
   return (
     <IonReactRouter>

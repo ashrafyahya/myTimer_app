@@ -36,6 +36,39 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
         }
     }, [isReset]);
 
+    useEffect(() => {
+        const loadState = async () => {
+          try {
+            const state = await localStorage.get({ key: 'timerState' });
+            if (state.value) {
+              const timerState = JSON.parse(state.value);
+              setIsStart(timerState.isStart);
+              setIsReset(timerState.isReset);
+            }
+          } catch (error) {
+            console.error('Error loading timer state from localStorage:', error);
+            // Handle error as needed (e.g., show error message to user)
+          }
+        };
+      
+        loadState();
+      }, []);
+      
+    
+      useEffect(() => {
+        const saveState = async () => {
+          const state = {
+            isReset,
+            isStart,
+          };
+          await localStorage.setItem('timerState', JSON.stringify(state));
+        };
+      
+        saveState();
+      }, [isStart, isStart]);
+      
+    
+
     return (
         <IonPage>
             <IonContent style={{ justifyContent: "center" }} color={setColor}>
@@ -49,11 +82,11 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
                         </IonLabel>
                     </IonRow>
                     <IonButton size={isSize} color={ isStart? "danger":"success"} onClick={() => setIsStart(!isStart)}>
-                    <IonIcon icon={isStart?stopCircleOutline: playCircleOutline} />
+                    <IonIcon size='large' icon={isStart?stopCircleOutline: playCircleOutline} />
                         {/* {isStart?"Stop":"Start"} */}
                     </IonButton>
                     <IonButton size={isSize} color="success" onClick={() => setIsReset(true)}>
-                    <IonIcon icon={refreshCircleOutline} />
+                    <IonIcon size='large' icon={refreshCircleOutline} />
                     </IonButton>
                 </IonGrid>
             </IonContent>
