@@ -55,13 +55,27 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
     
         const whatsappURL = `https://wa.me/?text=${encodeURIComponent(`${shareData.text} ${shareData.url}`)}`;
         const smsURL = `sms:?body=${encodeURIComponent(`${shareData.text} ${shareData.url}`)}`;
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
     
         // Check if navigator.share is supported
         if (navigator.share) {
             navigator.share(shareData)
                 .then(() => console.log('Successful share'))
                 .catch((error) => console.log('Error sharing', error));
-        } else {
+                
+        } else if (navigator.share && isMobile) {
+            navigator.share(shareData)
+                .then(() => console.log('Successful share'))
+                .catch((error) => console.log('Error sharing', error));
+        } else if (navigator.clipboard && isMobile) {
+            navigator.clipboard.writeText(shareData.url)
+                .then(() => {
+                    setShowToast(true);
+                    console.log('Link copied to clipboard');
+                })
+                .catch((error) => console.log('Error copying to clipboard', error));
+        }  else {
             // Fallback options
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(shareData.url)
@@ -79,10 +93,16 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
             const smsButton = document.createElement('button');
             smsButton.textContent = 'Share via SMS';
             smsButton.onclick = () => window.open(smsURL, '_blank');
+
+            // Create a container for the buttons
+            const shareContainer = document.createElement('div');
+            shareContainer.appendChild(whatsappButton);
+            shareContainer.appendChild(smsButton);
     
             // Assuming you have a modal or toast to show these buttons
             // Here is a simple example of appending buttons to the body
             document.body.appendChild(whatsappButton);
+            document.body.appendChild(shareContainer);
             document.body.appendChild(smsButton);
         }
     };

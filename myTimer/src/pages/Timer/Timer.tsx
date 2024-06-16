@@ -5,8 +5,6 @@ import { useEffect, useRef, useState } from 'react';
 import MySound from './myAlaram';
 import '../styles.css';
 import { Breakpoint, useResponsiveBreakpoints } from '../useResponsiveBreakpoints';
-import SettingModal from '../Menu/SettingModal';
-
 interface Props{
   soundEnabled: boolean | ((prevState: boolean) => boolean),
   vibrationEnabled:boolean | ((prevState: boolean) => boolean),
@@ -24,11 +22,6 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
   const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
   const isXLargeScreen = useMediaQuery('only screen and (min-width: 1500px)');
   const [isSoundStopped, setIsSoundStopped] = useState(false);
-
-  // const [vibrationEnabled, setVibration] = useState<boolean | ((prevState: boolean) => boolean)>(true);
-  // const [soundEnabled, setSound] = useState<boolean | ((prevState: boolean) => boolean)>(true);
-  // const [colorChoice, setColor] = useState<string>("red");
-  // const [soundStrength, setSoundStrenght] = useState<number>(50); 
 
   const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const stopVibrationRef = useRef(false);
@@ -143,13 +136,41 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
     }
   }
 
+  // useEffect(() => {
+  //   const loadState = async () => {
+  //     const state = await Storage.get({ key: 'timerState' });
+  //     if (state.value) {
+  //       const timerState = JSON.parse(state.value);
+  //       setElapsedTime(timerState.elapsedTime);
+  //       setCurrentButton(timerState.currentButton);
+  //       setTimerRunning(timerState.timerRunning);
+  //       setCountdownTime(timerState.countdownTime);
+  //       setIsCountdownActive(timerState.isCountdownActive);
+  //       setIsTimeout(timerState.isTimeout);
+  //     }
+  //   };
+
+  //   loadState();
+  // }, []);
+
+  // useEffect(() => {
+  //   const saveState = async () => {
+  //     const state = {
+  //       elapsedTime,
+  //       currentButton,
+  //       timerRunning,
+  //       countdownTime,
+  //       isCountdownActive,
+  //       isTimeout,
+  //     };
+  //     await Storage.set({ key: 'timerState', value: JSON.stringify(state) });
+  //   };
+
+  //   saveState();
+  // }, [elapsedTime, currentButton, timerRunning, countdownTime, isCountdownActive, isTimeout]);
+
   return (
     <IonPage>
-      {/* <IonHeader>
-        <IonToolbar>
-          <SettingModal setVibration={setVibration} setSound={setSound} setColor={setColor} setSoundStrenght={setSoundStrenght}/>
-        </IonToolbar>
-      </IonHeader> */}
       <IonContent style={{ justifyContent: "center"}} color={setColor}>
         <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}>
           <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>

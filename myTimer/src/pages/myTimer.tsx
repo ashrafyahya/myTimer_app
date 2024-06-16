@@ -9,6 +9,7 @@ import StopWatchClas from './StopWatch/StopWatch';
 import TimerClass from './Timer/Timer';
 import DateClass from './Date/Date';
 import SettingModal from './Menu/SettingModal'
+import { BackgroundMode } from '@awesome-cordova-plugins/background-mode';
 
 function myTimer() {
   const [vibrationEnabled, setVibration] = useState<boolean | ((prevState: boolean) => boolean)>(true);
@@ -45,6 +46,28 @@ function myTimer() {
     localStorage.setItem('soundStrength', soundStrength.toString());
   }, [soundStrength]);
 
+  useEffect(() => {
+    // Enable background mode
+    BackgroundMode.enable();
+
+    // Optional: Configure background mode
+    BackgroundMode.setDefaults({
+      title: 'Timer Running',
+      text: 'Your timer is running in the background',
+      icon: 'icon', // Name of the icon file in the assets folder
+      color: 'F14F4D', // Hex color code for Android 5.0+ devices
+      resume: true,
+      hidden: true,
+      bigText: false,
+    });
+    
+
+    return () => {
+      // Disable background mode when component unmounts
+      BackgroundMode.disable();
+    };
+  }, []);
+  
   return (
     <IonReactRouter>
       <IonHeader>

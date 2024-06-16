@@ -12,6 +12,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@awesome-cordova-plugins/background-mode": "^6.7.0",
+    "@awesome-cordova-plugins/device": "^6.7.0",
     "@awesome-cordova-plugins/vibration": "^6.7.0",
     "@capacitor/android": "^6.1.0",
     "@capacitor/app": "6.0.0",
@@ -26,6 +28,8 @@
     "@react-hook/media-query": "^1.1.1",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
+    "cordova-plugin-background-mode": "^0.7.3",
+    "cordova-plugin-device": "^2.1.0",
     "cordova-plugin-file": "^8.0.0",
     "cordova-plugin-media": "^7.0.0",
     "cordova-plugin-vibration": "^3.1.1",

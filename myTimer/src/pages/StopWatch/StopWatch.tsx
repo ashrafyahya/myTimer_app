@@ -47,7 +47,7 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
                             </div>
                         </IonLabel>
                     </IonRow>
-                    <IonButton size={isSize} color="success" onClick={() => setIsStart(!isStart)}>
+                    <IonButton size={isSize} color={ isStart? "danger":"success"} onClick={() => setIsStart(!isStart)}>
                         {isStart?"Stop":"Start"}
                     </IonButton>
                     <IonButton size={isSize} color="success" onClick={() => setIsReset(true)}>
