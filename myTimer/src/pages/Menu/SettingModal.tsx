@@ -1,5 +1,6 @@
 import { IonButton, IonButtons, IonCheckbox, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonList, IonModal, IonPage, IonRange, IonSelect, IonSelectOption, IonText, IonTitle, IonToast, IonToolbar } from '@ionic/react';
-import { settingsOutline, shareOutline } from 'ionicons/icons';
+import { Icon } from 'ionicons/dist/types/components/icon/icon';
+import { arrowBackOutline, settingsOutline, shareOutline } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
  interface dataProps{
     setVibration: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,7 +12,7 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
     const [isOpen, setIsOpen] = useState(false);
     const [checked, setChecked] = useState(true);
     const [soundChecked, setSoundChecked] = useState(true);
-    const [soundStrenght, setSoundStrength] = useState<number>(50);
+    const [soundStrenght, setSoundStrength] = useState<number>(30);
     const [colorChecked, setColorChecked] = useState<string>("Favorite color");
     const [showColor, setShowColor] = useState<string>(colorChecked);
 
@@ -32,7 +33,7 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
 
     const handleColorCheckboxChange  = (event: CustomEvent) => {
         const value = event.detail.value as string;
-        setShowColor(value === "danger"? "Red": value === "Dark"? "Black": value === "success"?"Green": value === "light"? "White":"Favorite color" )
+        setShowColor(value === "danger"? "Red": value === "Dark"? "Black": value === "success"?"Green": value === "dark"? "White":"Favorite color" )
         setColorChecked(value)
         console.log('color value:', value);
         setColor(value);
@@ -44,26 +45,48 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
         console.log('Sound checkbox value:', event.detail.value);
         setSoundStrenght(event.detail.value);
     };
+
     const handleShare = () => {
         const shareData = {
             title: 'Check out this app!',
             text: 'I found this awesome app, and I think you will love it!',
             url: 'https://mytimer-ab4a6.web.app',
         };
-
+    
+        const whatsappURL = `https://wa.me/?text=${encodeURIComponent(`${shareData.text} ${shareData.url}`)}`;
+        const smsURL = `sms:?body=${encodeURIComponent(`${shareData.text} ${shareData.url}`)}`;
+    
+        // Check if navigator.share is supported
         if (navigator.share) {
             navigator.share(shareData)
                 .then(() => console.log('Successful share'))
                 .catch((error) => console.log('Error sharing', error));
         } else {
-            navigator.clipboard.writeText(shareData.url)
-                .then(() => {
-                    setShowToast(true);
-                    console.log('Link copied to clipboard');
-                })
-                .catch((error) => console.log('Error copying to clipboard', error));
+            // Fallback options
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(shareData.url)
+                    .then(() => {
+                        setShowToast(true);
+                        console.log('Link copied to clipboard');
+                    })
+                    .catch((error) => console.log('Error copying to clipboard', error));
+            }
+    
+            const whatsappButton = document.createElement('button');
+            whatsappButton.textContent = 'Share on WhatsApp';
+            whatsappButton.onclick = () => window.open(whatsappURL, '_blank');
+            
+            const smsButton = document.createElement('button');
+            smsButton.textContent = 'Share via SMS';
+            smsButton.onclick = () => window.open(smsURL, '_blank');
+    
+            // Assuming you have a modal or toast to show these buttons
+            // Here is a simple example of appending buttons to the body
+            document.body.appendChild(whatsappButton);
+            document.body.appendChild(smsButton);
         }
     };
+    
     useEffect(()=>{
         //updation show color
     }, [showColor, handleColorCheckboxChange])
@@ -85,7 +108,10 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
                         <IonToolbar>
                             <IonTitle>Setting</IonTitle>
                             <IonButtons slot="end">
-                                <IonButton onClick={() => setShowModal(false)}>Close</IonButton>
+                                <IonButton onClick={() => setShowModal(false)}>
+                                <IonIcon size='large' icon={arrowBackOutline}></IonIcon>
+                                </IonButton>
+                                
                             </IonButtons>
                         </IonToolbar>
                     </IonHeader>
