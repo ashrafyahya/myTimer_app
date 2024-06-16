@@ -155,7 +155,7 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
                             </IonItem>
 
                             <IonItem>
-                                <IonSelect value={colorChecked} onIonChange={handleColorCheckboxChange} label="Sound" labelPlacement="fixed" placeholder="Favorite sound">
+                                <IonSelect value={colorChecked} onIonChange={handleColorCheckboxChange} label="Sound tone" labelPlacement="fixed" placeholder="Favorite sound">
                                     <IonSelectOption value="sound1">Sound1</IonSelectOption>
                                     <IonSelectOption value="sound2">Sound2</IonSelectOption>
                                     <IonSelectOption value="sound3">Sound3</IonSelectOption>
