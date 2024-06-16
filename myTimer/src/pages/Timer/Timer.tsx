@@ -180,7 +180,7 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
   return (
     <IonPage>
       <IonContent style={{ justifyContent: "center"}} color={setColor}>
-        <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}>
+        <IonGrid className=" custom-content " style={{ justifyContent: "center" }}>
           <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
             <IonLabel className="responsive-item">
               <div className="my-display">

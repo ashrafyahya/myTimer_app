@@ -3,6 +3,8 @@
 .custom-content {
   width: 95%;
   height: 40%;
+  margin-top: 20%;
+  /* padding-top: 20%; */
   /* min-width: auto; */
   /* margin: auto; */
   background-color: #f0f0f0;
@@ -55,7 +57,7 @@
   .custom-content {
     width: 70%;
     height: 50%;
-    padding-top: 2%;
+    margin-top: 20%;
     background-color: #f0f0f0;
     border-radius: 10px;
     display: flex;
@@ -95,7 +97,7 @@
     width: 90%;
     height: 60%;
     /* margin: auto; */
-    padding-top: 2%;
+    margin-top: 10%;
     background-color: #f0f0f0;
     border-radius: 10px;
     display: flex;
@@ -130,7 +132,7 @@
   .custom-content {
     width: 60%;
     height: 60%;
-    /* padding-top: 5%; */
+    margin-top: 10%;
     background-color: #f0f0f0;
     border-radius: 10px;
     display: flex;
@@ -170,7 +172,7 @@
   .custom-content {
     width: 60%;
     height: 60%;
-    /* padding-top: 10px; */
+    margin-top: 10%;
     background-color: #f0f0f0;
     border-radius: 10px;
     display: flex;

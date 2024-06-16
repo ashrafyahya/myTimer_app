@@ -72,7 +72,7 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
     return (
         <IonPage>
             <IonContent style={{ justifyContent: "center" }} color={setColor}>
-                <IonGrid className=" custom-content " style={{ marginTop: "5%", justifyContent: "center" }}>
+                <IonGrid className=" custom-content " style={{ justifyContent: "center" }}>
                     <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
                         {/* <IonItem className="responsive-item" lines="none"> */}
                         <IonLabel className="responsive-item">
