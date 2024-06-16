@@ -12,7 +12,7 @@ export const SettingModal:React.FC<dataProps> = ({setVibration, setColor, setSou
     const [isOpen, setIsOpen] = useState(false);
     const [checked, setChecked] = useState(true);
     const [soundChecked, setSoundChecked] = useState(true);
-    const [soundStrenght, setSoundStrength] = useState<number>(30);
+    const [soundStrenght, setSoundStrength] = useState<number>(1);
     const [colorChecked, setColorChecked] = useState<string>("Favorite color");
     const [showColor, setShowColor] = useState<string>(colorChecked);
 

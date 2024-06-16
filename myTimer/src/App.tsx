@@ -2,6 +2,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonContent, IonHeader, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -19,6 +20,7 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 import '@ionic/react/css/palettes/dark.system.css';
+import useBackgroundMode from './pages/background-mode';
 
 import MyTimer from './pages/myTimer';
 

@@ -3,6 +3,7 @@ import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet, I
 import { IonReactRouter } from '@ionic/react-router';
 import { Route, Redirect } from 'react-router';
 import { timeOutline, stopwatchOutline, timerOutline, calendarOutline } from 'ionicons/icons';
+import useBackgroundMode from './background-mode';
 
 import TimeClass from "./Time/Time"
 import StopWatchClas from './StopWatch/StopWatch';
@@ -15,7 +16,7 @@ function myTimer() {
   const [vibrationEnabled, setVibration] = useState<boolean | ((prevState: boolean) => boolean)>(true);
   const [soundEnabled, setSound] = useState<boolean | ((prevState: boolean) => boolean)>(true);
   const [colorChoice, setColor] = useState<string>("danger");
-  const [soundStrength, setSoundStrenght] = useState<number>(30); 
+  const [soundStrength, setSoundStrenght] = useState<number>(1); 
 
   useEffect(() => {
     const savedVibration = localStorage.getItem('vibrationEnabled');
@@ -46,27 +47,29 @@ function myTimer() {
     localStorage.setItem('soundStrength', soundStrength.toString());
   }, [soundStrength]);
 
-  useEffect(() => {
-    // Enable background mode
-    BackgroundMode.enable();
+  //the following code is making some problems for app starting and eding
+  
+  // useEffect(() => {
+  //   // Enable background mode
+  //   BackgroundMode.enable();
 
-    // Optional: Configure background mode
-    BackgroundMode.setDefaults({
-      title: 'Timer Running',
-      text: 'Your timer is running in the background',
-      icon: 'icon', // Name of the icon file in the assets folder
-      color: 'F14F4D', // Hex color code for Android 5.0+ devices
-      resume: true,
-      hidden: true,
-      bigText: false,
-    });
+  //   // Optional: Configure background mode
+  //   BackgroundMode.setDefaults({
+  //     title: 'Timer Running',
+  //     text: 'Your timer is running in the background',
+  //     icon: 'icon', // Name of the icon file in the assets folder
+  //     color: 'F14F4D', // Hex color code for Android 5.0+ devices
+  //     resume: true,
+  //     hidden: true,
+  //     bigText: false,
+  //   });
     
 
-    return () => {
-      // Disable background mode when component unmounts
-      BackgroundMode.disable();
-    };
-  }, []);
+  //   return () => {
+  //     // Disable background mode when component unmounts
+  //     BackgroundMode.disable();
+  //   };
+  // }, []);
   
   return (
     <IonReactRouter>
