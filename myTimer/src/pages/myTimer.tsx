@@ -9,7 +9,7 @@ import TimeClass from "./Time/Time"
 import StopWatchClas from './StopWatch/StopWatch';
 import TimerClass from './Timer/Timer';
 import DateClass from './Date/Date';
-import SettingModal from './Menu/SettingModal'
+import SettingModal from './Setting/SettingModal'
 import { BackgroundMode } from '@awesome-cordova-plugins/background-mode';
 
 function myTimer() {
