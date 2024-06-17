@@ -97,7 +97,7 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
               </div>
             </IonLabel>
           </IonRow>
-          <IonRow style={{ justifyContent: "center", padding: currentBreakpoint >= Breakpoint.Md ? "20px" : "0px", width: currentBreakpoint >= Breakpoint.Md ? "80%" : "100%" }}>
+          <IonRow style={{ justifyContent: "center", padding: currentBreakpoint >= Breakpoint.Md ? "20px" : "0px", paddingTop: currentBreakpoint > Breakpoint.Xs ? "20px" : "40%" , width: currentBreakpoint >= Breakpoint.Md ? "80%" : "100%" }}>
           <IonButton size={isSize} color={isStart ? "danger" : "success"} onClick={handleClick}>
             <IonIcon size='large' icon={isStart ? stopCircleOutline : playCircleOutline} />
             {/* {isStart?"Stop":"Start"} */}
