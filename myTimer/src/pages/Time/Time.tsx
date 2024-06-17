@@ -18,8 +18,8 @@ const TimeClass:React.FC<Props> = ({ setColor }) => {
   return (
     <IonPage>
       <IonContent style={{ justifyContent: "center" }} color={setColor}>
-        <IonGrid className=" custom-content " style={{ justifyContent: "center" }}>
-          <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
+        <IonGrid className=" custom-content " style={{ justifyContent: "center"}}>
+          <IonRow style={{ width: "100%", height: "100%", justifyContent: "center", alignItems: "center" }}>
             <IonLabel className="responsive-item">
               <div className="my-display">  {currentDateTime.toLocaleTimeString()} </div>
             </IonLabel>

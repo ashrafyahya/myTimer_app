@@ -101,7 +101,8 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
                     </IonButtons>
                 </IonToolbar>
             </IonHeader>
-            <IonContent className="ion-padding">
+
+            {/* <IonContent className="ion-padding"> */}
                 <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
                     <IonHeader>
                         <IonToolbar>
@@ -110,12 +111,11 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
                                 <IonButton onClick={() => setShowModal(false)}>
                                     <IonIcon size='large' icon={arrowBackOutline}></IonIcon>
                                 </IonButton>
-
                             </IonButtons>
                         </IonToolbar>
                     </IonHeader>
+                    
                     <IonContent className="ion-padding">
-
                         <IonList>
                             <IonItem>
                                 <IonSelect label="Color" placeholder={showColor}
@@ -143,11 +143,13 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
                             </IonItem>
                         </IonList>
 
+                        <IonItem>
                         <IonRange value={soundStrenght} onIonChange={handleSoundStrenghtCheckboxChange}>
                             <div slot="label">
                                 <IonText color="primary">Sound strength</IonText>
                             </div>
                         </IonRange>
+                        </IonItem>
 
                         <IonItem>
                             <IonCheckbox id='checkBox'
@@ -170,7 +172,7 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
                     message="Link copied to clipboard"
                     duration={2000}
                 />
-            </IonContent>
+            {/* </IonContent> */}
         </IonPage>
     );
 }

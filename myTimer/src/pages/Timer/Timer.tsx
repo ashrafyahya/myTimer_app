@@ -189,7 +189,7 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
     <IonPage>
       <IonContent style={{ justifyContent: "center"}} color={setColor}>
         <IonGrid className=" custom-content " style={{ justifyContent: "center" }}>
-          <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
+          <IonRow style={{ width: "100%", height: "100%", justifyContent: "center",  alignItems: "center" }}>
             <IonLabel className="responsive-item">
               <div className="my-display">
                 { currentButton === "Timer" ? `${String(Math.floor(elapsedTime / 3600)).padStart(2, '0')}:${String(Math.floor((elapsedTime % 3600) / 60)).padStart(2, '0')}:${String(elapsedTime % 60).padStart(2, '0')}` :

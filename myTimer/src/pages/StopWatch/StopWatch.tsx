@@ -89,7 +89,7 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
     <IonPage>
       <IonContent style={{ justifyContent: "center" }} color={setColor}>
         <IonGrid className=" custom-content " style={{ justifyContent: "center" }}>
-          <IonRow style={{ width: "100%", height: "100%", justifyContent: "center" }}>
+          <IonRow style={{ width: "100%", height: "100%", justifyContent: "center",  alignItems: "center" }}>
             {/* <IonItem className="responsive-item" lines="none"> */}
             <IonLabel className="responsive-item">
               <div className="my-display">
@@ -97,6 +97,7 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
               </div>
             </IonLabel>
           </IonRow>
+          <IonRow style={{ justifyContent: "center", padding: currentBreakpoint >= Breakpoint.Md ? "20px" : "0px", width: currentBreakpoint >= Breakpoint.Md ? "80%" : "100%" }}>
           <IonButton size={isSize} color={isStart ? "danger" : "success"} onClick={handleClick}>
             <IonIcon size='large' icon={isStart ? stopCircleOutline : playCircleOutline} />
             {/* {isStart?"Stop":"Start"} */}
@@ -104,6 +105,7 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
           <IonButton size={isSize} color="success" onClick={handleClickReset}>
             <IonIcon size='large' icon={refreshCircleOutline} />
           </IonButton>
+          </IonRow>
         </IonGrid>
       </IonContent>
     </IonPage>
