@@ -197,8 +197,8 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
               </div>
             </IonLabel>
           </IonRow>
-          <IonRow style={{ justifyContent: "center", padding: currentBreakpoint >= Breakpoint.Md ? "20px" : "0px", width: currentBreakpoint >= Breakpoint.Md ? "80%" : "100%" }}>
-            <IonRow style={{ justifyContent: "center", width: currentBreakpoint >= Breakpoint.Md ? "100%" : "100%" }}>
+          <IonRow style={{ justifyContent: "center", padding: currentBreakpoint >= Breakpoint.Md ? "20px" : "5px",  paddingTop: currentBreakpoint > Breakpoint.Xs ? "20px" : "40%" , width: currentBreakpoint >= Breakpoint.Md ? "80%" : "100%" }}>
+            <IonRow style={{justifyContent: "center", width: currentBreakpoint >= Breakpoint.Md ? "100%" : "100%" }}>
             <IonButton
             disabled={timerStarted ? false : true }
               style={{ paddingLeft: isLargeScreen && !isXLargeScreen ? "2px" : "default" }}
