@@ -23,6 +23,8 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
   const isLargeScreen = useMediaQuery('only screen and (min-width: 911px)');
   const isXLargeScreen = useMediaQuery('only screen and (min-width: 1500px)');
   const [isSoundStopped, setIsSoundStopped] = useState(false);
+  const [timerStarted, setTimerStarted] = useState(false);
+
 
   const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const stopVibrationRef = useRef(false);
@@ -104,6 +106,7 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
       setElapsedTime(0);
       setIsTimeout(false);
       setIsStart(false)
+      setTimerStarted(false)
     } else if (clickedButton === "1H") {
       setCurrentButton("1H");
       setCountdownTime(prevCountdownTime => prevCountdownTime + 3600);
@@ -116,24 +119,28 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
       setIsCountdownActive(true);
       setTimerRunning(false);
       setIsStart(true)
+      setTimerStarted(true)
     } else if (clickedButton === "1M") {
       setCurrentButton("1M");
       setCountdownTime(prevCountdownTime => prevCountdownTime + 60);
       setIsCountdownActive(true);
       setTimerRunning(false);
       setIsStart(true)
+      setTimerStarted(true)
     } else if (clickedButton === "5S") {
       setCurrentButton("5S");
       setCountdownTime(prevCountdownTime => prevCountdownTime + 5);
       setIsCountdownActive(true);
       setTimerRunning(false);
       setIsStart(true)
+      setTimerStarted(true)
     } else if (clickedButton === "1S") {
       setCurrentButton("1S");
       setCountdownTime(prevCountdownTime => prevCountdownTime + 1);
       setIsCountdownActive(true);
       setTimerRunning(false);
       setIsStart(true)
+      setTimerStarted(true)
     }
   }
 
@@ -173,7 +180,7 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
     };
   
     saveState();
-  }, [elapsedTime, currentButton, timerRunning, countdownTime, isCountdownActive, isTimeout]);
+  }, [elapsedTime, currentButton, timerRunning, countdownTime, isCountdownActive, isTimeout, timerStarted]);
   
 
   return (
@@ -191,6 +198,7 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
           <IonRow style={{ justifyContent: "center", padding: currentBreakpoint >= Breakpoint.Md ? "20px" : "0px", width: currentBreakpoint >= Breakpoint.Md ? "80%" : "100%" }}>
             <IonRow style={{ justifyContent: "center", width: currentBreakpoint >= Breakpoint.Md ? "100%" : "100%" }}>
             <IonButton
+            disabled={timerStarted ? false : true }
               style={{ paddingLeft: isLargeScreen && !isXLargeScreen ? "2px" : "default" }}
               color={timerRunning && !isTimeout ? "danger" : "success"} size={isSize} fill="solid"
                 onClick={() => handleClick("ST/SP")}>
