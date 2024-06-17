@@ -140,9 +140,9 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
   useEffect(() => {
     const loadState = async () => {
       try {
-        const state = await localStorage.get({ key: 'timerState' });
-        if (state.value) {
-          const timerState = JSON.parse(state.value);
+        const state = localStorage.getItem('timerState');
+        if (state) {
+          const timerState = JSON.parse(state);
           setElapsedTime(timerState.elapsedTime);
           setCurrentButton(timerState.currentButton);
           setTimerRunning(timerState.timerRunning);
@@ -152,7 +152,6 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
         }
       } catch (error) {
         console.error('Error loading timer state from localStorage:', error);
-        // Handle error as needed (e.g., show error message to user)
       }
     };
   

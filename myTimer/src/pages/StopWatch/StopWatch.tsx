@@ -55,9 +55,9 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
   useEffect(() => {
     const loadState = async () => {
       try {
-        const state = await localStorage.get({ key: 'timerState' });
-        if (state.value) {
-          const timerState = JSON.parse(state.value);
+        const state = localStorage.getItem('timerState');
+        if (state) {
+          const timerState = JSON.parse(state);
           setIsStart(timerState.isStart);
           setIsReset(timerState.isReset);
         }

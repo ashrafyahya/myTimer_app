@@ -10,6 +10,7 @@ interface dataProps {
     setColor: React.Dispatch<React.SetStateAction<string>>;
     setSoundStrenght: React.Dispatch<React.SetStateAction<number>>;
 }
+
 export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setSound, setSoundStrenght }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [checked, setChecked] = useState(true);
@@ -23,9 +24,8 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
     const [showModal, setShowModal] = useState(false);
     const [showToast, setShowToast] = useState(false);
 
-    function runVibration(){
+    function runVibration() {
         const duration = 100;
-        console.log("reset clicked");
         Haptics.vibrate({ duration });
     }
 
@@ -71,13 +71,20 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
     async function shareURL() {
         runVibration()
         try {
-          await Share.share({
-            url: 'https://mytimer-ab4a6.web.app',
-          });
+            if ('share' in navigator) {
+                // Web Share API is supported
+                await Share.share({
+                    url: 'https://mytimer-ab4a6.web.app',
+                });
+            } else {
+                // Fallback for browsers that do not support the Web Share API
+                await (navigator as any).clipboard.writeText('https://mytimer-ab4a6.web.app');
+                alert('Link copied to clipboard!');
+            }
         } catch (error) {
-          console.error('Error sharing:', error);
+            console.error('Error sharing:', error);
         }
-      }
+    }
 
     useEffect(() => {
         //updation show color
@@ -156,7 +163,7 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
                         </IonFabButton>
                     </IonFab>
                 </IonModal>
-                
+
                 <IonToast
                     isOpen={showToast}
                     onDidDismiss={() => setShowToast(false)}
