@@ -82,12 +82,13 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
         console.log("vib off")
       }, 30000);
     }
+    if(countdownTime<=0)setTimerStarted(false)
     return () => {
       if (vibrationTimeoutRef.current) {
         clearTimeout(vibrationTimeoutRef.current);
       }
     };
-  }, [isTimeout, soundStrength, setColor]);
+  }, [isTimeout, soundStrength, setColor, timerStarted]);
 
   function handleClick(clickedButton: string) {
     const duration = 100;
@@ -181,7 +182,7 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
     };
   
     saveState();
-  }, [elapsedTime, currentButton, timerRunning, countdownTime, isCountdownActive, isTimeout, timerStarted]);
+  }, [elapsedTime, currentButton, timerRunning, countdownTime, isCountdownActive, isTimeout]);
   
 
   return (
