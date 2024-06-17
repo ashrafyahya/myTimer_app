@@ -113,6 +113,7 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
       setIsCountdownActive(true);
       setTimerRunning(false);
       setIsStart(true)
+      setTimerStarted(true)
     } else if (clickedButton === "5M") {
       setCurrentButton("5M");
       setCountdownTime(prevCountdownTime => prevCountdownTime + 300);
