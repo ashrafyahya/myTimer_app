@@ -71,18 +71,13 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
     async function shareURL() {
         runVibration()
         try {
-        //     if ('share' in navigator) {
-                // Web Share API is supported
                 await Share.share({
                     url: 'https://mytimer-ab4a6.web.app',
                 });
-            // }
-            if (!('share' in navigator)) {
-                // Fallback for browsers that do not support the Web Share API
-                await (navigator as any).clipboard.writeText('https://mytimer-ab4a6.web.app');
-                alert('Link copied to clipboard!');
-            }
         } catch (error) {
+            // Fallback for browsers that do not support the Web Share API
+            await (navigator as any).clipboard.writeText('https://mytimer-ab4a6.web.app');
+            alert('Link copied to clipboard!');
             console.error('Error sharing:', error);
         }
     }

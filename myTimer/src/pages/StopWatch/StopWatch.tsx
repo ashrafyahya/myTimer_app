@@ -13,7 +13,7 @@ const StopWatchClass: React.FC<Props> = ({ setColor }) => {
   const [isReset, setIsReset] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
   const currentBreakpoint: any = useResponsiveBreakpoints(window.innerWidth);
-  let isSize: any = currentBreakpoint >= Breakpoint.Sm ? 'large' : 'default';
+  let isSize: any = currentBreakpoint >= Breakpoint.Sm ? 'large' : 'large';
 
   function handleClick() {
     setIsStart(!isStart)

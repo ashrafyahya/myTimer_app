@@ -3,7 +3,7 @@ import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet, I
 import { IonReactRouter } from '@ionic/react-router';
 import { Route, Redirect } from 'react-router';
 import { timeOutline, stopwatchOutline, timerOutline, calendarOutline } from 'ionicons/icons';
-import useBackgroundMode from './background-mode';
+// import useBackgroundMode from './background-mode';
 
 import TimeClass from "./Time/Time"
 import StopWatchClas from './StopWatch/StopWatch';
