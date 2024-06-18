@@ -29,7 +29,7 @@ const TimerClass: React.FC<Props>=({ soundEnabled, soundStrength, vibrationEnabl
   const vibrationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const stopVibrationRef = useRef(false);
   const currentBreakpoint: any = useResponsiveBreakpoints(window.innerWidth);
-  let isSize: any = currentBreakpoint >= Breakpoint.Sm ? 'large' : 'default';
+  let isSize: any = currentBreakpoint >= Breakpoint.Sm ? 'large' : 'large';
   const [isStart, setIsStart] = useState(false);
 
   const vibrationOn = async () => {
