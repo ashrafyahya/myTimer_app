@@ -46,7 +46,7 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
     const handleColorCheckboxChange = (event: CustomEvent) => {
         runVibration()
         const value = event.detail.value as string;
-        setShowColor(value === "danger" ? "Red" : value === "Dark" ? "Black" : value === "success" ? "Green" : value === "dark" ? "White" : "Favorite color")
+        setShowColor(value === "danger" ? "Red" : value === "Dark" ? "Black" : value === "success" ? "Green" : value === "light" ? "Light" : "Favorite color")
         setColorChecked(value)
         console.log('color value:', value);
         setColor(value);
@@ -124,7 +124,7 @@ export const SettingModal: React.FC<dataProps> = ({ setVibration, setColor, setS
                                     <IonSelectOption value="danger">Red</IonSelectOption>
                                     <IonSelectOption value="Dark">Black</IonSelectOption>
                                     <IonSelectOption value="success">Green</IonSelectOption>
-                                    <IonSelectOption value="dark">White</IonSelectOption>
+                                    <IonSelectOption value="light">Light</IonSelectOption>
                                 </IonSelect>
                             </IonItem>
 
