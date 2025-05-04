@@ -84,23 +84,23 @@ Add installation command for vibration plugin here ...
 ### ~~Add Icons                 =====> Ashraf       =====>WIP =====>Done~~  
 ### ~~Upload app into Cloud       =====> Ashraf       =====>WIP  =====>Done~~  
 ### ~~Check App-Responsivity      =====> Ashraf       =====>WIP =====>Done~~  
-### Updating App using claud  
 ### ~~Add vibration               =====> Ashraf     =====> Done~~  
 ### ~~Add Sound                   =====> Ashraf     =====>WIP =====> Done~~  
+### Updating App using claud  
   
   
 # New Tasks
 ### ~~Stop sound after a while like the vibration after 20s  =====> Ashraf     =====>WIP =====> Done~~  
 ### ~~Restruct the project files        =====> Ashraf     =====>WIP  =====> Done~~ 
-### count the seted work hours  
 ### ~~Setting modal   =====> Ashraf     =====>WIP  =====> Done~~  
 ### ~~Setting:  Button for de/reacttivation of Vibration   =====> Ashraf     =====>WIP =====> Done~~ 
 ### ~~Setting: Button for de/reacttivation of Sound  =====> Ashraf     =====>WIP   =====> Done~~  
+### ~~Setting: List for background's colors  =====> Ashraf     =====>WIP  =====> Done~~  
+### ~~Setting: Share Button or at least copy downloading link  =====> Ashraf     =====>WIP  =====> Done~~ 
+### count the seted work hours  
 ### Setting: Choices for sounds  =====> Abdo     =====>WIP 
 ### Setting:  Switch language  
 ### Setting: Modal for news  
-### ~~Setting: List for background's colors  =====> Ashraf     =====>WIP  =====> Done~~  
-### ~~Setting: Share Button or at least copy downloading link  =====> Ashraf     =====>WIP  =====> Done~~ 
 
 ## For more tasks look repo issues
   
