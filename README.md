@@ -1,4 +1,4 @@
-# MyTimer App – Ionic + React
+# MyTimer App – Ionic + React + Firebase
 
 A customizable timer app built with [Ionic Framework](https://ionicframework.com/) and React, featuring sound and vibration notifications, multilingual support, theming, and Firebase integration.
 
@@ -87,7 +87,7 @@ In Progress / Planned
     ⏳ News Modal with Firebase
 
     ⏳ Work Time Tracker
-    
+
 
 ### 🐛 Known Bugs
 
