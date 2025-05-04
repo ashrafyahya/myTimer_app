@@ -92,12 +92,13 @@ In Progress / Planned
 
 
 ### 📸 Screenshots
-![Icon](Bilder/Icon.jpeg)  
-![Home](Bilder/time.jpeg)  
-![Datum](Bilder/date.jpeg)  
-![Timer](Bilder/timer.jpeg)  
-![Stopwatch](Bilder/Stopwatch.jpeg)  
-![Setting](Bilder/setting.jpeg)  
-![Hintergrundfarben](Bilder/color.jpeg)  
-![Kingtone](Bilder/sound.jpeg)  
-![Share Button](Bilder/share.jpeg)  
+### 📸 Screenshots
+<img src="Bilder/Icon.jpeg" alt="Icon" width="200" />  
+<img src="Bilder/time.jpeg" alt="Home" width="200" />  
+<img src="Bilder/date.jpeg" alt="Datum" width="200" />  
+<img src="Bilder/timer.jpeg" alt="Timer" width="200" />  
+<img src="Bilder/Stopwatch.jpeg" alt="Stopwatch" width="200" />  
+<img src="Bilder/setting.jpeg" alt="Setting" width="200" />  
+<img src="Bilder/color.jpeg" alt="Hintergrundfarben" width="200" />  
+<img src="Bilder/sound.jpeg" alt="Kingtone" width="200" />  
+<img src="Bilder/share.jpeg" alt="Share Button" width="200" />  
