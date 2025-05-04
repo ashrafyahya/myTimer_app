@@ -2,6 +2,9 @@
 
 A customizable timer app built with [Ionic Framework](https://ionicframework.com/) and React, featuring sound and vibration notifications, multilingual support, theming, and Firebase integration.
 
+Version 1 dieser App ist auf Firebase deployed und ist unter dieser [URL] (https://mytimer-ab4a6.web.app) zu finden.
+
+
 ## 🚀 Getting Started
 
 ### Prerequisites
