@@ -92,4 +92,12 @@ In Progress / Planned
 
 
 ### 📸 Screenshots
-
+![Icon](Bilder/Icon.jpeg)  
+![Home](Bilder/time.jpeg)  
+![Datum](Bilder/date.jpeg)  
+![Timer](Bilder/timer.jpeg)  
+![Stopwatch](Bilder/Stopwatch.jpeg)  
+![Setting](Bilder/setting.jpeg)  
+![Hintergrundfarben](Bilder/color.jpeg)  
+![Kingtone](Bilder/sound.jpeg)  
+![Share Button](Bilder/share.jpeg)  
