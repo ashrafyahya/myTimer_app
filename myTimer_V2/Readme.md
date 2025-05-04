@@ -92,13 +92,15 @@ In Progress / Planned
 
 
 ### 📸 Screenshots
-### 📸 Screenshots
-<img src="Bilder/Icon.jpeg" alt="Icon" width="200" />  
-<img src="Bilder/time.jpeg" alt="Home" width="200" />  
-<img src="Bilder/date.jpeg" alt="Datum" width="200" />  
-<img src="Bilder/timer.jpeg" alt="Timer" width="200" />  
-<img src="Bilder/Stopwatch.jpeg" alt="Stopwatch" width="200" />  
-<img src="Bilder/setting.jpeg" alt="Setting" width="200" />  
-<img src="Bilder/color.jpeg" alt="Hintergrundfarben" width="200" />  
-<img src="Bilder/sound.jpeg" alt="Kingtone" width="200" />  
-<img src="Bilder/share.jpeg" alt="Share Button" width="200" />  
+
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+  <img src="Bilder/Icon.jpeg" alt="Icon" width="200" />
+  <img src="Bilder/time.jpeg" alt="Home" width="200" />
+  <img src="Bilder/date.jpeg" alt="Datum" width="200" />
+  <img src="Bilder/timer.jpeg" alt="Timer" width="200" />
+  <img src="Bilder/Stopwatch.jpeg" alt="Stopwatch" width="200" />
+  <img src="Bilder/setting.jpeg" alt="Setting" width="200" />
+  <img src="Bilder/color.jpeg" alt="Hintergrundfarben" width="200" />
+  <img src="Bilder/sound.jpeg" alt="Kingtone" width="200" />
+  <img src="Bilder/share.jpeg" alt="Share Button" width="200" />
+</div>
