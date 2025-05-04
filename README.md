@@ -78,17 +78,16 @@ Completed Tasks
 
     ✅ Share / Copy Download Link
 
-In Progress / Planned
+    ✅ Sound Selection UI
 
-    ⏳ Sound Selection UI
+In Progress / Planned
 
     ⏳ Language Switcher
 
-    ⏳ News Modal
+    ⏳ News Modal with Firebase
 
     ⏳ Work Time Tracker
-
-    For more tasks, check the Issues.
+    
 
 ### 🐛 Known Bugs
 
