@@ -97,13 +97,13 @@ In Progress / Planned
 ### 📸 Screenshots
 
 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-  <img src="Bilder/Icon.jpeg" alt="Icon" width="200" />
-  <img src="Bilder/time.jpeg" alt="Home" width="200" />
-  <img src="Bilder/date.jpeg" alt="Datum" width="200" />
-  <img src="Bilder/timer.jpeg" alt="Timer" width="200" />
-  <img src="Bilder/Stopwatch.jpeg" alt="Stopwatch" width="200" />
-  <img src="Bilder/setting.jpeg" alt="Setting" width="200" />
-  <img src="Bilder/color.jpeg" alt="Hintergrundfarben" width="200" />
-  <img src="Bilder/sound.jpeg" alt="Kingtone" width="200" />
-  <img src="Bilder/share.jpeg" alt="Share Button" width="200" />
+  <img src="myTimer_V2/Bilder/Icon.jpeg" alt="Icon" width="200" />
+  <img src="myTimer_V2/Bilder/time.jpeg" alt="Home" width="200" />
+  <img src="myTimer_V2/Bilder/date.jpeg" alt="Datum" width="200" />
+  <img src="myTimer_V2/Bilder/timer.jpeg" alt="Timer" width="200" />
+  <img src="myTimer_V2/Bilder/Stopwatch.jpeg" alt="Stopwatch" width="200" />
+  <img src="myTimer_V2/Bilder/setting.jpeg" alt="Setting" width="200" />
+  <img src="myTimer_V2/Bilder/color.jpeg" alt="Hintergrundfarben" width="200" />
+  <img src="myTimer_V2/Bilder/sound.jpeg" alt="Kingtone" width="200" />
+  <img src="myTimer_V2/Bilder/share.jpeg" alt="Share Button" width="200" />
 </div>
